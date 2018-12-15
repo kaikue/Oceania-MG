@@ -9,8 +9,12 @@ namespace Oceania_MG
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
+		private const float SCALE = 3;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+		Texture2D image;
         
         public Game()
         {
@@ -40,8 +44,9 @@ namespace Oceania_MG
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-        }
+			image = Content.Load<Texture2D>("Images/player/body/peach/idle");
+			// TODO: use this.Content to load your game content here
+		}
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -75,9 +80,14 @@ namespace Oceania_MG
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+			spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-            base.Draw(gameTime);
+			//spriteBatch.Draw(image, new Vector2(400, 240), Color.White);
+			spriteBatch.Draw(image, new Vector2(400, 240), null, Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
+
+			spriteBatch.End();
+
+			base.Draw(gameTime);
         }
     }
 }

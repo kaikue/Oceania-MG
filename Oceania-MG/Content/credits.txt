@@ -1,0 +1,6 @@
+96x96 and 64x64 Isometric Tilesets by Denzi, modified by Kai Kuehner
+http://opengameart.org/content/denzis-96x96-and-64x64-isometric-tilesets
+License: CC-BY-SA attribution, share alike
+
+DENZI部屋のドット絵フリー素材は、クリエイティブ・コモンズ・ライセンス (http://www3.wind.ne.jp/DENZI/diary/) に基づいて公開しています。　（CC-by SA　表示-継承)
+http://creativecommons.org/licenses/by-sa/3.0/
