@@ -16,7 +16,8 @@ namespace Oceania_MG
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-		Texture2D image;
+		private SpriteFont font;
+		private Texture2D image;
         
         public Game()
         {
@@ -48,6 +49,7 @@ namespace Oceania_MG
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			image = Content.Load<Texture2D>("Images/player/body/peach/idle");
+			font = Content.Load<SpriteFont>("Font/CodersCrux");
 			// TODO: use this.Content to load your game content here
 		}
 
@@ -85,7 +87,7 @@ namespace Oceania_MG
 
 			spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-			//spriteBatch.Draw(image, new Vector2(400, 240), Color.White);
+			spriteBatch.DrawString(font, "Hello Oceania", new Vector2(100, 100), Color.Black, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
 			spriteBatch.Draw(image, new Vector2(400, 240), null, Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
 
 			spriteBatch.End();

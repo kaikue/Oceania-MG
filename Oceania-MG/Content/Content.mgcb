@@ -13,6 +13,13 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Font/CodersCrux.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Font/CodersCrux.spritefont
+
 #begin Images/player/body/black/idle.png
 /importer:TextureImporter
 /processor:TextureProcessor
