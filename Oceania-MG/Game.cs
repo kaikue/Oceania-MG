@@ -9,6 +9,8 @@ namespace Oceania_MG
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
+		private static Game instance;
+
 		private const float SCALE = 3;
 
         GraphicsDeviceManager graphics;
@@ -18,6 +20,7 @@ namespace Oceania_MG
         
         public Game()
         {
+			instance = this;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -89,5 +92,10 @@ namespace Oceania_MG
 
 			base.Draw(gameTime);
         }
+
+		public static Texture2D LoadImage(string imageURL)
+		{
+			return instance.Content.Load<Texture2D>(imageURL);
+		}
     }
 }
