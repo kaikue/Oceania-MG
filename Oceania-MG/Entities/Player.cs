@@ -72,9 +72,10 @@ namespace Oceania_MG
 		[DataMember]
 		private PlayerOptions playerOptions;
 
-		public Player(Vector2 position, PlayerOptions options) : base("", position, MAX_HEALTH)
+		public Player(Vector2 position, PlayerOptions playerOptions) : base("", position, MAX_HEALTH)
 		{
-			//TODO
+			this.playerOptions = playerOptions;
+
 		}
 	}
 }

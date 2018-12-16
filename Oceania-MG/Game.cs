@@ -13,8 +13,8 @@ namespace Oceania_MG
 
 		private const float SCALE = 3;
 
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+		private GraphicsDeviceManager graphics;
+		private SpriteBatch spriteBatch;
 
 		private SpriteFont font;
 		private Texture2D image;
@@ -59,7 +59,8 @@ namespace Oceania_MG
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+			spriteBatch.Dispose();
+			base.UnloadContent();
         }
 
         /// <summary>
