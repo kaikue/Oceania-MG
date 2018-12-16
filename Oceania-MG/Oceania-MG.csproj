@@ -42,7 +42,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Source\Biome.cs" />
+    <Compile Include="Source\Block.cs" />
     <Compile Include="Source\Chunk.cs" />
+    <Compile Include="Source\ConvertUtils.cs" />
     <Compile Include="Source\Entities\DamageSource.cs" />
     <Compile Include="Source\Entities\Entity.cs" />
     <Compile Include="Source\Entities\EntityLiving.cs" />

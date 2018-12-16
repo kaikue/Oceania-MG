@@ -13,7 +13,7 @@ namespace Oceania_MG
         [STAThread]
         static void Main()
         {
-            using (var game = new GenerateTest())
+            using (var game = new Game())
                 game.Run();
         }
     }
