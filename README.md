@@ -7,7 +7,7 @@ Created by Kai Kuehner, 2013-2018.
 
 TODO
 --
-- Move source files to src directory
+- Input handling- pressed function which is only true on first frame
 - Copy over everything from Python
 - Make sure serialization works
 	- references (including Player)
