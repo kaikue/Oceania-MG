@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,8 @@ namespace Oceania_MG
 		private const float CAVE_EXPANSION = 0.7f; //controls how much thicker caves are at the bottom of the world
 
 		public int seed;
-		public PerlinNoise noise2d;
+		private PerlinNoise noise2d;
+		
 
 		public Generate(int seed)
 		{
@@ -46,6 +48,12 @@ namespace Oceania_MG
 			}
 
 			return new Tuple<float, float>(noiseFG, noiseBG);
+		}
+
+		public Vector2 Biome(int x, int y)
+		{
+			//TODO
+			return new Vector2(0, 0);
 		}
 
 		private static float Gradient(float y, float top, float bottom)

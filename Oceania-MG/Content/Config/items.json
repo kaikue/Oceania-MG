@@ -1,0 +1,138 @@
+{
+	"magicStaff": {
+		"displayName": "Magic Staff",
+		"image": "img/tools/staff.png",
+		"class": "ToolMagicStaff",
+		"description": ["An ancient staff imbued with untold power.",
+						"If only there was something else to use it",
+						"on."]
+	},
+	
+	"pickaxe": {
+		"displayName": "Pickaxe",
+		"image": "img/tools/pickaxe.png",
+		"class": "ToolPickaxe",
+		"description": "Miney miney."
+	},
+	
+	"sword": {
+		"displayName": "Sword",
+		"image": "img/tools/sword.png",
+		"class": "ToolSword",
+		"description": "Slicey slicey."
+	},
+
+	"blemon": {
+		"displayName": "Blemon",
+		"image": "img/fruit/blemon.png",
+		"class": "ItemFruit",
+		"description": ["The blue part is sweet, but",
+						"the yellow part is sour."]
+	},
+	
+	"bubbleberries": {
+		"displayName": "Bubbleberries",
+		"image": "img/fruit/bubbleberries.png",
+		"class": "ItemFruit",
+		"description": "They taste light and airy."
+	},
+	
+	"burpleberry": {
+		"displayName": "Burpleberry",
+		"image": "img/fruit/burpleberry.png",
+		"class": "ItemFruit",
+		"description": "Has a sweet and rich flavor."
+	},
+	
+	"capberry": {
+		"displayName": "Capberry",
+		"image": "img/fruit/capberry.png",
+		"class": "ItemFruit",
+		"description": "The leaf sticks to it like a cap."
+	},
+	
+	"creampearl": {
+		"displayName": "Creampearl",
+		"image": "img/fruit/creampearl.png",
+		"class": "ItemFruit",
+		"description": "Very rich. Good for cooking."
+	},
+	
+	"dapple": {
+		"displayName": "Dapple",
+		"image": "img/fruit/dapple.png",
+		"class": "ItemFruit",
+		"description": "A mild, inoffensive fruit."
+	},
+	
+	"doublefruit": {
+		"displayName": "Doublefruit",
+		"image": "img/fruit/doublefruit.png",
+		"class": "ItemFruit",
+		"description": "It's actually two separate species."
+	},
+	
+	"goldenfruit": {
+		"displayName": "Goldenfruit",
+		"image": "img/fruit/goldenfruit.png",
+		"class": "ItemFruit",
+		"description": "As delicious as it is shiny."
+	},
+	
+	"grothfruit": {
+		"displayName": "Grothfruit",
+		"image": "img/fruit/grothfruit.png",
+		"class": "ItemFruit",
+		"description": "The nodules are the tastiest part."
+	},
+	
+	"icepearl": {
+		"displayName": "Icepearl",
+		"image": "img/fruit/icepearl.png",
+		"class": "ItemFruit",
+		"description": "Tastes strangely cold."
+	},
+	
+	"lilyfruit": {
+		"displayName": "Lilyfruit",
+		"image": "img/fruit/lilyfruit.png",
+		"class": "ItemFruit",
+		"description": "Tastes a little salty."
+	},
+	
+	"pastoll": {
+		"displayName": "Pastoll",
+		"image": "img/fruit/pastoll.png",
+		"class": "ItemFruit",
+		"description": "A classic comfort food."
+	},
+	
+	"popper": {
+		"displayName": "Popper",
+		"image": "img/fruit/popper.png",
+		"class": "ItemFruit",
+		"description": "Yow! Spicy!"
+	},
+	
+	"rubyfruit": {
+		"displayName": "Rubyfruit",
+		"image": "img/fruit/rubyfruit.png",
+		"class": "ItemFruit",
+		"description": "Filled with brilliant red juice."
+	},
+	
+	"sunberries": {
+		"displayName": "Sunberries",
+		"image": "img/fruit/sunberries.png",
+		"class": "ItemFruit",
+		"description": ["They taste sweet and warm,",
+						"like the sun."]
+	},
+	
+	"thornberry": {
+		"displayName": "Thornberry",
+		"image": "img/fruit/thornberry.png",
+		"class": "ItemFruit",
+		"description": "Don't eat the thorns!"
+	}
+}

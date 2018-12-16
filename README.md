@@ -20,3 +20,5 @@ TODO
 - Use Monogame color tint to highlight targeted block (is it possible to lighten this way? seems to use multiply filter...)
 - Vertical chunks
 - Nicer background without water texture (gray tint for background blocks, no overlay)
+- CTM
+	- can it be done with just horizontal sides, vertical sides, all sides + corners, only inside corners, completely inside? (4 corner slice, each looks at adjacent 2 blocks + that corner)

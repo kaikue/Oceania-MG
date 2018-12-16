@@ -9,31 +9,35 @@ using System.Threading.Tasks;
 
 namespace Oceania_MG
 {
-	[DataContract]
+	[DataContract(IsReference = true)]
 	class Chunk
 	{
 		public const int WIDTH = 16;
 		public const int HEIGHT = 16;
 
 		[DataMember]
-		int x;
+		private int x;
 
 		[DataMember]
-		int y;
+		private int y;
 
 		[DataMember]
-		int[][] blocksForeground;
+		private int[][] blocksForeground;
 
 		[DataMember]
-		int[][] blocksBackground;
+		private int[][] blocksBackground;
 
 		[DataMember]
-		List<Entity> entities;
+		private List<Entity> entities;
 
-		public Chunk(int x, int y)
+		[DataMember]
+		private World world;
+
+		public Chunk(int x, int y, World world)
 		{
 			this.x = x;
 			this.y = y;
+			this.world = world;
 			blocksForeground = EmptyBlockArray();
 			blocksBackground = EmptyBlockArray();
 			entities = new List<Entity>();
@@ -49,7 +53,7 @@ namespace Oceania_MG
 			return blocks;
 		}
 
-		public void Generate(World world)
+		public void Generate()
 		{
 			//TODO: multithreading
 
@@ -61,17 +65,17 @@ namespace Oceania_MG
 					Vector2 worldPos = ConvertUtils.ChunkToWorld(x, y, this.x, this.y);
 					int worldX = (int)worldPos.X;
 					int worldY = (int)worldPos.Y;
-					Biome biome = world.GetBiome(worldX, worldY);
+					Biome biome = world.BiomeAt(worldX, worldY);
 					Tuple<float, float> noise = world.generate.Terrain(x, y, biome.minHeight, biome.maxHeight);
-					SetBlockFromNoise(x, y, noise.Item2, false, biome, world);
-					SetBlockFromNoise(x, y, noise.Item1, true, biome, world);
+					SetBlockFromNoise(x, y, noise.Item2, false, biome);
+					SetBlockFromNoise(x, y, noise.Item1, true, biome);
 				}
 			}
 
 			//TODO: decorate with ores, structures, etc.
 		}
 
-		private void SetBlockFromNoise(int x, int y, float noise, bool background, Biome biome, World world)
+		private void SetBlockFromNoise(int x, int y, float noise, bool background, Biome biome)
 		{
 			Vector2 worldPos = ConvertUtils.ChunkToWorld(x, y, this.x, this.y);
 			int worldY = (int)worldPos.Y;
@@ -98,6 +102,12 @@ namespace Oceania_MG
 		{
 			SetBlockAt(x, y, block, false);
 			SetBlockAt(x, y, block, true);
+		}
+
+		private void SetBlockAt(int x, int y, string blockName, bool background)
+		{
+			Block block = world.GetBlock(blockName);
+			SetBlockAt(x, y, block, background);
 		}
 
 		private void SetBlockAt(int x, int y, Block block, bool background)

@@ -1,0 +1,32 @@
+{
+	"flint": {
+		"type": "singleblock",
+		"block": "flint",
+		"frequency": 0.2
+	},
+	"kelp": {
+		"type": "column",
+		"block": "kelp",
+		"minheight": 4,
+		"maxheight": 24,
+		"frequency": 0.2
+	},
+	"temple": {
+		"type": "json",
+		"location": "gen/temple.json",
+		"frequency": 0.05
+	},
+	"puzzle": {
+		"type": "json",
+		"location": "gen/puzzle.json",
+		"frequency": 0.025
+	},
+	"ridge": {
+		"type": "mountain",
+		"frequency": 0.0
+	},
+	"coral": {
+		"type": "blob",
+		"frequency": 0.0
+	}
+}

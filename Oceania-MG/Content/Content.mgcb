@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Config/biomes.json
+/copy:Config/biomes.json
+
+#begin Config/blocks.json
+/copy:Config/blocks.json
+
+#begin Config/items.json
+/copy:Config/items.json
+
+#begin Config/structures.json
+/copy:Config/structures.json
+
 #begin Font/CodersCrux.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

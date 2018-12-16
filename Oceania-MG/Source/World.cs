@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Newtonsoft.Json;
 using Oceania_MG.Source;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,14 @@ namespace Oceania_MG
 
 		public Generate generate;
 
+		private Biome[] biomes;
+
 		private Dictionary<int, Dictionary<int, Chunk>> loadedChunks;
+
+		class Biomes
+		{
+			public Biome[] biomes;
+		}
 
 		public World(string name, int seed)
 		{
@@ -36,6 +44,9 @@ namespace Oceania_MG
 			this.seed = seed;
 			generate = new Generate(seed);
 			loadedChunks = new Dictionary<int, Dictionary<int, Chunk>>();
+
+			string biomesJSON = File.ReadAllLines("Content/Config/biomes.json").Aggregate((s1, s2) => s1 + s2);
+			biomes = JsonConvert.DeserializeObject<Biomes>(biomesJSON).biomes;
 		}
 
 		public void Load()
@@ -58,12 +69,42 @@ namespace Oceania_MG
 
 		private void GenerateChunk(int x, int y)
 		{
-			Chunk chunk = new Chunk(x, y);
-			chunk.Generate(this);
+			Chunk chunk = new Chunk(x, y, this);
+			chunk.Generate();
 			loadedChunks[x][y] = chunk;
 		}
 
-		public Biome GetBiome(int x, int y)
+		public Biome BiomeAt(int x, int y)
+		{
+			//TODO
+			Vector2 properties = generate.Biome(x, y);
+			return GetBiome(properties.X, properties.Y);
+		}
+
+		public Biome GetBiome(float temperature, float liveliness)
+		{
+			Biome blendedBiome = new Biome();
+
+			//first just show diagram- no Generate() involved
+			float minDistance = float.MaxValue;
+			Biome bestBiome = new Biome();
+			foreach (Biome biome in biomes)
+			{
+				Vector2 biomePos = new Vector2(biome.temperature, biome.liveliness);
+				Vector2 currentPos = new Vector2(temperature, liveliness);
+				float distance = Vector2.Distance(biomePos, currentPos);
+				if (distance < minDistance)
+				{
+					minDistance = distance;
+					bestBiome = biome;
+				}
+			}
+
+			//return blendedBiome; //TODO
+			return bestBiome;
+		}
+
+		public Block GetBlock(string blockName)
 		{
 			return null; //TODO
 		}
