@@ -90,11 +90,11 @@ namespace Oceania_MG
 			}
 			else if (worldY > World.SEA_LEVEL)
 			{
-				SetBlockAt(x, y, Block.water, background);
+				SetBlockAt(x, y, world.GetBlock("water"), background);
 			}
 			else
 			{
-				SetBlockAt(x, y, Block.air, background);
+				SetBlockAt(x, y, world.GetBlock("air"), background);
 			}
 		}
 

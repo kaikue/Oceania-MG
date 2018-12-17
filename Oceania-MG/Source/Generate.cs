@@ -13,22 +13,27 @@ namespace Oceania_MG
 		private const int CAVE_SCALE = 40; //controls overall scale & thickness of caves
 		private const float CAVE_CUTOFF = 0.05f; //controls thickness of caves
 		private const float CAVE_EXPANSION = 0.7f; //controls how much thicker caves are at the bottom of the world
+		private const int BIOME_WIDTH_SCALE = 30; //controls horizontal scale of biomes
+		private const int BIOME_HEIGHT_SCALE = 60; //controls vertical scale of biomes
 
 		public int seed;
-		private PerlinNoise noise2d;
-		
+		private PerlinNoise terrainNoise2D;
+		private PerlinNoise biomeTempNoise2D;
+		private PerlinNoise biomeLifeNoise2D;
 
 		public Generate(int seed)
 		{
 			this.seed = seed;
-			noise2d = new PerlinNoise(2, seed, 3);
+			terrainNoise2D = new PerlinNoise(2, seed, 3);
+			biomeTempNoise2D = new PerlinNoise(2, seed, 2, true);
+			biomeLifeNoise2D = new PerlinNoise(2, -seed, 2, true);
 		}
 
 		public Tuple<float, float> Terrain(int x, int y, int minHeight, int maxHeight)
 		{
 			//regular 2D Perlin noise
 			float[] point = new float[] { x / (float)TERRAIN_SCALE, y / (float)TERRAIN_SCALE };
-			float noise = noise2d.Get(point);
+			float noise = terrainNoise2D.Get(point);
 
 			//apply gradient to make lower areas denser
 			float noiseBG = GradientFilter(noise, y, minHeight, maxHeight);
@@ -37,7 +42,7 @@ namespace Oceania_MG
 			//cut out caves if foreground
 
 			float[] cavePoint = new float[] { x / (float)CAVE_SCALE, y / (float)CAVE_SCALE };
-			float cave = noise2d.Get(cavePoint);
+			float cave = terrainNoise2D.Get(cavePoint);
 			//caves get bigger as you get further down
 			float caveG = Gradient(y, minHeight, World.HEIGHT);
 			float caveAdjust = 1 - caveG * CAVE_EXPANSION;
@@ -50,10 +55,12 @@ namespace Oceania_MG
 			return new Tuple<float, float>(noiseFG, noiseBG);
 		}
 
-		public Vector2 Biome(int x, int y)
+		public Tuple<float, float> Biome(int x, int y)
 		{
-			//TODO
-			return new Vector2(0, 0);
+			float[] point = new float[] { x / (float)BIOME_WIDTH_SCALE, y / (float)BIOME_HEIGHT_SCALE };
+			float temperatureNoise = biomeTempNoise2D.Get(point);
+			float livelinessNoise = biomeLifeNoise2D.Get(point);
+			return new Tuple<float, float>(temperatureNoise, livelinessNoise);
 		}
 
 		private static float Gradient(float y, float top, float bottom)

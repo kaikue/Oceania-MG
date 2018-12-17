@@ -22,3 +22,25 @@ TODO
 - Nicer background without water texture (gray tint for background blocks, no overlay)
 - CTM
 	- can it be done with just horizontal sides, vertical sides, all sides + corners, only inside corners, completely inside? (4 corner slice, each looks at adjacent 2 blocks + that corner)
+- Biomes
+	- Surface
+		- Island
+		- Glacier
+	- Shallow
+		- Beach
+		- Rocky shore
+		- Neritic zone
+	- Medium
+		- Mangrove forest
+		- Seagrass bed
+		- Kelp forest
+		- Choral reef
+		- Ice edge
+	- Deep
+		- Seamounts- cobalt crusts
+		- Mid-ocean ridge
+		- Abyss (abyssal zone)
+		- Trench (hadal zone)
+	- Underground
+		- Lava tube
+- Fish breeding for automated resources?

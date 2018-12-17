@@ -15,6 +15,7 @@ namespace Oceania_MG
 	class World
 	{
 		public const int HEIGHT = 256; //TODO: change this when doing vertical chunks- how open should lower chunks be? is there a limit?
+		private const int BIOME_DEPTH_SCALE = 50; //divides depth by this when doing biome calculation, to make it balance out with temp/life
 
 		public const int SEA_LEVEL = 0;
 
@@ -31,12 +32,9 @@ namespace Oceania_MG
 
 		private Biome[] biomes;
 
-		private Dictionary<int, Dictionary<int, Chunk>> loadedChunks;
+		private Block[] blocks;
 
-		class Biomes
-		{
-			public Biome[] biomes;
-		}
+		private Dictionary<int, Dictionary<int, Chunk>> loadedChunks;
 
 		public World(string name, int seed)
 		{
@@ -47,6 +45,15 @@ namespace Oceania_MG
 
 			string biomesJSON = File.ReadAllLines("Content/Config/biomes.json").Aggregate((s1, s2) => s1 + s2);
 			biomes = JsonConvert.DeserializeObject<Biomes>(biomesJSON).biomes;
+
+			string blocksJSON = File.ReadAllLines("Content/Config/blocks.json").Aggregate((s1, s2) => s1 + s2);
+			blocks = JsonConvert.DeserializeObject<Blocks>(blocksJSON).blocks;
+			int bid = 0;
+			foreach (Block block in blocks)
+			{
+				block.id = bid;
+				bid++;
+			}
 		}
 
 		public void Load()
@@ -77,22 +84,21 @@ namespace Oceania_MG
 		public Biome BiomeAt(int x, int y)
 		{
 			//TODO
-			Vector2 properties = generate.Biome(x, y);
-			return GetBiome(properties.X, properties.Y);
+			Tuple<float, float> properties = generate.Biome(x, y);
+			return GetBiome(properties.Item1, properties.Item2, y);
 		}
 
-		public Biome GetBiome(float temperature, float liveliness)
+		public Biome GetBiome(float temperature, float liveliness, float depth)
 		{
-			Biome blendedBiome = new Biome();
+			Biome blendedBiome = new Biome(); //TODO lerp between biomes if just about halfway between them (so that heights smoothly transition)
 
-			//first just show diagram- no Generate() involved
 			float minDistance = float.MaxValue;
 			Biome bestBiome = new Biome();
 			foreach (Biome biome in biomes)
 			{
-				Vector2 biomePos = new Vector2(biome.temperature, biome.liveliness);
-				Vector2 currentPos = new Vector2(temperature, liveliness);
-				float distance = Vector2.Distance(biomePos, currentPos);
+				Vector3 biomePos = new Vector3(biome.temperature, biome.liveliness, biome.depth / BIOME_DEPTH_SCALE);
+				Vector3 currentPos = new Vector3(temperature, liveliness, depth / BIOME_DEPTH_SCALE);
+				float distance = Vector3.Distance(biomePos, currentPos);
 				if (distance < minDistance)
 				{
 					minDistance = distance;
@@ -100,7 +106,7 @@ namespace Oceania_MG
 				}
 			}
 
-			//return blendedBiome; //TODO
+			//return blendedBiome;
 			return bestBiome;
 		}
 

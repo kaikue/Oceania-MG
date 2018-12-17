@@ -13,8 +13,15 @@ namespace Oceania_MG
         [STAThread]
         static void Main()
         {
-            using (var game = new BiomeTest())
-                game.Run();
+			//options:
+			//Game(): runs the game normally
+			//GenerateTest(): runs a debug window showing terrain generation
+			//BiomeTest(false): runs a debug window showing biome arrangement chart
+			//BiomeTest(true): runs a debug window showing biomes for a random world
+			using (var game = new BiomeTest(true))
+			{
+				game.Run();
+			}
         }
     }
 }

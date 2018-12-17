@@ -1,135 +1,134 @@
 {
 	"blocks": [
-		{
-			"name": "air",
-			"displayName": "Air",
-			"solid": true,
-			"image": "",
-			"breakable": false
-		},
-		{
-			"name": "water",
-			"displayName": "Water",
-			"solid": false,
-			"image": "img/water.png",
-			"breakable": false
-		},
-		{
-			"name": "dirt",
-			"displayName": "Dirt",
-			"image": "img/dirt/dirt.png",
-			"connectedTexture": "solid"
-		},
-    {
-      "name": "basalt",
-      "displayName": "Basalt",
-      "image": "img/gabbro/gabbro_tiles.png",
-      "harvestlevel": 1,
-      "breaktime": 200,
-      "description": "A common type of stone.",
-      "connectedTexture": "solid"
-    },
-    {
-      "name": "kelp",
-      "displayName": "Kelp",
-      "solid": false,
-      "image": "img/kelp/kelp.png",
-      "breaktime": 200,
-      "description": [
-        "Delicious kelp.",
-        "Mmmmm-mmmmmm!"
-      ]
-    },
-		{
-			"name": "basaltBricks",
-			"displayName": "Basalt Bricks",
-			"image": "img/basalt/basalt_bricks_1.png",
-            "harvestlevel": 1
-		},
-		{
-			"name": "chest",
-			"displayName": "Chest",
-			"solid": false,
-			"image": "img/chest/chest.png",
-			"entity": "EntityChest"
-		},
-    {
-      "name": "flint",
-      "displayName": "Flint",
-      "solid": false,
-      "image": "img/flint/flint.png",
-      "breaktime": 20,
-      "item": "ItemFlint"
-    },
-    {
-      "name": "flint_knapped_1",
-      "displayName": "Knapped Flint",
-      "solid": false,
-      "image": "img/flint/flint_knapped_1.png",
-      "breaktime": 20,
-      "item": "ItemFlint"
-    },
-    {
-      "name": "flint_knapped_2",
-      "displayName": "Knapped Flint",
-      "solid": false,
-      "image": "img/flint/flint_knapped_2.png",
-      "breaktime": 20,
-      "item": "ItemFlint"
-    },
-    {
-      "name": "flint_knapped_3",
-      "displayName": "Knapped Flint",
-      "solid": false,
-      "image": "img/flint/flint_knapped_3.png",
-      "breaktime": 20,
-      "item": "ItemFlint"
-    },
-    {
-      "name": "flint_knapped_4",
-      "displayName": "Sharp Flint",
-      "solid": false,
-      "image": "img/flint/flint_knapped_4.png",
-      "breaktime": 20,
-      "item": "ItemSharpFlint"
-    },
-		{
-			"name": "puzzleController",
-			"displayName": "Puzzle Controller",
-			"image": "img/puzzle/border.png",
-			"solid": false,
-			"breakable": false,
-			"entity": "EntityPuzzleController"
-		},
-		{
-			"name": "puzzleBorder",
-			"displayName": "Puzzle Border",
-			"image": "img/puzzle/border.png",
-			"solid": false,
-			"breakable": false
-		},
-		{
-			"name": "puzzleBackground",
-			"displayName": "Puzzle Background",
-			"image": "img/puzzle/background.png",
-			"solid": false,
-			"breakable": false
-		},
-		{
-			"name": "pipe",
-			"displayName": "Pipe",
-			"image": "img/pipes/pipes.png",
-			"connectedTexture": "sametype",
-			"solid": false,
-			"entity": "EntityPipe",
-      "breaktime": 30
-		},
-		{
-			"name": "grave",
-			"displayName": "Gravestone",
-			"image": "img/grave.png",
-			"solid": false,
-			"entity": "EntityGrave"
-		}
-	]
+	{
+		"name": "air",
+		"displayName": "Air",
+		"solid": true,
+		"image": "",
+		"breakable": false
+	},
+	{
+		"name": "water",
+		"displayName": "Water",
+		"solid": false,
+		"image": "img/water.png",
+		"breakable": false
+	},
+	{
+		"name": "dirt",
+		"displayName": "Dirt",
+		"image": "img/dirt/dirt.png",
+		"connectedTexture": "solid"
+	},
+	{
+		"name": "basalt",
+		"displayName": "Basalt",
+		"image": "img/gabbro/gabbro_tiles.png",
+		"harvestLevel": 1,
+		"breakTime": 200,
+		"description": ["A common type of stone."],
+		"connectedTexture": "solid"
+	},
+	{
+		"name": "kelp",
+		"displayName": "Kelp",
+		"solid": false,
+		"image": "img/kelp/kelp.png",
+		"breakTime": 200,
+		"description": [
+			"Delicious kelp.",
+			"Mmmmm-mmmmmm!"
+		]
+	},
+	{
+		"name": "basaltBricks",
+		"displayName": "Basalt Bricks",
+		"image": "img/basalt/basalt_bricks_1.png",
+		"harvestLevel": 1
+	},
+	{
+		"name": "chest",
+		"displayName": "Chest",
+		"solid": false,
+		"image": "img/chest/chest.png",
+		"entity": "EntityChest"
+	},
+	{
+		"name": "flint",
+		"displayName": "Flint",
+		"solid": false,
+		"image": "img/flint/flint.png",
+		"breakTime": 20,
+		"item": "ItemFlint"
+	},
+	{
+		"name": "flint_knapped_1",
+		"displayName": "Knapped Flint",
+		"solid": false,
+		"image": "img/flint/flint_knapped_1.png",
+		"breakTime": 20,
+		"item": "ItemFlint"
+	},
+	{
+		"name": "flint_knapped_2",
+		"displayName": "Knapped Flint",
+		"solid": false,
+		"image": "img/flint/flint_knapped_2.png",
+		"breakTime": 20,
+		"item": "ItemFlint"
+	},
+	{
+		"name": "flint_knapped_3",
+		"displayName": "Knapped Flint",
+		"solid": false,
+		"image": "img/flint/flint_knapped_3.png",
+		"breakTime": 20,
+		"item": "ItemFlint"
+	},
+	{
+		"name": "flint_knapped_4",
+		"displayName": "Sharp Flint",
+		"solid": false,
+		"image": "img/flint/flint_knapped_4.png",
+		"breakTime": 20,
+		"item": "ItemSharpFlint"
+	},
+	{
+		"name": "puzzleController",
+		"displayName": "Puzzle Controller",
+		"image": "img/puzzle/border.png",
+		"solid": false,
+		"breakable": false,
+		"entity": "EntityPuzzleController"
+	},
+	{
+		"name": "puzzleBorder",
+		"displayName": "Puzzle Border",
+		"image": "img/puzzle/border.png",
+		"solid": false,
+		"breakable": false
+	},
+	{
+		"name": "puzzleBackground",
+		"displayName": "Puzzle Background",
+		"image": "img/puzzle/background.png",
+		"solid": false,
+		"breakable": false
+	},
+	{
+		"name": "pipe",
+		"displayName": "Pipe",
+		"image": "img/pipes/pipes.png",
+		"connectedTexture": "sametype",
+		"solid": false,
+		"entity": "EntityPipe",
+		"breakTime": 30
+	},
+	{
+		"name": "grave",
+		"displayName": "Gravestone",
+		"image": "img/grave.png",
+		"solid": false,
+		"entity": "EntityGrave"
+	}]
 }

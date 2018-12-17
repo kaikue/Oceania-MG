@@ -1,8 +1,10 @@
 {
-	"biomes": [{
+	"biomes": [
+	{
 		"name": "Test Biome",
-		"temperature": 0,
-		"liveliness": 0,
+		"temperature": 1,
+		"liveliness": -1,
+		"depth": 200,
 		"minHeight": 64,
 		"maxHeight": 144,
 		"surfaceBlock": "dirt",
@@ -21,6 +23,7 @@
 		"name": "Mid-Ocean Ridge",
 		"temperature": -1,
 		"liveliness": -1,
+		"depth": 200,
 		"minHeight": 128,
 		"maxHeight": 192,
 		"surfaceBlock": "basalt",
@@ -39,6 +42,7 @@
 		"name": "Coral Reef",
 		"temperature": 1,
 		"liveliness": 1,
+		"depth": 50,
 		"minHeight": 72,
 		"maxHeight": 96,
 		"surfaceBlock": "sand",
@@ -56,9 +60,10 @@
 		"name": "Kelp Forest",
 		"temperature": -1,
 		"liveliness": 1,
+		"depth": 50,
 		"minHeight": 72,
 		"maxHeight": 96,
-		"surfaceBlock": "basalt",
+		"surfaceBlock": "dirt",
 		"baseBlock": "basalt",
 		"color": [128, 255, 128],
 		"ores": [

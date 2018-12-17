@@ -58,6 +58,10 @@
     <Compile Include="Source\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\SaveLoad.cs" />
+    <Compile Include="Source\States\MenuState.cs" />
+    <Compile Include="Source\States\PausedState.cs" />
+    <Compile Include="Source\States\GameplayState.cs" />
+    <Compile Include="Source\States\GameState.cs" />
     <Compile Include="Source\World.cs" />
   </ItemGroup>
   <ItemGroup>

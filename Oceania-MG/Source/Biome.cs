@@ -12,7 +12,7 @@ namespace Oceania_MG.Source
 		public string name;
 		public float temperature;
 		public float liveliness;
-		//public float depth;
+		public float depth;
 		public string baseBlock;
 		public string surfaceBlock;
 		public int minHeight;
@@ -21,4 +21,10 @@ namespace Oceania_MG.Source
 		public string[] structures;
 		public int[] color;
 	}
+
+	struct Biomes
+	{
+		public Biome[] biomes;
+	}
+
 }

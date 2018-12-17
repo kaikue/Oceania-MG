@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Oceania_MG.Source.States;
 
 namespace Oceania_MG
 {
@@ -15,6 +16,8 @@ namespace Oceania_MG
 
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
+
+		private GameState state;
 
 		private SpriteFont font;
 		private Texture2D image;
@@ -34,7 +37,7 @@ namespace Oceania_MG
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+			state = new GameplayState();
 
             base.Initialize();
         }
@@ -70,10 +73,13 @@ namespace Oceania_MG
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+			{
+				//TODO: pass this to state, to be paused/resumed/exited appropriately
+				Exit();
+			}
 
-            // TODO: Add your update logic here
+			state.Update(gameTime);
 
             base.Update(gameTime);
         }
