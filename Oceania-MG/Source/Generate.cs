@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Oceania_MG
+namespace Oceania_MG.Source
 {
 	class Generate
 	{

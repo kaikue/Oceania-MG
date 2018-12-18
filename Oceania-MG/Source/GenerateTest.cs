@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 
-namespace Oceania_MG
+namespace Oceania_MG.Source
 {
     /// <summary>
     /// Shows world generator
@@ -12,10 +12,13 @@ namespace Oceania_MG
     {
         private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
+		private SpriteFont font;
 		private Texture2D pixel;
 		private Color[][] colors;
 		private Random random = new Random();
-		
+		private World world;
+		private string hoverBiomeName;
+
 		private const int WIDTH = 200;
 		private const int HEIGHT = World.HEIGHT;
 		private const int SCALE = 2;
@@ -42,24 +45,19 @@ namespace Oceania_MG
 			colors = new Color[WIDTH][];
 
 			int seed = random.Next();
-			Generate gen = new Generate(seed);
+			world = new World("BiomeTest", seed);
+
 			for (int x = 0; x < WIDTH; x++)
 			{
 				colors[x] = new Color[HEIGHT];
 				for (int y = 0; y < HEIGHT; y++)
 				{
-					Tuple<float, float> values = gen.Terrain(x, y, 50, 150);
+					Biome biome = world.BiomeAt(x, y);
+					Tuple<float, float> values = world.generate.Terrain(x, y, biome.minHeight, biome.maxHeight);
 					float value = values.Item1;
-					int w = 128 + (int)(127 * value);
-					Color color = new Color(w, w, w);
-					if (value > -0.5)
-					{
-						color.R = 255;
-					}
-					else
-					{
-						color.B = 255;
-					}
+					value = value < -0.5f ? 0.25f : value < -0.4f ? 0.8f : 1;
+					int[] c = biome.color;
+					Color color = new Color((int)(c[0] * value), (int)(c[1] * value), (int)(c[2] * value));
 					colors[x][y] = color;
 				}
 			}
@@ -68,6 +66,8 @@ namespace Oceania_MG
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+			font = Content.Load<SpriteFont>("Font/CodersCrux");
 
 			pixel = new Texture2D(GraphicsDevice, 1, 1);
 			pixel.SetData(new Color[] { Color.White });
@@ -95,7 +95,12 @@ namespace Oceania_MG
 				Generate();
 			}
 
-            base.Update(gameTime);
+			int mouseX = Mouse.GetState().X / SCALE;
+			int mouseY = Mouse.GetState().Y / SCALE;
+			Biome hoverBiome = world.BiomeAt(mouseX, mouseY);
+			hoverBiomeName = mouseX + ", " + mouseY + ": " + hoverBiome.name;
+
+			base.Update(gameTime);
         }
 
         /// <summary>
@@ -105,7 +110,7 @@ namespace Oceania_MG
         protected override void Draw(GameTime gameTime)
         {
 			GraphicsDevice.Clear(Color.Black);
-			spriteBatch.Begin();
+			spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
 			for (int x = 0; x < WIDTH; x++)
 			{
@@ -115,6 +120,9 @@ namespace Oceania_MG
 					spriteBatch.Draw(pixel, new Rectangle(x * SCALE, y * SCALE, SCALE, SCALE), color);
 				}
 			}
+
+			spriteBatch.DrawString(font, hoverBiomeName, new Vector2(10, 10), Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
+
 			spriteBatch.End();
 
 			base.Draw(gameTime);

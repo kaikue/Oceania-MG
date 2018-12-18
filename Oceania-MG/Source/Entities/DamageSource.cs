@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Oceania_MG.Entities
+namespace Oceania_MG.Source.Entities
 {
 	class DamageSource
 	{

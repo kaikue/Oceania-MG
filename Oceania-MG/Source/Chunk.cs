@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Oceania_MG.Source;
+using Oceania_MG.Source.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Oceania_MG
+namespace Oceania_MG.Source
 {
 	[DataContract(IsReference = true)]
 	class Chunk

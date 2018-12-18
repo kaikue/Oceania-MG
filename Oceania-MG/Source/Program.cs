@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oceania_MG
+namespace Oceania_MG.Source
 {
     /// <summary>
     /// The main class.
@@ -16,9 +16,8 @@ namespace Oceania_MG
 			//options:
 			//Game(): runs the game normally
 			//GenerateTest(): runs a debug window showing terrain generation
-			//BiomeTest(false): runs a debug window showing biome arrangement chart
-			//BiomeTest(true): runs a debug window showing biomes for a random world
-			using (var game = new BiomeTest(true))
+			//BiomeTest(): runs a debug window showing biome arrangement chart
+			using (var game = new GenerateTest())
 			{
 				game.Run();
 			}

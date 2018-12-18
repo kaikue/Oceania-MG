@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Oceania_MG
+namespace Oceania_MG.Source.Entities
 {
 	[DataContract(IsReference = true)]
 	class Player : EntityLiving

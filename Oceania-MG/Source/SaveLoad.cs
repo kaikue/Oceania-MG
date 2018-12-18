@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 using System.IO;
 using System.Xml;
 
-namespace Oceania_MG
+namespace Oceania_MG.Source
 {
 	/// <summary>
 	/// Class for saving and loading serializable objects to a file.

@@ -7,6 +7,8 @@ Created by Kai Kuehner, 2013-2018.
 
 TODO
 --
+- Lerp biomes
+- Avoid double-surface problem- all shallow, medium, deep biomes at same depth, cave biomes below with high surface level, surface biomes above (may cause floating islands)
 - Input handling- pressed function which is only true on first frame
 - Copy over everything from Python
 - Make sure serialization works
@@ -44,3 +46,4 @@ TODO
 	- Underground
 		- Lava tube
 - Fish breeding for automated resources?
+- Phosphorus for heat generation?

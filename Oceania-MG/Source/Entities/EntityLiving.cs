@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Oceania_MG.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Oceania_MG
+namespace Oceania_MG.Source.Entities
 {
 	[DataContract(IsReference = true)]
 	class EntityLiving : Entity

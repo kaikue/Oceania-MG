@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Oceania_MG.Source.States;
 
-namespace Oceania_MG
+namespace Oceania_MG.Source
 {
     /// <summary>
     /// This is the main type for your game.

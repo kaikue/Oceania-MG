@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Oceania_MG.Source;
 using System;
 
-namespace Oceania_MG
+namespace Oceania_MG.Source
 {
     /// <summary>
     /// Shows world generator
@@ -17,11 +16,9 @@ namespace Oceania_MG
 		private SpriteFont font;
 		private Texture2D pixel;
 		private Color[][][] colors;
-		private Color[][] mapColors;
 		private Random random = new Random();
 		private string hoverBiomeName = "";
 		private World world;
-		private bool randomMap;
 
 		private int depth;
 		private int minDepth = 0;
@@ -31,7 +28,7 @@ namespace Oceania_MG
 		private const int HEIGHT = 200;
 		private const int SCALE = 2;
 
-        public BiomeTest(bool randomMap)
+        public BiomeTest()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -39,8 +36,6 @@ namespace Oceania_MG
 			graphics.PreferredBackBufferWidth = WIDTH * SCALE;
 			graphics.PreferredBackBufferHeight = HEIGHT * SCALE;
 			graphics.ApplyChanges();
-
-			this.randomMap = randomMap; //true: show world's biome arrangement from noise, false: just show static biome chart
 		}
 		
         protected override void Initialize()
@@ -52,44 +47,24 @@ namespace Oceania_MG
 		
 		private void Generate()
 		{
-			int seed = random.Next();
-			world = new World("BiomeTest", seed);
+			world = new World("biometest", 0);
 
-			if (randomMap)
+			colors = new Color[maxDepth - minDepth][][];
+			for (int d = 0; d < maxDepth - minDepth; d++)
 			{
-				mapColors = new Color[WIDTH][];
+				colors[d] = new Color[WIDTH][];
 
 				for (int x = 0; x < WIDTH; x++)
 				{
-					mapColors[x] = new Color[HEIGHT];
+					colors[d][x] = new Color[HEIGHT];
 					for (int y = 0; y < HEIGHT; y++)
 					{
-						Biome biome = world.BiomeAt(x, y);
+						float sX = (float)((2 * x) - WIDTH) / WIDTH;
+						float sY = (float)((2 * y) - HEIGHT) / HEIGHT;
+						Biome biome = world.GetBiome(sX, sY, d + minDepth);
 						int[] c = biome.color;
 						Color color = new Color(c[0], c[1], c[2]);
-						mapColors[x][y] = color;
-					}
-				}
-			}
-			else
-			{
-				colors = new Color[maxDepth - minDepth][][];
-				for (int d = 0; d < maxDepth - minDepth; d++)
-				{
-					colors[d] = new Color[WIDTH][];
-
-					for (int x = 0; x < WIDTH; x++)
-					{
-						colors[d][x] = new Color[HEIGHT];
-						for (int y = 0; y < HEIGHT; y++)
-						{
-							float sX = (float)((2 * x) - WIDTH) / WIDTH;
-							float sY = (float)((2 * y) - HEIGHT) / HEIGHT;
-							Biome biome = world.GetBiome(sX, sY, d + minDepth);
-							int[] c = biome.color;
-							Color color = new Color(c[0], c[1], c[2]);
-							colors[d][x][y] = color;
-						}
+						colors[d][x][y] = color;
 					}
 				}
 			}
@@ -123,23 +98,13 @@ namespace Oceania_MG
 			{
 				Exit();
 			}
-
-			if (randomMap)
-			{
-				int mouseX = Mouse.GetState().X / SCALE;
-				int mouseY = Mouse.GetState().Y / SCALE;
-				Biome hoverBiome = world.BiomeAt(mouseX, mouseY);
-				hoverBiomeName = mouseX + ", " + mouseY + ": " + hoverBiome.name;
-			}
-			else
-			{
-				float mouseX = (float)(Mouse.GetState().X / SCALE * 2 - WIDTH) / WIDTH;
-				float mouseY = (float)(Mouse.GetState().Y / SCALE * 2 - HEIGHT) / HEIGHT;
-				Biome hoverBiome = world.GetBiome(mouseX, mouseY, depth);
-				hoverBiomeName = mouseX + ", " + mouseY + ": " + hoverBiome.name;
-			}
-
-			if (!randomMap && !Keyboard.GetState().IsKeyDown(Keys.Space))
+			
+			float mouseX = (float)(Mouse.GetState().X / SCALE * 2 - WIDTH) / WIDTH;
+			float mouseY = (float)(Mouse.GetState().Y / SCALE * 2 - HEIGHT) / HEIGHT;
+			Biome hoverBiome = world.GetBiome(mouseX, mouseY, depth);
+			hoverBiomeName = mouseX + ", " + mouseY + ": " + hoverBiome.name;
+			
+			if (!Keyboard.GetState().IsKeyDown(Keys.Space))
 			{
 				depth++;
 				if (depth >= maxDepth)
@@ -164,13 +129,13 @@ namespace Oceania_MG
 			{
 				for (int y = 0; y < HEIGHT; y++)
 				{
-					Color color = randomMap ? mapColors[x][y] : colors[depth - minDepth][x][y];
+					Color color = colors[depth - minDepth][x][y];
 					spriteBatch.Draw(pixel, new Rectangle(x * SCALE, y * SCALE, SCALE, SCALE), color);
 				}
 			}
 
+			spriteBatch.DrawString(font, "Depth: " + depth, new Vector2(10, 380), Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
 			spriteBatch.DrawString(font, hoverBiomeName, new Vector2(10, 10), Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
-			if (!randomMap) spriteBatch.DrawString(font, "Depth: " + depth, new Vector2(10, 380), Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
 			spriteBatch.End();
 
 			base.Draw(gameTime);
