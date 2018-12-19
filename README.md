@@ -10,7 +10,6 @@ TODO
 - World generation
 	- Island/surface biomes
 		- Balance depth so that only island/surface is at y=0
-	- Remove abyss background
 	- Increase biome width scale
 	- Lerp biomes
 - Input handling- pressed function which is only true on first frame
