@@ -17,7 +17,7 @@ namespace Oceania_MG.Source
 		private const float CORE_CAVE_EXPANSION = 3.0f; //controls how much thicker caves are at the top of the core layer (exponential)
 		private const float CORE_CAVE_THICKNESS = 2.0f; //controls how much thicker caves are in the core layer in general (linear)
 		public const int ABYSS_DROPOFF = 30; //height in blocks of abyss layer background dropoff
-		private const int BIOME_WIDTH_SCALE = 30; //controls horizontal scale of biomes
+		private const int BIOME_WIDTH_SCALE = 50; //controls horizontal scale of biomes
 		private const int BIOME_HEIGHT_SCALE = 60; //controls vertical scale of biomes
 
 		//Heights of world layers
