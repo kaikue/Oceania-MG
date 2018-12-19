@@ -12,9 +12,19 @@ namespace Oceania_MG.Source
 		private const int TERRAIN_SCALE = 30; //controls overall scale of terrain features
 		private const int CAVE_SCALE = 40; //controls overall scale & thickness of caves
 		private const float CAVE_CUTOFF = 0.05f; //controls thickness of caves
-		private const float CAVE_EXPANSION = 0.7f; //controls how much thicker caves are at the bottom of the world
+		private const float ISLAND_EXPANSION = 2.0f; //controls how much quickly islands taper off at the bottom (exponential)
+		private const float CAVE_EXPANSION = 3.0f; //controls how much thicker caves are at the bottom of the cave layer (exponential)
+		private const float CORE_CAVE_EXPANSION = 3.0f; //controls how much thicker caves are at the top of the core layer (exponential)
+		private const float CORE_CAVE_THICKNESS = 2.0f; //controls how much thicker caves are in the core layer in general (linear)
 		private const int BIOME_WIDTH_SCALE = 30; //controls horizontal scale of biomes
 		private const int BIOME_HEIGHT_SCALE = 60; //controls vertical scale of biomes
+
+		//Heights of world layers
+		public const int ISLAND_BOTTOM = 20;
+		public const int LAND_TOP = 50;
+		public const int ABYSS_TOP = 300;
+		public const int ABYSS_BOTTOM = 400;
+		public const int CORE_FULL = 450;
 
 		public int seed;
 		private PerlinNoise terrainNoise2D;
@@ -39,16 +49,49 @@ namespace Oceania_MG.Source
 			float noiseBG = GradientFilter(noise, y, minHeight, maxHeight);
 
 			float noiseFG = noiseBG;
-			//cut out caves if foreground
 
+			//cut out caves if foreground
 			float[] cavePoint = new float[] { x / (float)CAVE_SCALE, y / (float)CAVE_SCALE };
 			float cave = terrainNoise2D.Get(cavePoint);
-			//caves get bigger as you get further down
-			float caveG = Gradient(y, minHeight, World.HEIGHT);
-			float caveAdjust = 1 - caveG * CAVE_EXPANSION;
-			cave *= caveAdjust;
+			
+			if (y < ISLAND_BOTTOM)
+			{
+				//island gradient- no caves
+				float islandG = Gradient(y, World.SEA_LEVEL, ISLAND_BOTTOM);
+				float islandAdjust = 1 - (float)Math.Pow(islandG, ISLAND_EXPANSION);
+				if (y < World.SEA_LEVEL) cave = -1;
+				//islandAdjust /= 1.5f;
+				if (Math.Abs(cave * islandAdjust) < CAVE_CUTOFF)
+				{
+					noiseFG = -1;
+					noiseBG = -1;
+				}
 
-			if (-CAVE_CUTOFF < cave && cave < CAVE_CUTOFF) {
+				cave = -1;
+			}
+			else if (y < LAND_TOP)
+			{
+				//empty
+				noiseFG = -1;
+				noiseBG = -1;
+			}
+			else if (y < ABYSS_BOTTOM)
+			{
+				//caves open up into abyss
+				float caveG = Gradient(y, minHeight, ABYSS_TOP);
+				float caveAdjust = 1 - (float)Math.Pow(caveG, CAVE_EXPANSION);
+				cave *= caveAdjust;
+				//TODO: no background in abyss (except top/bottom and behind blocks)
+			}
+			else
+			{
+				//abyss ends in core
+				float caveG = Gradient(y, ABYSS_BOTTOM, CORE_FULL);
+				float caveAdjust = (float)Math.Pow(caveG, CORE_CAVE_EXPANSION) / CORE_CAVE_THICKNESS; //caves thicker overall
+				cave *= caveAdjust;
+			}
+
+			if (Math.Abs(cave) < CAVE_CUTOFF) {
 				noiseFG = -1;
 			}
 

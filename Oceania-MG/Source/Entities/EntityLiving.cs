@@ -12,23 +12,23 @@ namespace Oceania_MG.Source.Entities
 	class EntityLiving : Entity
 	{
 		[DataMember]
-		private uint health;
+		protected int health;
 
 		[DataMember]
-		private uint maxHealth;
+		protected int maxHealth;
 		
 		[DataMember]
-		private float hurtTime = -1; //TODO: old "hurt" == hurtTime > 0
+		protected float hurtTime = -1; //TODO: old "hurt" == hurtTime > 0
 
 		[DataMember]
-		private Vector2 knockback = new Vector2(0, 0);
+		protected Vector2 knockback = new Vector2(0, 0);
 
 		[DataMember]
-		private DamageSource attack;
+		protected DamageSource attack;
 
-		public EntityLiving(string imageURL, Vector2 position, uint maxHealth) : base(imageURL, position)
+		public EntityLiving(string imageURL, Vector2 position, int maxHealth) : base(imageURL, position)
 		{
-			this.health = maxHealth;
+			health = maxHealth;
 			this.maxHealth = maxHealth;
 		}
 	}

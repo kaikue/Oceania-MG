@@ -7,10 +7,15 @@ Created by Kai Kuehner, 2013-2018.
 
 TODO
 --
-- Lerp biomes
-- Avoid double-surface problem- all shallow, medium, deep biomes at same depth, cave biomes below with high surface level, surface biomes above (may cause floating islands)
+- World generation
+	- Island/surface biomes
+		- Balance depth so that only island/surface is at y=0
+	- Remove abyss background
+	- Increase biome width scale
+	- Lerp biomes
 - Input handling- pressed function which is only true on first frame
 - Copy over everything from Python
+- Remove string[].Aggregate thing and replace it with StringBuilder
 - Make sure serialization works
 	- references (including Player)
 	- image reloading
@@ -18,12 +23,16 @@ TODO
 	- Get FPS on screen
 	- 2 layers of tiles with CTM checks
 	- try with big window and scale=1
+	- Garbage collection causing lag spikes?
+		- pause GC and only collect when pausing?
 - Everything from old README
 - Use Monogame color tint to highlight targeted block (is it possible to lighten this way? seems to use multiply filter...)
 - Vertical chunks
 - Nicer background without water texture (gray tint for background blocks, no overlay)
 - CTM
 	- can it be done with just horizontal sides, vertical sides, all sides + corners, only inside corners, completely inside? (4 corner slice, each looks at adjacent 2 blocks + that corner)
+- Fix "CS0649	Field 'Biome.name' is never assigned to, and will always have its default value null" (for all required fields deserialized from JSON)
+- Spawn rates based on liveliness
 - Biomes
 	- Surface
 		- Island
@@ -32,18 +41,24 @@ TODO
 		- Beach
 		- Rocky shore
 		- Neritic zone
-	- Medium
 		- Mangrove forest
 		- Seagrass bed
 		- Kelp forest
 		- Choral reef
 		- Ice edge
-	- Deep
 		- Seamounts- cobalt crusts
-		- Mid-ocean ridge
-		- Abyss (abyssal zone)
-		- Trench (hadal zone)
-	- Underground
+		- Trench? (hadal zone)
+	- Cave
 		- Lava tube
+		- Basalt cave
+		- more caves...
+	- Abyss
+		- Too dark to see without bringing a light source
+	- Core
+		- Too hot, damages you if you don't have heat protection
+		- Need increasing levels of heat protection to go deeper
+		- Put some endgame ores/structures here
 - Fish breeding for automated resources?
 - Phosphorus for heat generation?
+- Mod support
+	- Load blocks, biomes, entities, etc. from Mods folder

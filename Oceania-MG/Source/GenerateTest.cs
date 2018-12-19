@@ -20,8 +20,10 @@ namespace Oceania_MG.Source
 		private string hoverBiomeName;
 
 		private const int WIDTH = 200;
-		private const int HEIGHT = World.HEIGHT;
-		private const int SCALE = 2;
+		private const int START_Y = -100;
+		private const int END_Y = 500;
+		private const int HEIGHT = END_Y - START_Y;
+		private const int SCALE = 1;
 
         public GenerateTest()
         {
@@ -50,15 +52,16 @@ namespace Oceania_MG.Source
 			for (int x = 0; x < WIDTH; x++)
 			{
 				colors[x] = new Color[HEIGHT];
-				for (int y = 0; y < HEIGHT; y++)
+				for (int y = START_Y; y < END_Y; y++)
 				{
 					Biome biome = world.BiomeAt(x, y);
 					Tuple<float, float> values = world.generate.Terrain(x, y, biome.minHeight, biome.maxHeight);
 					float value = values.Item1;
-					value = value < -0.5f ? 0.25f : value < -0.4f ? 0.8f : 1;
+					value = value < -0.5f ? (values.Item2 < -0.4f ? 0.1f : 0.25f) : value < -0.4f ? 0.8f : 1;
+					if (y < World.SEA_LEVEL) value /= 2;
 					int[] c = biome.color;
 					Color color = new Color((int)(c[0] * value), (int)(c[1] * value), (int)(c[2] * value));
-					colors[x][y] = color;
+					colors[x][y - START_Y] = color;
 				}
 			}
 		}
@@ -96,7 +99,7 @@ namespace Oceania_MG.Source
 			}
 
 			int mouseX = Mouse.GetState().X / SCALE;
-			int mouseY = Mouse.GetState().Y / SCALE;
+			int mouseY = Mouse.GetState().Y / SCALE + START_Y;
 			Biome hoverBiome = world.BiomeAt(mouseX, mouseY);
 			hoverBiomeName = mouseX + ", " + mouseY + ": " + hoverBiome.name;
 

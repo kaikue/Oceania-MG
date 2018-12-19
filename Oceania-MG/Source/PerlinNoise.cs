@@ -106,7 +106,7 @@ namespace Oceania_MG.Source
 			for (int i = 0; i < point.Length; i++)
 			{
 				float coord = point[i];
-				int minCoord = (int)coord;
+				int minCoord = (int)Math.Floor(coord); //Need floor so that negative numbers work properly
 				int maxCoord = minCoord + 1;
 				gridCoords[i] = new Tuple<int, int>(minCoord, maxCoord);
 			}

@@ -67,7 +67,7 @@ namespace Oceania_MG.Source.Entities
 			}
 		}
 
-		private const uint MAX_HEALTH = 20;
+		private const int MAX_HEALTH = 20;
 
 		[DataMember]
 		private PlayerOptions playerOptions;

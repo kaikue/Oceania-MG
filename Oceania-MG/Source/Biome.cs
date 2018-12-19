@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Oceania_MG.Source
 {
-	struct Biome
+	class Biome
 	{
 		public string name;
 		public float temperature;
@@ -15,11 +15,11 @@ namespace Oceania_MG.Source
 		public float depth;
 		public string baseBlock;
 		public string surfaceBlock;
-		public int minHeight;
-		public int maxHeight;
-		public string[] ores;
-		public string[] structures;
-		public int[] color;
+		public int minHeight = 64;
+		public int maxHeight = 92;
+		public string[] ores = new string[0];
+		public string[] structures = new string[0];
+		public int[] color = new int[] { 255, 255, 255 };
 	}
 
 	struct Biomes

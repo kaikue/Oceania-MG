@@ -1,42 +1,35 @@
 {
 	"biomes": [
 	{
-		"name": "Test Biome",
-		"temperature": 1,
-		"liveliness": -1,
-		"depth": 200,
-		"minHeight": 64,
-		"maxHeight": 144,
-		"surfaceBlock": "dirt",
-		"baseBlock": "basalt",
-		"color": [128, 128, 128],
-		"ores": [
-			"peridot"
-		],
-		"structures": [
-			"kelp",
-			"temple",
-			"flint"
-		]
+		"name": "Sky",
+		"temperature": 0,
+		"liveliness": 0,
+		"depth": -100,
+		"surfaceBlock": "sand",
+		"baseBlock": "dirt",
+		"color": [128, 128, 128]
 	},
 	{
-		"name": "Mid-Ocean Ridge",
+		"name": "Island",
+		"temperature": 1,
+		"liveliness": 1,
+		"depth": 0,
+		"minHeight": -20,
+		"maxHeight": 30,
+		"surfaceBlock": "sand",
+		"baseBlock": "dirt",
+		"color": [255, 255, 128]
+	},
+	{
+		"name": "Glacier",
 		"temperature": -1,
-		"liveliness": -1,
-		"depth": 200,
-		"minHeight": 128,
-		"maxHeight": 192,
-		"surfaceBlock": "basalt",
-		"baseBlock": "basalt",
-		"color": [128, 128, 255],
-		"ores": [
-			"peridot",
-			"iron"
-		],
-		"structures": [
-			"ridge",
-			"puzzle"
-		]
+		"liveliness": 1,
+		"depth": 0,
+		"minHeight": -20,
+		"maxHeight": 30,
+		"surfaceBlock": "sand",
+		"baseBlock": "dirt",
+		"color": [255, 255, 255]
 	},
 	{
 		"name": "Coral Reef",
@@ -47,7 +40,7 @@
 		"maxHeight": 128,
 		"surfaceBlock": "sand",
 		"baseBlock": "basalt",
-		"color": [255, 128, 128],
+		"color": [255, 128, 255],
 		"ores": [
 		
 		],
@@ -71,7 +64,59 @@
 		],
 		"structures": [
 			"kelp",
+			"flint",
+			"puzzle"
+		]
+	},
+	{
+		"name": "Basalt Cave",
+		"temperature": 1,
+		"liveliness": -1,
+		"depth": 200,
+		"surfaceBlock": "dirt",
+		"baseBlock": "basalt",
+		"color": [128, 255, 255],
+		"ores": [
+			"peridot"
+		],
+		"structures": [
+			"kelp",
+			"temple",
 			"flint"
 		]
+	},
+	{
+		"name": "Volcanic Pipe",
+		"temperature": -1,
+		"liveliness": -1,
+		"depth": 200,
+		"surfaceBlock": "basalt",
+		"baseBlock": "basalt",
+		"color": [128, 128, 255],
+		"ores": [
+			"peridot",
+			"iron"
+		],
+		"structures": [
+			"lava"
+		]
+	},
+	{
+		"name": "Abyss",
+		"temperature": -1,
+		"liveliness": 0,
+		"depth": 350,
+		"surfaceBlock": "basalt",
+		"baseBlock": "basalt",
+		"color": [128, 128, 128]
+	},
+	{
+		"name": "Core",
+		"temperature": 1,
+		"liveliness": 0,
+		"depth": 550,
+		"surfaceBlock": "basalt",
+		"baseBlock": "basalt",
+		"color": [255, 128, 128]
 	}]
 }

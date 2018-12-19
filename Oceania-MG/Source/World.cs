@@ -14,7 +14,6 @@ namespace Oceania_MG.Source
 	[DataContract]
 	class World
 	{
-		public const int HEIGHT = 256; //TODO: change this when doing vertical chunks- how open should lower chunks be? is there a limit?
 		private const int BIOME_DEPTH_SCALE = 50; //divides depth by this when doing biome calculation, to make it balance out with temp/life
 
 		public const int SEA_LEVEL = 0;
