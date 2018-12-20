@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#pragma warning disable 0649
+//Fields are assigned by JSON conversion, so we don't worry about "field is never assigned" warnings.
 namespace Oceania_MG.Source
 {
 	class Block
@@ -29,4 +31,5 @@ namespace Oceania_MG.Source
 	{
 		public Block[] blocks;
 	}
+#pragma warning restore 0649
 }

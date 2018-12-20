@@ -29,7 +29,6 @@ TODO
 - Nicer background without water texture (gray tint for background blocks, no overlay)
 - CTM
 	- can it be done with just horizontal sides, vertical sides, all sides + corners, only inside corners, completely inside? (4 corner slice, each looks at adjacent 2 blocks + that corner)
-- Fix "CS0649	Field 'Biome.name' is never assigned to, and will always have its default value null" (for all required fields deserialized from JSON)
 - Spawn rates based on liveliness
 - Biomes
 	- Surface
