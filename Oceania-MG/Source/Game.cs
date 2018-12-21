@@ -12,12 +12,11 @@ namespace Oceania_MG.Source
     {
 		private static Game instance;
 
-		private const float SCALE = 3;
-
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
 
 		private GameState state;
+		private Input input;
 
 		private SpriteFont font;
 		private Texture2D image;
@@ -36,10 +35,11 @@ namespace Oceania_MG.Source
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize()
-        {
+		{
+			base.Initialize();
+			IsMouseVisible = true;
 			state = new GameplayState();
-
-            base.Initialize();
+			input = new Input();
         }
 
         /// <summary>
@@ -62,8 +62,8 @@ namespace Oceania_MG.Source
         /// </summary>
         protected override void UnloadContent()
         {
-			spriteBatch.Dispose();
 			base.UnloadContent();
+			spriteBatch.Dispose();
         }
 
         /// <summary>
@@ -73,15 +73,16 @@ namespace Oceania_MG.Source
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-			{
-				//TODO: pass this to state, to be paused/resumed/exited appropriately
-				Exit();
-			}
-
-			state.Update(gameTime);
-
             base.Update(gameTime);
+
+			input.Update();
+
+			/*if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+			{
+				Exit();
+			}*/
+
+			state.Update(input, gameTime);
         }
 
         /// <summary>
@@ -90,14 +91,7 @@ namespace Oceania_MG.Source
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-			spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
-			spriteBatch.DrawString(font, "Hello Oceania", new Vector2(100, 100), Color.Black, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
-			spriteBatch.Draw(image, new Vector2(400, 240), null, Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
-
-			spriteBatch.End();
+			state.Draw(GraphicsDevice, spriteBatch, gameTime);
 
 			base.Draw(gameTime);
         }
@@ -105,6 +99,16 @@ namespace Oceania_MG.Source
 		public static Texture2D LoadImage(string imageURL)
 		{
 			return instance.Content.Load<Texture2D>(imageURL);
+		}
+
+		public static SpriteFont GetFont()
+		{
+			return instance.font;
+		}
+
+		public static void SetState(GameState newState)
+		{
+			instance.state = newState;
 		}
     }
 }

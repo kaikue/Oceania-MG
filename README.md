@@ -11,7 +11,10 @@ TODO
 	- Island/surface biomes
 		- Balance depth so that only island/surface is at y=0
 	- Lerp biomes
-- Input handling- pressed function which is only true on first frame
+	- Add another noise function worth of caves
+- Input
+	- cursor position- mouse or right joystick (for targeting, inventory)
+	- mouse scroll wheel up/down
 - Copy over everything from Python
 - Remove string[].Aggregate thing and replace it with StringBuilder
 - Make sure serialization works
