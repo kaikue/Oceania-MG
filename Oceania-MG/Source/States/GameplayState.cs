@@ -39,7 +39,8 @@ namespace Oceania_MG.Source.States
 
 			spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-			spriteBatch.DrawString(Game.GetFont(), "Hello Oceania", new Vector2(100, 100), Color.Black, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
+			float fps = 1.0f / (float)gameTime.ElapsedGameTime.TotalSeconds;
+			spriteBatch.DrawString(Game.GetFont(), "FPS: " + fps, new Vector2(100, 100), Color.Black, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
 			spriteBatch.DrawString(Game.GetFont(), ctrlString, new Vector2(100, 200), Color.Black, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
 			//spriteBatch.Draw(image, new Vector2(400, 240), null, Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
 

@@ -14,15 +14,15 @@ TODO
 	- Add another noise function worth of caves
 - Input
 	- cursor position- mouse or right joystick (for targeting, inventory)
-		- should snap back when not held for 
+		- should snap back when not held for targeting
+	- button selection in menus- use mouse if moving, up/down/left/right on keyboard/gamepad if mouse not moved
+	- make inventories work with gamepad
 	- In-game rebinding menu
 - Copy over everything from Python
-- Remove string[].Aggregate thing and replace it with StringBuilder
 - Make sure serialization works
 	- references (including Player)
 	- image reloading
 - Performance testing
-	- Get FPS on screen
 	- 2 layers of tiles with CTM checks
 	- try with big window and scale=1
 	- Garbage collection causing lag spikes?
