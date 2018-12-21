@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,8 @@ namespace Oceania_MG.Source
 
 		class KeyControl : ControlType
 		{
+			public const string CONTROLLER_NAME = "Keyboard";
+
 			private readonly Keys key;
 
 			public KeyControl(Keys key)
@@ -32,6 +35,8 @@ namespace Oceania_MG.Source
 
 		class GamepadControl : ControlType
 		{
+			public const string CONTROLLER_NAME = "Gamepad";
+
 			private readonly Buttons button;
 
 			public GamepadControl(Buttons button)
@@ -47,6 +52,8 @@ namespace Oceania_MG.Source
 
 		class MouseControl : ControlType
 		{
+			public const string CONTROLLER_NAME = "Mouse";
+
 			private readonly MouseButtons mouseButton;
 			private int scrollValue = 0;
 			private int prevScrollValue = 0;
@@ -109,6 +116,16 @@ namespace Oceania_MG.Source
 			Inventory,
 			Pause,
 			Select,
+			Hotbar1,
+			Hotbar2,
+			Hotbar3,
+			Hotbar4,
+			Hotbar5,
+			Hotbar6,
+			Hotbar7,
+			Hotbar8,
+			Hotbar9,
+			Hotbar0,
 		}
 
 		private Dictionary<Controls, HashSet<ControlType>> controlMappings;
@@ -128,7 +145,6 @@ namespace Oceania_MG.Source
 
 		private void SetUpControlMappings()
 		{
-			//TODO: initialize with config file???
 			controlMappings = new Dictionary<Controls, HashSet<ControlType>>();
 			
 			foreach (Controls control in Enum.GetValues(typeof(Controls)))
@@ -136,59 +152,58 @@ namespace Oceania_MG.Source
 				controlMappings[control] = new HashSet<ControlType>();
 			}
 
-			//Movement
-			AddKeyControl(Controls.Up, Keys.Up);
-			AddKeyControl(Controls.Up, Keys.W);
-			AddGamepadControl(Controls.Up, Buttons.LeftThumbstickUp);
-			AddGamepadControl(Controls.Up, Buttons.DPadUp);
-			AddKeyControl(Controls.Down, Keys.Down);
-			AddKeyControl(Controls.Down, Keys.S);
-			AddGamepadControl(Controls.Down, Buttons.LeftThumbstickDown);
-			AddGamepadControl(Controls.Down, Buttons.DPadDown);
-			AddKeyControl(Controls.Left, Keys.Left);
-			AddKeyControl(Controls.Left, Keys.A);
-			AddGamepadControl(Controls.Left, Buttons.LeftThumbstickLeft);
-			AddGamepadControl(Controls.Left, Buttons.DPadLeft);
-			AddKeyControl(Controls.Right, Keys.Right);
-			AddKeyControl(Controls.Right, Keys.D);
-			AddGamepadControl(Controls.Right, Buttons.LeftThumbstickRight);
-			AddGamepadControl(Controls.Right, Buttons.DPadRight);
+			string[] lines = File.ReadAllLines("Content/Config/controls.txt");
+			for (int i = 0; i < lines.Length; i++)
+			{
+				string line = lines[i];
+				if (line.Length == 0 || line.StartsWith("//")) continue;
+				string[] split = line.Split(':', '.');
+				if (split.Length != 3) throw new FormatException("controls.txt line " + (i + 1) + " must be of format Action:Controller.Button");
+				string actionStr = split[0].Trim(' ');
+				string controllerStr = split[1].Trim(' ');
+				string buttonStr = split[2].Trim(' ');
 
-			//Actions
-			AddMouseControl(Controls.Break, MouseButtons.LeftClick);
-			AddGamepadControl(Controls.Break, Buttons.X);
-			AddGamepadControl(Controls.Break, Buttons.RightTrigger);
-			AddMouseControl(Controls.Place, MouseButtons.RightClick);
-			AddGamepadControl(Controls.Place, Buttons.B);
-			AddKeyControl(Controls.Background, Keys.LeftShift);
-			AddKeyControl(Controls.Background, Keys.RightShift);
-			AddGamepadControl(Controls.Background, Buttons.LeftTrigger);
-			AddMouseControl(Controls.HotbarPrev, MouseButtons.ScrollUp);
-			AddGamepadControl(Controls.HotbarPrev, Buttons.LeftShoulder);
-			AddMouseControl(Controls.HotbarNext, MouseButtons.ScrollDown);
-			AddGamepadControl(Controls.HotbarNext, Buttons.RightShoulder);
-			AddKeyControl(Controls.Inventory, Keys.E);
-			AddGamepadControl(Controls.Inventory, Buttons.Y);
-			AddKeyControl(Controls.Pause, Keys.Escape);
-			AddGamepadControl(Controls.Pause, Buttons.Start);
-			AddMouseControl(Controls.Select, MouseButtons.LeftClick);
-			AddKeyControl(Controls.Select, Keys.Enter);
-			AddGamepadControl(Controls.Select, Buttons.A);
+				bool success = Enum.TryParse(actionStr, out Controls control);
+				if (!success) throw new FormatException("controls.txt line " + (i + 1) + ": Invalid action " + actionStr);
+
+				if (controllerStr == KeyControl.CONTROLLER_NAME)
+				{
+					bool success2 = Enum.TryParse(buttonStr, out Keys key);
+					if (!success2) throw new FormatException("controls.txt line " + (i + 1) + ": Invalid key " + buttonStr);
+					AddKeyControl(control, key);
+				}
+				else if (controllerStr == GamepadControl.CONTROLLER_NAME)
+				{
+					bool success2 = Enum.TryParse(buttonStr, out Buttons button);
+					if (!success2) throw new FormatException("controls.txt line " + (i + 1) + ": Invalid gamepad button " + buttonStr);
+					AddGamepadControl(control, button);
+				}
+				else if (controllerStr == MouseControl.CONTROLLER_NAME)
+				{
+					bool success2 = Enum.TryParse(buttonStr, out MouseButtons mouseButton);
+					if (!success2) throw new FormatException("controls.txt line " + (i + 1) + ": Invalid mouse button " + buttonStr);
+					AddMouseControl(control, mouseButton);
+				}
+				else
+				{
+					throw new FormatException("controls.txt line " + (i + 1) + ": Invalid controller " + controllerStr);
+				}
+			}
 		}
 
-		private void AddKeyControl(Controls action, Keys key)
+		private void AddKeyControl(Controls control, Keys key)
 		{
-			controlMappings[action].Add(new KeyControl(key));
+			controlMappings[control].Add(new KeyControl(key));
 		}
 
-		private void AddGamepadControl(Controls action, Buttons button)
+		private void AddGamepadControl(Controls control, Buttons button)
 		{
-			controlMappings[action].Add(new GamepadControl(button));
+			controlMappings[control].Add(new GamepadControl(button));
 		}
 
-		private void AddMouseControl(Controls action, MouseButtons mouseButton)
+		private void AddMouseControl(Controls control, MouseButtons mouseButton)
 		{
-			controlMappings[action].Add(new MouseControl(mouseButton));
+			controlMappings[control].Add(new MouseControl(mouseButton));
 		}
 
 		/// <summary>

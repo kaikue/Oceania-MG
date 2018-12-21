@@ -42,10 +42,10 @@ namespace Oceania_MG.Source
 			generate = new Generate(seed);
 			loadedChunks = new Dictionary<int, Dictionary<int, Chunk>>();
 
-			string biomesJSON = File.ReadAllLines("Content/Config/biomes.json").Aggregate((s1, s2) => s1 + s2);
+			string biomesJSON = File.ReadAllText("Content/Config/biomes.json");
 			biomes = JsonConvert.DeserializeObject<Biomes>(biomesJSON).biomes;
 
-			string blocksJSON = File.ReadAllLines("Content/Config/blocks.json").Aggregate((s1, s2) => s1 + s2);
+			string blocksJSON = File.ReadAllText("Content/Config/blocks.json");
 			blocks = JsonConvert.DeserializeObject<Blocks>(blocksJSON).blocks;
 			int bid = 0;
 			foreach (Block block in blocks)

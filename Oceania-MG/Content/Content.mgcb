@@ -19,6 +19,9 @@
 #begin Config/blocks.json
 /copy:Config/blocks.json
 
+#begin Config/controls.txt
+/copy:Config/controls.txt
+
 #begin Config/items.json
 /copy:Config/items.json
 
@@ -836,18 +839,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/body/black/idle.png
 
-#begin Images/player/body/black/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/black/idle.png
-
 #begin Images/player/body/black/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -859,30 +850,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/body/black/swim1.png
-
-#begin Images/player/body/black/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/black/swim1.png
-
-#begin Images/player/body/black/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/black/swim2.png
 
 #begin Images/player/body/black/swim2.png
 /importer:TextureImporter
@@ -908,18 +875,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/body/brown/idle.png
 
-#begin Images/player/body/brown/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/brown/idle.png
-
 #begin Images/player/body/brown/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -931,30 +886,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/body/brown/swim1.png
-
-#begin Images/player/body/brown/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/brown/swim1.png
-
-#begin Images/player/body/brown/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/brown/swim2.png
 
 #begin Images/player/body/brown/swim2.png
 /importer:TextureImporter
@@ -980,18 +911,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/body/peach/idle.png
 
-#begin Images/player/body/peach/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/peach/idle.png
-
 #begin Images/player/body/peach/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1003,30 +922,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/body/peach/swim1.png
-
-#begin Images/player/body/peach/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/peach/swim1.png
-
-#begin Images/player/body/peach/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/peach/swim2.png
 
 #begin Images/player/body/peach/swim2.png
 /importer:TextureImporter
@@ -1052,18 +947,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/body/purple/idle.png
 
-#begin Images/player/body/purple/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/purple/idle.png
-
 #begin Images/player/body/purple/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1075,30 +958,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/body/purple/swim1.png
-
-#begin Images/player/body/purple/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/purple/swim1.png
-
-#begin Images/player/body/purple/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/purple/swim2.png
 
 #begin Images/player/body/purple/swim2.png
 /importer:TextureImporter
@@ -1124,18 +983,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/body/tan/idle.png
 
-#begin Images/player/body/tan/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/tan/idle.png
-
 #begin Images/player/body/tan/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1147,30 +994,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/body/tan/swim1.png
-
-#begin Images/player/body/tan/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/tan/swim1.png
-
-#begin Images/player/body/tan/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/tan/swim2.png
 
 #begin Images/player/body/tan/swim2.png
 /importer:TextureImporter
@@ -1196,18 +1019,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/body/white/idle.png
 
-#begin Images/player/body/white/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/white/idle.png
-
 #begin Images/player/body/white/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1219,30 +1030,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/body/white/swim1.png
-
-#begin Images/player/body/white/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/white/swim1.png
-
-#begin Images/player/body/white/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/body/white/swim2.png
 
 #begin Images/player/body/white/swim2.png
 /importer:TextureImporter
@@ -1268,18 +1055,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/black/long/idle.png
 
-#begin Images/player/hair/black/long/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/black/long/idle.png
-
 #begin Images/player/hair/black/long/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1291,30 +1066,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/black/long/swim1.png
-
-#begin Images/player/hair/black/long/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/black/long/swim1.png
-
-#begin Images/player/hair/black/long/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/black/long/swim2.png
 
 #begin Images/player/hair/black/long/swim2.png
 /importer:TextureImporter
@@ -1340,18 +1091,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/black/medium/idle.png
 
-#begin Images/player/hair/black/medium/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/black/medium/idle.png
-
 #begin Images/player/hair/black/medium/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1363,30 +1102,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/black/medium/swim1.png
-
-#begin Images/player/hair/black/medium/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/black/medium/swim1.png
-
-#begin Images/player/hair/black/medium/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/black/medium/swim2.png
 
 #begin Images/player/hair/black/medium/swim2.png
 /importer:TextureImporter
@@ -1412,18 +1127,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/black/short/idle.png
 
-#begin Images/player/hair/black/short/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/black/short/idle.png
-
 #begin Images/player/hair/black/short/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1435,30 +1138,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/black/short/swim1.png
-
-#begin Images/player/hair/black/short/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/black/short/swim1.png
-
-#begin Images/player/hair/black/short/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/black/short/swim2.png
 
 #begin Images/player/hair/black/short/swim2.png
 /importer:TextureImporter
@@ -1484,18 +1163,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/blue/long/idle.png
 
-#begin Images/player/hair/blue/long/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/blue/long/idle.png
-
 #begin Images/player/hair/blue/long/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1507,30 +1174,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/blue/long/swim1.png
-
-#begin Images/player/hair/blue/long/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/blue/long/swim1.png
-
-#begin Images/player/hair/blue/long/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/blue/long/swim2.png
 
 #begin Images/player/hair/blue/long/swim2.png
 /importer:TextureImporter
@@ -1556,18 +1199,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/blue/medium/idle.png
 
-#begin Images/player/hair/blue/medium/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/blue/medium/idle.png
-
 #begin Images/player/hair/blue/medium/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1579,30 +1210,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/blue/medium/swim1.png
-
-#begin Images/player/hair/blue/medium/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/blue/medium/swim1.png
-
-#begin Images/player/hair/blue/medium/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/blue/medium/swim2.png
 
 #begin Images/player/hair/blue/medium/swim2.png
 /importer:TextureImporter
@@ -1628,18 +1235,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/blue/short/idle.png
 
-#begin Images/player/hair/blue/short/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/blue/short/idle.png
-
 #begin Images/player/hair/blue/short/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1651,30 +1246,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/blue/short/swim1.png
-
-#begin Images/player/hair/blue/short/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/blue/short/swim1.png
-
-#begin Images/player/hair/blue/short/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/blue/short/swim2.png
 
 #begin Images/player/hair/blue/short/swim2.png
 /importer:TextureImporter
@@ -1700,18 +1271,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/brown/long/idle.png
 
-#begin Images/player/hair/brown/long/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/brown/long/idle.png
-
 #begin Images/player/hair/brown/long/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1723,30 +1282,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/brown/long/swim1.png
-
-#begin Images/player/hair/brown/long/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/brown/long/swim1.png
-
-#begin Images/player/hair/brown/long/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/brown/long/swim2.png
 
 #begin Images/player/hair/brown/long/swim2.png
 /importer:TextureImporter
@@ -1772,18 +1307,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/brown/medium/idle.png
 
-#begin Images/player/hair/brown/medium/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/brown/medium/idle.png
-
 #begin Images/player/hair/brown/medium/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1795,30 +1318,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/brown/medium/swim1.png
-
-#begin Images/player/hair/brown/medium/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/brown/medium/swim1.png
-
-#begin Images/player/hair/brown/medium/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/brown/medium/swim2.png
 
 #begin Images/player/hair/brown/medium/swim2.png
 /importer:TextureImporter
@@ -1844,18 +1343,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/brown/short/idle.png
 
-#begin Images/player/hair/brown/short/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/brown/short/idle.png
-
 #begin Images/player/hair/brown/short/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1867,30 +1354,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/brown/short/swim1.png
-
-#begin Images/player/hair/brown/short/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/brown/short/swim1.png
-
-#begin Images/player/hair/brown/short/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/brown/short/swim2.png
 
 #begin Images/player/hair/brown/short/swim2.png
 /importer:TextureImporter
@@ -1916,18 +1379,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/gray/long/idle.png
 
-#begin Images/player/hair/gray/long/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/gray/long/idle.png
-
 #begin Images/player/hair/gray/long/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1939,30 +1390,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/gray/long/swim1.png
-
-#begin Images/player/hair/gray/long/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/gray/long/swim1.png
-
-#begin Images/player/hair/gray/long/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/gray/long/swim2.png
 
 #begin Images/player/hair/gray/long/swim2.png
 /importer:TextureImporter
@@ -1988,18 +1415,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/gray/medium/idle.png
 
-#begin Images/player/hair/gray/medium/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/gray/medium/idle.png
-
 #begin Images/player/hair/gray/medium/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2011,30 +1426,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/gray/medium/swim1.png
-
-#begin Images/player/hair/gray/medium/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/gray/medium/swim1.png
-
-#begin Images/player/hair/gray/medium/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/gray/medium/swim2.png
 
 #begin Images/player/hair/gray/medium/swim2.png
 /importer:TextureImporter
@@ -2060,18 +1451,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/gray/short/idle.png
 
-#begin Images/player/hair/gray/short/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/gray/short/idle.png
-
 #begin Images/player/hair/gray/short/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2083,30 +1462,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/gray/short/swim1.png
-
-#begin Images/player/hair/gray/short/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/gray/short/swim1.png
-
-#begin Images/player/hair/gray/short/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/gray/short/swim2.png
 
 #begin Images/player/hair/gray/short/swim2.png
 /importer:TextureImporter
@@ -2132,18 +1487,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/green/long/idle.png
 
-#begin Images/player/hair/green/long/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/green/long/idle.png
-
 #begin Images/player/hair/green/long/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2155,30 +1498,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/green/long/swim1.png
-
-#begin Images/player/hair/green/long/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/green/long/swim1.png
-
-#begin Images/player/hair/green/long/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/green/long/swim2.png
 
 #begin Images/player/hair/green/long/swim2.png
 /importer:TextureImporter
@@ -2204,18 +1523,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/green/medium/idle.png
 
-#begin Images/player/hair/green/medium/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/green/medium/idle.png
-
 #begin Images/player/hair/green/medium/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2227,30 +1534,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/green/medium/swim1.png
-
-#begin Images/player/hair/green/medium/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/green/medium/swim1.png
-
-#begin Images/player/hair/green/medium/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/green/medium/swim2.png
 
 #begin Images/player/hair/green/medium/swim2.png
 /importer:TextureImporter
@@ -2276,18 +1559,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/green/short/idle.png
 
-#begin Images/player/hair/green/short/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/green/short/idle.png
-
 #begin Images/player/hair/green/short/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2299,30 +1570,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/green/short/swim1.png
-
-#begin Images/player/hair/green/short/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/green/short/swim1.png
-
-#begin Images/player/hair/green/short/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/green/short/swim2.png
 
 #begin Images/player/hair/green/short/swim2.png
 /importer:TextureImporter
@@ -2348,18 +1595,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/none/long/idle.png
 
-#begin Images/player/hair/none/long/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/none/long/idle.png
-
 #begin Images/player/hair/none/long/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2371,30 +1606,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/none/long/swim1.png
-
-#begin Images/player/hair/none/long/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/none/long/swim1.png
-
-#begin Images/player/hair/none/long/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/none/long/swim2.png
 
 #begin Images/player/hair/none/long/swim2.png
 /importer:TextureImporter
@@ -2420,18 +1631,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/none/medium/idle.png
 
-#begin Images/player/hair/none/medium/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/none/medium/idle.png
-
 #begin Images/player/hair/none/medium/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2443,30 +1642,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/none/medium/swim1.png
-
-#begin Images/player/hair/none/medium/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/none/medium/swim1.png
-
-#begin Images/player/hair/none/medium/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/none/medium/swim2.png
 
 #begin Images/player/hair/none/medium/swim2.png
 /importer:TextureImporter
@@ -2492,18 +1667,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/none/short/idle.png
 
-#begin Images/player/hair/none/short/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/none/short/idle.png
-
 #begin Images/player/hair/none/short/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2515,30 +1678,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/none/short/swim1.png
-
-#begin Images/player/hair/none/short/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/none/short/swim1.png
-
-#begin Images/player/hair/none/short/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/none/short/swim2.png
 
 #begin Images/player/hair/none/short/swim2.png
 /importer:TextureImporter
@@ -2564,18 +1703,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/red/long/idle.png
 
-#begin Images/player/hair/red/long/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/red/long/idle.png
-
 #begin Images/player/hair/red/long/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2587,30 +1714,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/red/long/swim1.png
-
-#begin Images/player/hair/red/long/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/red/long/swim1.png
-
-#begin Images/player/hair/red/long/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/red/long/swim2.png
 
 #begin Images/player/hair/red/long/swim2.png
 /importer:TextureImporter
@@ -2636,18 +1739,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/red/medium/idle.png
 
-#begin Images/player/hair/red/medium/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/red/medium/idle.png
-
 #begin Images/player/hair/red/medium/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2659,30 +1750,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/red/medium/swim1.png
-
-#begin Images/player/hair/red/medium/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/red/medium/swim1.png
-
-#begin Images/player/hair/red/medium/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/red/medium/swim2.png
 
 #begin Images/player/hair/red/medium/swim2.png
 /importer:TextureImporter
@@ -2708,18 +1775,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/red/short/idle.png
 
-#begin Images/player/hair/red/short/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/red/short/idle.png
-
 #begin Images/player/hair/red/short/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2731,30 +1786,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/red/short/swim1.png
-
-#begin Images/player/hair/red/short/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/red/short/swim1.png
-
-#begin Images/player/hair/red/short/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/red/short/swim2.png
 
 #begin Images/player/hair/red/short/swim2.png
 /importer:TextureImporter
@@ -2780,18 +1811,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/white/long/idle.png
 
-#begin Images/player/hair/white/long/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/white/long/idle.png
-
 #begin Images/player/hair/white/long/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2803,30 +1822,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/white/long/swim1.png
-
-#begin Images/player/hair/white/long/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/white/long/swim1.png
-
-#begin Images/player/hair/white/long/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/white/long/swim2.png
 
 #begin Images/player/hair/white/long/swim2.png
 /importer:TextureImporter
@@ -2852,18 +1847,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/white/medium/idle.png
 
-#begin Images/player/hair/white/medium/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/white/medium/idle.png
-
 #begin Images/player/hair/white/medium/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2875,30 +1858,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/white/medium/swim1.png
-
-#begin Images/player/hair/white/medium/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/white/medium/swim1.png
-
-#begin Images/player/hair/white/medium/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/white/medium/swim2.png
 
 #begin Images/player/hair/white/medium/swim2.png
 /importer:TextureImporter
@@ -2924,18 +1883,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/white/short/idle.png
 
-#begin Images/player/hair/white/short/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/white/short/idle.png
-
 #begin Images/player/hair/white/short/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2947,30 +1894,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/white/short/swim1.png
-
-#begin Images/player/hair/white/short/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/white/short/swim1.png
-
-#begin Images/player/hair/white/short/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/white/short/swim2.png
 
 #begin Images/player/hair/white/short/swim2.png
 /importer:TextureImporter
@@ -2996,18 +1919,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/yellow/long/idle.png
 
-#begin Images/player/hair/yellow/long/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/yellow/long/idle.png
-
 #begin Images/player/hair/yellow/long/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3019,30 +1930,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/yellow/long/swim1.png
-
-#begin Images/player/hair/yellow/long/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/yellow/long/swim1.png
-
-#begin Images/player/hair/yellow/long/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/yellow/long/swim2.png
 
 #begin Images/player/hair/yellow/long/swim2.png
 /importer:TextureImporter
@@ -3068,18 +1955,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/yellow/medium/idle.png
 
-#begin Images/player/hair/yellow/medium/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/yellow/medium/idle.png
-
 #begin Images/player/hair/yellow/medium/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3091,30 +1966,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/yellow/medium/swim1.png
-
-#begin Images/player/hair/yellow/medium/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/yellow/medium/swim1.png
-
-#begin Images/player/hair/yellow/medium/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/yellow/medium/swim2.png
 
 #begin Images/player/hair/yellow/medium/swim2.png
 /importer:TextureImporter
@@ -3140,18 +1991,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/yellow/short/idle.png
 
-#begin Images/player/hair/yellow/short/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/yellow/short/idle.png
-
 #begin Images/player/hair/yellow/short/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3163,30 +2002,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/hair/yellow/short/swim1.png
-
-#begin Images/player/hair/yellow/short/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/yellow/short/swim1.png
-
-#begin Images/player/hair/yellow/short/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/hair/yellow/short/swim2.png
 
 #begin Images/player/hair/yellow/short/swim2.png
 /importer:TextureImporter
@@ -3212,18 +2027,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/tail/black/idle.png
 
-#begin Images/player/tail/black/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/black/idle.png
-
 #begin Images/player/tail/black/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3235,30 +2038,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/tail/black/swim1.png
-
-#begin Images/player/tail/black/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/black/swim1.png
-
-#begin Images/player/tail/black/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/black/swim2.png
 
 #begin Images/player/tail/black/swim2.png
 /importer:TextureImporter
@@ -3284,18 +2063,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/tail/blue/idle.png
 
-#begin Images/player/tail/blue/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/blue/idle.png
-
 #begin Images/player/tail/blue/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3307,30 +2074,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/tail/blue/swim1.png
-
-#begin Images/player/tail/blue/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/blue/swim1.png
-
-#begin Images/player/tail/blue/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/blue/swim2.png
 
 #begin Images/player/tail/blue/swim2.png
 /importer:TextureImporter
@@ -3356,18 +2099,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/tail/green/idle.png
 
-#begin Images/player/tail/green/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/green/idle.png
-
 #begin Images/player/tail/green/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3379,30 +2110,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/tail/green/swim1.png
-
-#begin Images/player/tail/green/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/green/swim1.png
-
-#begin Images/player/tail/green/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/green/swim2.png
 
 #begin Images/player/tail/green/swim2.png
 /importer:TextureImporter
@@ -3428,18 +2135,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/tail/orange/idle.png
 
-#begin Images/player/tail/orange/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/orange/idle.png
-
 #begin Images/player/tail/orange/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3451,30 +2146,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/tail/orange/swim1.png
-
-#begin Images/player/tail/orange/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/orange/swim1.png
-
-#begin Images/player/tail/orange/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/orange/swim2.png
 
 #begin Images/player/tail/orange/swim2.png
 /importer:TextureImporter
@@ -3500,18 +2171,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/tail/purple/idle.png
 
-#begin Images/player/tail/purple/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/purple/idle.png
-
 #begin Images/player/tail/purple/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3523,30 +2182,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/tail/purple/swim1.png
-
-#begin Images/player/tail/purple/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/purple/swim1.png
-
-#begin Images/player/tail/purple/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/purple/swim2.png
 
 #begin Images/player/tail/purple/swim2.png
 /importer:TextureImporter
@@ -3572,18 +2207,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/player/tail/red/idle.png
 
-#begin Images/player/tail/red/idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/red/idle.png
-
 #begin Images/player/tail/red/swim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3595,30 +2218,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/player/tail/red/swim1.png
-
-#begin Images/player/tail/red/swim1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/red/swim1.png
-
-#begin Images/player/tail/red/swim2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/player/tail/red/swim2.png
 
 #begin Images/player/tail/red/swim2.png
 /importer:TextureImporter

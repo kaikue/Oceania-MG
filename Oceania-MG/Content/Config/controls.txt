@@ -1,0 +1,58 @@
+//Format: Action:Controller.Button
+//Controller can be Keyboard, Mouse, Gamepad
+//Button: dependent on Controller
+//	Mouse: LeftClick, RightClick, MiddleClick, ScrollUp, ScrollDown
+//	Keyboard: see https://github.com/MonoGame/MonoGame/blob/master/MonoGame.Framework/Input/Keys.cs
+//	Gamepad: see https://github.com/MonoGame/MonoGame/blob/master/MonoGame.Framework/Input/Buttons.cs
+//Empty lines and comments (like this one) are ignored.
+
+//Movement
+Up:Keyboard.Up
+Up:Keyboard.W
+Up:Gamepad.LeftThumbstickUp
+Up:Gamepad.DPadUp
+Down:Keyboard.Down
+Down:Keyboard.S
+Down:Gamepad.LeftThumbstickDown
+Down:Gamepad.DPadDown
+Left:Keyboard.Left
+Left:Keyboard.A
+Left:Gamepad.LeftThumbstickLeft
+Left:Gamepad.DPadLeft
+Right:Keyboard.Right
+Right:Keyboard.D
+Right:Gamepad.LeftThumbstickRight
+Right:Gamepad.DPadRight
+
+//Actions
+Break:Mouse.LeftClick
+Break:Gamepad.X
+Break:Gamepad.RightTrigger
+Place:Mouse.RightClick
+Place:Gamepad.B
+Background:Keyboard.LeftShift
+Background:Keyboard.RightShift
+Background:Gamepad.LeftTrigger
+HotbarPrev:Mouse.ScrollUp
+HotbarPrev:Gamepad.LeftShoulder
+HotbarNext:Mouse.ScrollDown
+HotbarNext:Gamepad.RightShoulder
+Inventory:Keyboard.E
+Inventory:Gamepad.Y
+Pause:Keyboard.Escape
+Pause:Gamepad.Start
+Select:Mouse.LeftClick
+Select:Keyboard.Enter
+Select:Gamepad.A
+
+//Hotbar (keyboard only)
+Hotbar1:Keyboard.D1
+Hotbar2:Keyboard.D2
+Hotbar3:Keyboard.D3
+Hotbar4:Keyboard.D4
+Hotbar5:Keyboard.D5
+Hotbar6:Keyboard.D6
+Hotbar7:Keyboard.D7
+Hotbar8:Keyboard.D8
+Hotbar9:Keyboard.D9
+Hotbar0:Keyboard.D0
