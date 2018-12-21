@@ -17,7 +17,7 @@ namespace Oceania_MG.Source
 
 		class KeyControl : ControlType
 		{
-			private Keys key;
+			private readonly Keys key;
 
 			public KeyControl(Keys key)
 			{
@@ -32,7 +32,7 @@ namespace Oceania_MG.Source
 
 		class GamepadControl : ControlType
 		{
-			private Buttons button;
+			private readonly Buttons button;
 
 			public GamepadControl(Buttons button)
 			{
@@ -47,21 +47,52 @@ namespace Oceania_MG.Source
 
 		class MouseControl : ControlType
 		{
-			//TODO: middle click
-			//TODO: inventory scroll up/down
-			private bool leftButton;
+			private readonly MouseButtons mouseButton;
+			private int scrollValue = 0;
+			private int prevScrollValue = 0;
 
-			public MouseControl(bool leftButton)
+			public MouseControl(MouseButtons mouseButton)
 			{
-				this.leftButton = leftButton;
+				this.mouseButton = mouseButton;
+			}
+
+			private ButtonState GetButtonState()
+			{
+				MouseState mouseState = Mouse.GetState();
+				switch (mouseButton)
+				{
+					case MouseButtons.LeftClick:
+						return mouseState.LeftButton;
+					case MouseButtons.RightClick:
+						return mouseState.RightButton;
+					case MouseButtons.MiddleClick:
+						return mouseState.MiddleButton;
+					case MouseButtons.ScrollUp:
+						return scrollValue > prevScrollValue ? ButtonState.Pressed : ButtonState.Released; //TODO handle integer overflow?
+					case MouseButtons.ScrollDown:
+						return scrollValue < prevScrollValue ? ButtonState.Pressed : ButtonState.Released; //TODO handle integer underflow?
+					default:
+						return ButtonState.Released;
+				}
 			}
 
 			public override bool IsPressed()
 			{
-				MouseState mouseState = Mouse.GetState();
-				ButtonState buttonState = leftButton ? mouseState.LeftButton : mouseState.RightButton;
-				return buttonState == ButtonState.Pressed;
+				//This should be called once per frame, so we can update scroll value here
+				prevScrollValue = scrollValue;
+				scrollValue = Mouse.GetState().ScrollWheelValue;
+
+				return GetButtonState() == ButtonState.Pressed;
 			}
+		}
+
+		enum MouseButtons
+		{
+			LeftClick,
+			RightClick,
+			MiddleClick,
+			ScrollUp,
+			ScrollDown,
 		}
 
 		public enum Controls
@@ -124,23 +155,23 @@ namespace Oceania_MG.Source
 			AddGamepadControl(Controls.Right, Buttons.DPadRight);
 
 			//Actions
-			AddMouseControl(Controls.Break, true);
+			AddMouseControl(Controls.Break, MouseButtons.LeftClick);
 			AddGamepadControl(Controls.Break, Buttons.X);
-			AddMouseControl(Controls.Place, false);
+			AddGamepadControl(Controls.Break, Buttons.RightTrigger);
+			AddMouseControl(Controls.Place, MouseButtons.RightClick);
 			AddGamepadControl(Controls.Place, Buttons.B);
 			AddKeyControl(Controls.Background, Keys.LeftShift);
 			AddKeyControl(Controls.Background, Keys.RightShift);
 			AddGamepadControl(Controls.Background, Buttons.LeftTrigger);
-			AddGamepadControl(Controls.Background, Buttons.RightTrigger);
-			//TODO: HotbarPrev = mouse scroll down
+			AddMouseControl(Controls.HotbarPrev, MouseButtons.ScrollUp);
 			AddGamepadControl(Controls.HotbarPrev, Buttons.LeftShoulder);
-			//TODO: HotbarNext = mouse scroll up
+			AddMouseControl(Controls.HotbarNext, MouseButtons.ScrollDown);
 			AddGamepadControl(Controls.HotbarNext, Buttons.RightShoulder);
 			AddKeyControl(Controls.Inventory, Keys.E);
 			AddGamepadControl(Controls.Inventory, Buttons.Y);
 			AddKeyControl(Controls.Pause, Keys.Escape);
 			AddGamepadControl(Controls.Pause, Buttons.Start);
-			AddMouseControl(Controls.Select, true);
+			AddMouseControl(Controls.Select, MouseButtons.LeftClick);
 			AddKeyControl(Controls.Select, Keys.Enter);
 			AddGamepadControl(Controls.Select, Buttons.A);
 		}
@@ -155,9 +186,9 @@ namespace Oceania_MG.Source
 			controlMappings[action].Add(new GamepadControl(button));
 		}
 
-		private void AddMouseControl(Controls action, bool leftButton)
+		private void AddMouseControl(Controls action, MouseButtons mouseButton)
 		{
-			controlMappings[action].Add(new MouseControl(leftButton));
+			controlMappings[action].Add(new MouseControl(mouseButton));
 		}
 
 		/// <summary>
@@ -186,7 +217,6 @@ namespace Oceania_MG.Source
 					}
 					else //was not pressed last frame, so switch
 					{
-						Console.WriteLine("Pressed key " + control);
 						heldControls.Add(control);
 						pressedControls.Add(control);
 						releasedControls.Remove(control); //in case it was released and pressed in 1 frame
@@ -196,7 +226,6 @@ namespace Oceania_MG.Source
 				{
 					if (heldControls.Contains(control)) //was pressed last frame, so switch
 					{
-						Console.WriteLine("Released key " + control);
 						heldControls.Remove(control);
 						pressedControls.Remove(control); //in case it was pressed and released in 1 frame
 						releasedControls.Add(control);

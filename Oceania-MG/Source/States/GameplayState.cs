@@ -23,13 +23,13 @@ namespace Oceania_MG.Source.States
 
 		public override void Update(Input input, GameTime gameTime)
 		{
-			if (input.ControlHeld(Input.Controls.Left))
+			if (input.ControlHeld(Input.Controls.HotbarPrev))
 			{
-				ctrlString = "Left";
+				ctrlString = "HotbarPrev";
 			}
 			else
 			{
-				ctrlString = "Not Left";
+				ctrlString = "Not HotbarPrev";
 			}
 		}
 

@@ -14,7 +14,7 @@ TODO
 	- Add another noise function worth of caves
 - Input
 	- cursor position- mouse or right joystick (for targeting, inventory)
-	- mouse scroll wheel up/down
+		- should snap back when not held for 
 - Copy over everything from Python
 - Remove string[].Aggregate thing and replace it with StringBuilder
 - Make sure serialization works
