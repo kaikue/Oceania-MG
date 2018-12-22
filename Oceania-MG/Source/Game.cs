@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Oceania_MG.Source.States;
+using System;
 
 namespace Oceania_MG.Source
 {
@@ -12,6 +13,8 @@ namespace Oceania_MG.Source
     {
 		private static Game instance;
 
+		public const int BLOCK_SIZE = 16;
+
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
 
@@ -19,7 +22,6 @@ namespace Oceania_MG.Source
 		private Input input;
 
 		private SpriteFont font;
-		private Texture2D image;
         
         public Game()
         {
@@ -38,7 +40,6 @@ namespace Oceania_MG.Source
 		{
 			base.Initialize();
 			IsMouseVisible = true;
-			state = new GameplayState();
 			input = new Input();
         }
 
@@ -51,7 +52,8 @@ namespace Oceania_MG.Source
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			image = Content.Load<Texture2D>("Images/player/body/peach/idle");
+			state = new GameplayState();
+
 			font = Content.Load<SpriteFont>("Font/CodersCrux");
 			// TODO: use this.Content to load your game content here
 		}
@@ -76,12 +78,7 @@ namespace Oceania_MG.Source
             base.Update(gameTime);
 
 			input.Update();
-
-			/*if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-			{
-				Exit();
-			}*/
-
+			
 			state.Update(input, gameTime);
         }
 
@@ -98,6 +95,10 @@ namespace Oceania_MG.Source
 
 		public static Texture2D LoadImage(string imageURL)
 		{
+			if (string.IsNullOrEmpty(imageURL))
+			{
+				return new Texture2D(instance.GraphicsDevice, BLOCK_SIZE, BLOCK_SIZE);
+			}
 			return instance.Content.Load<Texture2D>(imageURL);
 		}
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,7 @@ namespace Oceania_MG.Source
 		public int harvestLevel = 0;
 		public int breakTime = 100;
 		public int id;
+		public Texture2D texture;
 	}
 
 	struct Blocks

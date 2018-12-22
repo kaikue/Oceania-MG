@@ -128,13 +128,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
-    <None Include="Config\biomes.json" />
-    <None Include="Config\blocks.json" />
-    <None Include="Config\items.json" />
-    <None Include="Config\structures.json" />
+    <None Include="Content\Config\biomes.json" />
+    <None Include="Content\Config\blocks.json" />
+    <None Include="Content\Config\items.json" />
+    <None Include="Content\Config\structures.json" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Content\Config\controls.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

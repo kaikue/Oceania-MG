@@ -31,7 +31,7 @@ namespace Oceania_MG.Source
 
 		private Biome[] biomes;
 
-		private Block[] blocks;
+		private Dictionary<string, Block> blocks;
 
 		private Dictionary<int, Dictionary<int, Chunk>> loadedChunks;
 
@@ -45,13 +45,18 @@ namespace Oceania_MG.Source
 			string biomesJSON = File.ReadAllText("Content/Config/biomes.json");
 			biomes = JsonConvert.DeserializeObject<Biomes>(biomesJSON).biomes;
 
+			blocks = new Dictionary<string, Block>();
 			string blocksJSON = File.ReadAllText("Content/Config/blocks.json");
-			blocks = JsonConvert.DeserializeObject<Blocks>(blocksJSON).blocks;
+			Block[] blocksList = JsonConvert.DeserializeObject<Blocks>(blocksJSON).blocks;
 			int bid = 0;
-			foreach (Block block in blocks)
+			foreach (Block block in blocksList)
 			{
 				block.id = bid;
 				bid++;
+
+				block.texture = Game.LoadImage(block.image); //TODO- move this elsewhere?
+
+				blocks[block.name] = block;
 			}
 		}
 
@@ -111,7 +116,7 @@ namespace Oceania_MG.Source
 
 		public Block GetBlock(string blockName)
 		{
-			return null; //TODO
+			return blocks[blockName];
 		}
 	}
 }
