@@ -85,38 +85,39 @@
 			"flint"
 		]
 	},
-	{
-		"name": "Volcanic Pipe",
-		"temperature": -1,
-		"liveliness": -1,
-		"depth": 200,
-		"surfaceBlock": "basalt",
-		"baseBlock": "basalt",
-		"color": [128, 128, 255],
-		"ores": [
-			"peridot",
-			"iron"
-		],
-		"structures": [
-			"lava"
-		]
-	},
-	{
-		"name": "Abyss",
-		"temperature": -1,
-		"liveliness": 0,
-		"depth": 350,
-		"surfaceBlock": "basalt",
-		"baseBlock": "basalt",
-		"color": [128, 128, 128]
-	},
-	{
-		"name": "Core",
-		"temperature": 1,
-		"liveliness": 0,
-		"depth": 550,
-		"surfaceBlock": "basalt",
-		"baseBlock": "basalt",
-		"color": [255, 128, 128]
-	}]
+    {
+      "name": "Volcanic Pipe",
+      "temperature": -1,
+      "liveliness": -1,
+      "depth": 200,
+      "surfaceBlock": "basalt",
+      "baseBlock": "basalt",
+      "color": [ 128, 128, 255 ],
+      "ores": [
+        "peridot",
+        "iron"
+      ],
+      "structures": [
+        "lava"
+      ]
+    },
+    {
+      "name": "Abyss",
+      "temperature": -1,
+      "liveliness": 0,
+      "depth": 350,
+      "surfaceBlock": "basalt",
+      "baseBlock": "basalt",
+      "color": [ 128, 128, 128 ]
+    },
+    {
+      "name": "Core",
+      "temperature": 1,
+      "liveliness": 0,
+      "depth": 550,
+      "surfaceBlock": "basalt",
+      "baseBlock": "basalt",
+      "color": [ 255, 128, 128 ]
+    }
+	]
 }

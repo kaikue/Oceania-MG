@@ -10,11 +10,11 @@ namespace Oceania_MG.Source.States
 {
 	class GameplayState : GameState
 	{
-		private const float SCALE = 3;
+		public const int BLOCK_SIZE = 16;
+		public const float SCALE = 2; //TODO: make this variable
+		public const int SCALED_BLOCK_SIZE = (int)(BLOCK_SIZE * SCALE);
 
 		private World world;
-
-		private string ctrlString = "";
 
 		public GameplayState()
 		{
@@ -23,14 +23,7 @@ namespace Oceania_MG.Source.States
 
 		public override void Update(Input input, GameTime gameTime)
 		{
-			if (input.ControlHeld(Input.Controls.HotbarPrev))
-			{
-				ctrlString = "HotbarPrev";
-			}
-			else
-			{
-				ctrlString = "Not HotbarPrev";
-			}
+			//TODO: world.Update();
 		}
 
 		public override void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
@@ -39,18 +32,10 @@ namespace Oceania_MG.Source.States
 
 			spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-			Texture2D texture = world.GetBlock("basaltBricks").texture;
-			for (int x = 0; x < 25; x++)
-			{
-				for (int y = 0; y < 20; y++)
-				{
-					spriteBatch.Draw(texture, new Vector2(x * Game.BLOCK_SIZE * SCALE, y * Game.BLOCK_SIZE * SCALE), null, Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
-				}
-			}
+			world.Draw(graphicsDevice, spriteBatch, gameTime);
 
 			float fps = 1.0f / (float)gameTime.ElapsedGameTime.TotalSeconds;
 			spriteBatch.DrawString(Game.GetFont(), "FPS: " + fps, new Vector2(100, 100), Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
-			//spriteBatch.DrawString(Game.GetFont(), ctrlString, new Vector2(100, 200), Color.Black, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
 
 			spriteBatch.End();
 		}

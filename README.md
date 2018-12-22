@@ -12,6 +12,7 @@ TODO
 		- Balance depth so that only island/surface is at y=0
 	- Lerp biomes
 	- Add another noise function worth of caves
+	- Sky biome with clouds
 - Input
 	- cursor position- mouse or right joystick (for targeting, inventory)
 		- should snap back when not held for targeting
@@ -27,9 +28,9 @@ TODO
 	- try with big window and scale=1
 	- Garbage collection causing lag spikes?
 		- pause GC and only collect when pausing?
+	- generate/load/save chunks in background thread
 - Everything from old README
 - Use Monogame color tint to highlight targeted block (is it possible to lighten this way? seems to use multiply filter...)
-- Vertical chunks
 - Nicer background without water texture (gray tint for background blocks, no overlay)
 - CTM
 	- can it be done with just horizontal sides, vertical sides, all sides + corners, only inside corners, completely inside? (4 corner slice, each looks at adjacent 2 blocks + that corner)
@@ -63,3 +64,5 @@ TODO
 - Phosphorus for heat generation?
 - Mod support
 	- Load blocks, biomes, entities, etc. from Mods folder
+- Enemies
+	- Birds (from Animals RPG Sprites)

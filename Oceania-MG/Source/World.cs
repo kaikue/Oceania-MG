@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using Oceania_MG.Source.Entities;
+using Oceania_MG.Source.States;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,21 +33,23 @@ namespace Oceania_MG.Source
 
 		private Biome[] biomes;
 
-		private Dictionary<string, Block> blocks;
+		private Dictionary<int, Block> blocks;
+		private Dictionary<string, int> blockIDs;
 
-		private Dictionary<int, Dictionary<int, Chunk>> loadedChunks;
+		private HashSet<Chunk> loadedChunks;
 
 		public World(string name, int seed)
 		{
 			dir = "dat/" + name;
 			this.seed = seed;
 			generate = new Generate(seed);
-			loadedChunks = new Dictionary<int, Dictionary<int, Chunk>>();
+			loadedChunks = new HashSet<Chunk>();
 
 			string biomesJSON = File.ReadAllText("Content/Config/biomes.json");
 			biomes = JsonConvert.DeserializeObject<Biomes>(biomesJSON).biomes;
 
-			blocks = new Dictionary<string, Block>();
+			blocks = new Dictionary<int, Block>();
+			blockIDs = new Dictionary<string, int>();
 			string blocksJSON = File.ReadAllText("Content/Config/blocks.json");
 			Block[] blocksList = JsonConvert.DeserializeObject<Blocks>(blocksJSON).blocks;
 			int bid = 0;
@@ -56,8 +60,11 @@ namespace Oceania_MG.Source
 
 				block.texture = Game.LoadImage(block.image); //TODO- move this elsewhere?
 
-				blocks[block.name] = block;
+				blocks[block.id] = block;
+				blockIDs[block.name] = block.id;
 			}
+
+			GenerateNew(new Player.PlayerOptions());
 		}
 
 		public void Load()
@@ -69,7 +76,7 @@ namespace Oceania_MG.Source
 		public void GenerateNew(Player.PlayerOptions playerOptions)
 		{
 			Directory.CreateDirectory(dir);
-			Player player = new Player(new Vector2(0, 140), playerOptions);
+			player = new Player(new Vector2(0, 140), playerOptions);
 			GenerateChunk(0, 0);
 		}
 
@@ -82,12 +89,11 @@ namespace Oceania_MG.Source
 		{
 			Chunk chunk = new Chunk(x, y, this);
 			chunk.Generate();
-			loadedChunks[x][y] = chunk;
+			loadedChunks.Add(chunk);
 		}
 
 		public Biome BiomeAt(int x, int y)
 		{
-			//TODO
 			Tuple<float, float> properties = generate.Biome(x, y);
 			return GetBiome(properties.Item1, properties.Item2, y);
 		}
@@ -116,7 +122,21 @@ namespace Oceania_MG.Source
 
 		public Block GetBlock(string blockName)
 		{
-			return blocks[blockName];
+			return GetBlock(blockIDs[blockName]);
+		}
+
+		public Block GetBlock(int blockID)
+		{
+			return blocks[blockID];
+		}
+
+		public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
+		{
+			foreach (Chunk chunk in loadedChunks)
+			{
+				chunk.Draw(graphicsDevice, spriteBatch, gameTime);
+			}
+			player.Draw(graphicsDevice, spriteBatch, gameTime);
 		}
 	}
 }

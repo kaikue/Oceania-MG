@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Oceania_MG.Source.States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Oceania_MG.Source.Entities
 		[DataMember]
 		protected string imageURL;
 
-		protected Texture2D image;
+		protected Texture2D texture;
 
 		[DataMember]
 		protected Vector2 position;
@@ -44,7 +45,20 @@ namespace Oceania_MG.Source.Entities
 
 		private void LoadImage()
 		{
-			image = Game.LoadImage(imageURL);
+			texture = Game.LoadImage(imageURL);
+		}
+
+		public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
+		{
+			if (texture == null) return;
+
+			Vector2 viewportPos = ConvertUtils.WorldToViewport(position.X, position.Y);
+			spriteBatch.Draw(texture, viewportPos, null, GetColor(), 0, Vector2.Zero, GameplayState.SCALE, SpriteEffects.None, 0);
+		}
+
+		public virtual Color GetColor()
+		{
+			return Color.White;
 		}
 	}
 }

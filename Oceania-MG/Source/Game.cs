@@ -13,8 +13,6 @@ namespace Oceania_MG.Source
     {
 		private static Game instance;
 
-		public const int BLOCK_SIZE = 16;
-
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
 
@@ -28,7 +26,11 @@ namespace Oceania_MG.Source
 			instance = this;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-        }
+
+			graphics.PreferredBackBufferWidth = 800;
+			graphics.PreferredBackBufferHeight = 600;
+			graphics.ApplyChanges();
+		}
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -97,7 +99,7 @@ namespace Oceania_MG.Source
 		{
 			if (string.IsNullOrEmpty(imageURL))
 			{
-				return new Texture2D(instance.GraphicsDevice, BLOCK_SIZE, BLOCK_SIZE);
+				return new Texture2D(instance.GraphicsDevice, GameplayState.BLOCK_SIZE, GameplayState.BLOCK_SIZE);
 			}
 			return instance.Content.Load<Texture2D>(imageURL);
 		}
@@ -111,5 +113,15 @@ namespace Oceania_MG.Source
 		{
 			instance.state = newState;
 		}
-    }
+
+		public static int GetWidth()
+		{
+			return instance.graphics.PreferredBackBufferWidth;
+		}
+
+		public static int GetHeight()
+		{
+			return instance.graphics.PreferredBackBufferHeight;
+		}
+	}
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Oceania_MG.Source.Entities;
+using Oceania_MG.Source.States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -114,6 +116,45 @@ namespace Oceania_MG.Source
 		{
 			int[][] blocks = background ? blocksBackground : blocksForeground;
 			blocks[y][x] = block.id;
+		}
+
+		private int GetBlockIDAt(int x, int y, bool background)
+		{
+			int[][] blocks = background ? blocksBackground : blocksForeground;
+			return blocks[y][x];
+		}
+
+		private Block GetBlockAt(int x, int y, bool background)
+		{
+			return world.GetBlock(GetBlockIDAt(x, y, background));
+		}
+
+		public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
+		{
+			//render blocks (background then foreground)
+			for (int x = 0; x < WIDTH; x++)
+			{
+				for (int y = 0; y < HEIGHT; y++)
+				{
+					//TODO: occlusion check
+					Vector2 viewportPos = ConvertUtils.ChunkToViewport(x, y, this.x, this.y);
+
+					bool[] layers = { true, false };
+					foreach (bool layer in layers)
+					{
+						Block block = GetBlockAt(x, y, layer);
+						Texture2D texture = block.texture;
+						Color color = Color.White; //TODO: blue tint for background
+						spriteBatch.Draw(texture, viewportPos, null, color, 0, Vector2.Zero, GameplayState.SCALE, SpriteEffects.None, 0);
+					}
+				}
+			}
+
+			//render entities
+			foreach (Entity entity in entities)
+			{
+				entity.Draw(graphicsDevice, spriteBatch, gameTime);
+			}
 		}
 	}
 }

@@ -16,9 +16,9 @@ namespace Oceania_MG.Source.Entities
 
 		[DataMember]
 		protected int maxHealth;
-		
+
 		[DataMember]
-		protected float hurtTime = -1; //TODO: old "hurt" == hurtTime > 0
+		protected float hurtTime = 0; //TODO: old "hurt" == hurtTime > 0
 
 		[DataMember]
 		protected Vector2 knockback = new Vector2(0, 0);
@@ -30,6 +30,17 @@ namespace Oceania_MG.Source.Entities
 		{
 			health = maxHealth;
 			this.maxHealth = maxHealth;
+		}
+
+		private bool IsHurt()
+		{
+			return hurtTime > 0;
+		}
+
+		public override Color GetColor()
+		{
+			if (IsHurt()) return Color.Red;
+			return base.GetColor();
 		}
 	}
 }
