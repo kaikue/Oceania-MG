@@ -1,6 +1,13 @@
 {
   "blocks": [
     {
+      "name": "unknown",
+      "displayName": "Missingno",
+      "solid": true,
+      "image": "Images/blocks/water",
+      "breakable": false
+    },
+    {
       "name": "air",
       "displayName": "Air",
       "solid": true,
@@ -18,13 +25,13 @@
       "name": "dirt",
       "displayName": "Dirt",
       "image": "Images/blocks/dirt/dirt",
-      "connectedTexture": "solid"
+      "connectedTexture": "Solid"
     },
     {
       "name": "sand",
       "displayName": "Sand",
       "image": "Images/blocks/dirt/dirt",
-      "connectedTexture": "solid"
+      "connectedTexture": "Solid"
     },
     {
       "name": "basalt",
@@ -33,7 +40,7 @@
       "harvestLevel": 1,
       "breakTime": 200,
       "description": [ "A common type of stone." ],
-      "connectedTexture": "solid"
+      "connectedTexture": "Solid"
     },
     {
       "name": "kelp",
@@ -125,7 +132,7 @@
       "name": "pipe",
       "displayName": "Pipe",
       "image": "Images/blocks/pipes/pipes",
-      "connectedTexture": "sametype",
+      "connectedTexture": "SameType",
       "solid": false,
       "entity": "EntityPipe",
       "breakTime": 30

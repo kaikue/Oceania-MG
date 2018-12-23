@@ -58,10 +58,10 @@ namespace Oceania_MG.Source
 				block.id = bid;
 				bid++;
 
-				block.texture = Game.LoadImage(block.image); //TODO- move this elsewhere?
-
 				blocks[block.id] = block;
 				blockIDs[block.name] = block.id;
+
+				block.LoadImage();
 			}
 
 			GenerateNew(new Player.PlayerOptions());
@@ -78,6 +78,9 @@ namespace Oceania_MG.Source
 			Directory.CreateDirectory(dir);
 			player = new Player(new Vector2(0, 140), playerOptions);
 			GenerateChunk(0, 0);
+			GenerateChunk(0, 1);
+			GenerateChunk(1, 0);
+			GenerateChunk(1, 1);
 		}
 
 		private void LoadState(string path)
@@ -90,6 +93,23 @@ namespace Oceania_MG.Source
 			Chunk chunk = new Chunk(x, y, this);
 			chunk.Generate();
 			loadedChunks.Add(chunk);
+		}
+
+		/// <summary>
+		/// Returns the block at a position in world coordinates.
+		/// If the position is currently in an unloaded chunk, returns the "unknown" block.
+		/// </summary>
+		public Block BlockAt(int x, int y, bool background)
+		{
+			Tuple<Vector2, Vector2> chunkInfo = ConvertUtils.WorldToChunk(x, y);
+			Vector2 chunkPos = chunkInfo.Item1;
+			int chunkX = (int)chunkPos.X;
+			int chunkY = (int)chunkPos.Y;
+			Vector2 subPos = chunkInfo.Item2;
+			Chunk chunk = loadedChunks.FirstOrDefault(c => c.x == chunkX && c.y == chunkY);
+
+			if (chunk == null) return GetBlock("unknown");
+			return chunk.GetBlockAt((int)subPos.X, (int)subPos.Y, background);
 		}
 
 		public Biome BiomeAt(int x, int y)

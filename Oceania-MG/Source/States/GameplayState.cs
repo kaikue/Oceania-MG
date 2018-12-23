@@ -11,7 +11,7 @@ namespace Oceania_MG.Source.States
 	class GameplayState : GameState
 	{
 		public const int BLOCK_SIZE = 16;
-		public const float SCALE = 2; //TODO: make this variable
+		public const float SCALE = 1; //TODO: make this a variable option
 		public const int SCALED_BLOCK_SIZE = (int)(BLOCK_SIZE * SCALE);
 
 		private World world;

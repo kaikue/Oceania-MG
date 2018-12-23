@@ -29,5 +29,17 @@ namespace Oceania_MG.Source
 			Vector2 worldPos = ChunkToWorld(xInChunk, yInChunk, chunkX, chunkY);
 			return WorldToViewport(worldPos.X, worldPos.Y);
 		}
+
+		/// <summary>
+		/// Returns (chunk, position within chunk)
+		/// </summary>
+		/// <param name="x">x in world coordinates</param>
+		/// <param name="y">x in world coordinates</param>
+		public static Tuple<Vector2, Vector2> WorldToChunk(float x, float y)
+		{
+			Vector2 chunk = new Vector2((float)Math.Floor(x / Chunk.WIDTH), (float)Math.Floor(y / Chunk.HEIGHT));
+			Vector2 subPos = new Vector2(x - chunk.X * Chunk.WIDTH, y - chunk.Y * Chunk.HEIGHT);
+			return new Tuple<Vector2, Vector2>(chunk, subPos);
+		}
 	}
 }

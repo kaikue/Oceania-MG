@@ -19,12 +19,26 @@ TODO
 	- button selection in menus- use mouse if moving, up/down/left/right on keyboard/gamepad if mouse not moved
 	- make inventories work with gamepad
 	- In-game rebinding menu
+- Rendering
+	- CTM across multiple chunks
+	- Viewport
+	- Block backgrounds
+	- Color tint- background, foreground, targeted by player
+	- Randomized textures
 - Copy over everything from Python
+	- World generating/saving/loading chunks
+	- Player
+		- Fixed, square (or circular???) bounding box
+		- Nice movement that slides you into 1 block gaps
+	- Menus
+		- Options- gameplay, block scale
+	- Entities
+	- Inventory
+	- Sound
 - Make sure serialization works
 	- references (including Player)
 	- image reloading
 - Performance testing
-	- 2 layers of tiles with CTM checks
 	- try with big window and scale=1
 	- Garbage collection causing lag spikes?
 		- pause GC and only collect when pausing?
@@ -32,8 +46,7 @@ TODO
 - Everything from old README
 - Use Monogame color tint to highlight targeted block (is it possible to lighten this way? seems to use multiply filter...)
 - Nicer background without water texture (gray tint for background blocks, no overlay)
-- CTM
-	- can it be done with just horizontal sides, vertical sides, all sides + corners, only inside corners, completely inside? (4 corner slice, each looks at adjacent 2 blocks + that corner)
+- Special pipe rendering connected textures
 - Spawn rates based on liveliness
 - Biomes
 	- Surface

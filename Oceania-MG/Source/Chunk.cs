@@ -18,10 +18,10 @@ namespace Oceania_MG.Source
 		public const int HEIGHT = 16;
 
 		[DataMember]
-		private int x;
+		public int x;
 
 		[DataMember]
-		private int y;
+		public int y;
 
 		[DataMember]
 		private int[][] blocksForeground;
@@ -68,7 +68,7 @@ namespace Oceania_MG.Source
 					int worldX = (int)worldPos.X;
 					int worldY = (int)worldPos.Y;
 					Biome biome = world.BiomeAt(worldX, worldY);
-					Tuple<float, float> noise = world.generate.Terrain(x, y, biome.minHeight, biome.maxHeight);
+					Tuple<float, float> noise = world.generate.Terrain(worldX, worldY, biome.minHeight, biome.maxHeight);
 					SetBlockFromNoise(x, y, noise.Item2, false, biome);
 					SetBlockFromNoise(x, y, noise.Item1, true, biome);
 				}
@@ -124,7 +124,7 @@ namespace Oceania_MG.Source
 			return blocks[y][x];
 		}
 
-		private Block GetBlockAt(int x, int y, bool background)
+		public Block GetBlockAt(int x, int y, bool background)
 		{
 			return world.GetBlock(GetBlockIDAt(x, y, background));
 		}
@@ -136,16 +136,14 @@ namespace Oceania_MG.Source
 			{
 				for (int y = 0; y < HEIGHT; y++)
 				{
-					//TODO: occlusion check
+					//TODO: occlusion check? would need to make sure there were no transparent pixels
 					Vector2 viewportPos = ConvertUtils.ChunkToViewport(x, y, this.x, this.y);
 
 					bool[] layers = { true, false };
-					foreach (bool layer in layers)
+					foreach (bool background in layers)
 					{
-						Block block = GetBlockAt(x, y, layer);
-						Texture2D texture = block.texture;
-						Color color = Color.White; //TODO: blue tint for background
-						spriteBatch.Draw(texture, viewportPos, null, color, 0, Vector2.Zero, GameplayState.SCALE, SpriteEffects.None, 0);
+						Block block = GetBlockAt(x, y, background);
+						block.Draw(viewportPos, graphicsDevice, spriteBatch, gameTime, background, x, y, world);
 					}
 				}
 			}
