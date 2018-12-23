@@ -20,6 +20,7 @@ TODO
 	- make inventories work with gamepad
 	- In-game rebinding menu
 - Rendering
+	- Don't render block if it's offscreen (block pos + scaled block height < 0 || block top > viewport height || ...)
 	- CTM across multiple chunks
 	- Viewport
 	- Block backgrounds
