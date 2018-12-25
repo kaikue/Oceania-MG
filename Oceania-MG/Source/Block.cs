@@ -137,6 +137,12 @@ namespace Oceania_MG.Source
 
 		public void Draw(Vector2 pos, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime, bool background, int worldX, int worldY, World world)
 		{
+			if (pos.X + GameplayState.SCALED_BLOCK_SIZE <= 0 || pos.X > Game.GetWidth() || pos.Y + GameplayState.SCALED_BLOCK_SIZE <= 0 || pos.Y > Game.GetHeight())
+			{
+				//block would be fully offscreen- don't render it
+				return;
+			}
+
 			if (connectedTexture != ConnectedTexture.None)
 			{
 				DrawConnectedTexture(connectedFunc, pos, graphicsDevice, spriteBatch, gameTime, background, worldX, worldY, world);
