@@ -34,7 +34,7 @@ namespace Oceania_MG.Source
 		/// Returns (chunk, position within chunk)
 		/// </summary>
 		/// <param name="x">x in world coordinates</param>
-		/// <param name="y">x in world coordinates</param>
+		/// <param name="y">y in world coordinates</param>
 		public static Tuple<Vector2, Vector2> WorldToChunk(float x, float y)
 		{
 			Vector2 chunk = new Vector2((float)Math.Floor(x / Chunk.WIDTH), (float)Math.Floor(y / Chunk.HEIGHT));

@@ -143,7 +143,8 @@ namespace Oceania_MG.Source
 			}
 			else
 			{
-				DrawTexture(texture, pos, graphicsDevice, spriteBatch, gameTime, background, null);
+				Color color = world.GetLight(worldX, worldY);
+				DrawTexture(texture, pos, graphicsDevice, spriteBatch, gameTime, color, background, null);
 			}
 		}
 
@@ -187,16 +188,17 @@ namespace Oceania_MG.Source
 				bool a2 = connectFunc(world.BlockAt(worldX + xOffset2, worldY + yOffset2, background));
 				bool a3 = connectFunc(world.BlockAt(worldX + xOffset3, worldY + yOffset3, background));
 
+				Color color = world.GetLight(worldX, worldY);
+
 				int i = GetAdjacent(a1, a2, a3);
 				Rectangle cornerRect = cornerRects[c][i];
 				Vector2 subPos = pos + GetCornerOffset(c) * GameplayState.SCALE;
-				DrawTexture(texture, subPos, graphicsDevice, spriteBatch, gameTime, background, cornerRect);
+				DrawTexture(texture, subPos, graphicsDevice, spriteBatch, gameTime, color, background, cornerRect);
 			}
 		}
 
-		private void DrawTexture(Texture2D texture, Vector2 pos, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime, bool background, Rectangle? sourceRect)
+		private void DrawTexture(Texture2D texture, Vector2 pos, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime, Color color, bool background, Rectangle? sourceRect)
 		{
-			Color color = Color.White; //TODO: blue tint for background
 			spriteBatch.Draw(texture, pos, sourceRect, color, 0, Vector2.Zero, GameplayState.SCALE, SpriteEffects.None, 0);
 		}
 

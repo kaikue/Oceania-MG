@@ -21,10 +21,10 @@ TODO
 	- In-game rebinding menu
 - Rendering
 	- Don't render block if it's offscreen (block pos + scaled block height < 0 || block top > viewport height || ...)
-	- CTM across multiple chunks
 	- Viewport
 	- Block backgrounds
 	- Color tint- background, foreground, targeted by player
+		- Depth color gradient- blue -> black -> orange (first fixed in World, then by x,y based on chunk lighting)
 	- Randomized textures
 - Copy over everything from Python
 	- World generating/saving/loading chunks
@@ -80,3 +80,7 @@ TODO
 	- Load blocks, biomes, entities, etc. from Mods folder
 - Enemies
 	- Birds (from Animals RPG Sprites)
+	- Cave
+		- Pulls back and springs towards you
+		- Shoots grapple hook towards you and pulls along it
+		- Stationary guys that shoot lasers spinning around

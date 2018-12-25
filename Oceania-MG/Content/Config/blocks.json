@@ -10,7 +10,7 @@
     {
       "name": "air",
       "displayName": "Air",
-      "solid": true,
+      "solid": false,
       "image": "",
       "breakable": false
     },

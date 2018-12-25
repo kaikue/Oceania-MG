@@ -150,6 +150,12 @@ namespace Oceania_MG.Source
 			return blocks[blockID];
 		}
 
+		public Color GetLight(int x, int y)
+		{
+			//TODO white above sea level, then blue -> black -> orange gradients
+			return Color.White;
+		}
+
 		public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
 		{
 			foreach (Chunk chunk in loadedChunks)

@@ -138,12 +138,15 @@ namespace Oceania_MG.Source
 				{
 					//TODO: occlusion check? would need to make sure there were no transparent pixels
 					Vector2 viewportPos = ConvertUtils.ChunkToViewport(x, y, this.x, this.y);
+					Vector2 worldPos = ConvertUtils.ChunkToWorld(x, y, this.x, this.y);
+					int worldX = (int)worldPos.X;
+					int worldY = (int)worldPos.Y;
 
 					bool[] layers = { true, false };
 					foreach (bool background in layers)
 					{
 						Block block = GetBlockAt(x, y, background);
-						block.Draw(viewportPos, graphicsDevice, spriteBatch, gameTime, background, x, y, world);
+						block.Draw(viewportPos, graphicsDevice, spriteBatch, gameTime, background, worldX, worldY, world);
 					}
 				}
 			}
