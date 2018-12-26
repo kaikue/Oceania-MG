@@ -22,8 +22,8 @@ TODO
 - Rendering
 	- Viewport
 	- Block backgrounds
-	- Color tint- background, foreground, targeted by player
-		- Depth color gradient- blue -> black -> orange (first fixed in World, then by x,y based on chunk lighting)
+	- Color tint- background, targeted by player
+		- just outline for player target? lightening is hard especially above water
 	- Randomized textures
 - Copy over everything from Python
 	- World generating/saving/loading chunks

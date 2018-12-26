@@ -55,6 +55,7 @@
     <Compile Include="Source\Entities\Player.cs" />
     <Compile Include="Source\Generate.cs" />
     <Compile Include="Source\Input.cs" />
+    <Compile Include="Source\MathUtils.cs" />
     <Compile Include="Source\PerlinNoise.cs" />
     <Compile Include="Source\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

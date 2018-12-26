@@ -47,7 +47,7 @@ namespace Oceania_MG.Source
 			float noise = terrainNoise2D.Get(point);
 
 			//apply gradient to make lower areas denser
-			float noiseBG = GradientFilter(noise, y, minHeight, maxHeight);
+			float noiseBG = MathUtils.GradientFilter(noise, y, minHeight, maxHeight);
 
 			float noiseFG = noiseBG;
 
@@ -58,7 +58,7 @@ namespace Oceania_MG.Source
 			if (y < ISLAND_BOTTOM)
 			{
 				//island gradient- no caves
-				float islandG = Gradient(y, World.SEA_LEVEL, ISLAND_BOTTOM);
+				float islandG = MathUtils.Gradient(y, World.SEA_LEVEL, ISLAND_BOTTOM);
 				float islandAdjust = 1 - (float)Math.Pow(islandG, ISLAND_EXPANSION);
 				//if (y < World.SEA_LEVEL) cave = -1;
 				//islandAdjust /= 1.5f;
@@ -79,12 +79,12 @@ namespace Oceania_MG.Source
 			else if (y < ABYSS_BOTTOM)
 			{
 				//caves open up into abyss
-				float caveG = Gradient(y, minHeight, ABYSS_TOP);
+				float caveG = MathUtils.Gradient(y, minHeight, ABYSS_TOP);
 				float caveAdjust = 1 - (float)Math.Pow(caveG, CAVE_EXPANSION);
 				cave *= caveAdjust;
 
 				//no background in abyss (except top/bottom and behind blocks)
-				float abyssG = Gradient(y, ABYSS_TOP - ABYSS_DROPOFF, ABYSS_TOP);
+				float abyssG = MathUtils.Gradient(y, ABYSS_TOP - ABYSS_DROPOFF, ABYSS_TOP);
 				float abyssAdjust = (float)Math.Pow(abyssG, CAVE_EXPANSION);
 				if (Math.Abs(noiseFG / abyssAdjust) < 0.5 || y > ABYSS_TOP) //use cave instead of noiseFG for smoother border
 				{
@@ -100,12 +100,12 @@ namespace Oceania_MG.Source
 			else
 			{
 				//abyss ends in core
-				float caveG = Gradient(y, ABYSS_BOTTOM, CORE_FULL);
+				float caveG = MathUtils.Gradient(y, ABYSS_BOTTOM, CORE_FULL);
 				float caveAdjust = (float)Math.Pow(caveG, CORE_CAVE_EXPANSION) / CORE_CAVE_THICKNESS; //caves thicker overall
 				cave *= caveAdjust;
 
 				//abyss empty background bottom
-				float abyssG = Gradient(y, CORE_FULL - ABYSS_DROPOFF, CORE_FULL);
+				float abyssG = MathUtils.Gradient(y, CORE_FULL - ABYSS_DROPOFF, CORE_FULL);
 				float abyssAdjust = (float)Math.Pow(1 - abyssG, CAVE_EXPANSION);
 				if (Math.Abs(cave / abyssAdjust) < 0.7)
 				{
@@ -126,23 +126,6 @@ namespace Oceania_MG.Source
 			float temperatureNoise = biomeTempNoise2D.Get(point);
 			float livelinessNoise = biomeLifeNoise2D.Get(point);
 			return new Tuple<float, float>(temperatureNoise, livelinessNoise);
-		}
-
-		private static float Gradient(float y, float top, float bottom)
-		{
-			float g = (y - top) / (bottom - top);
-			g = Math.Min(Math.Max(g, 0), 1);
-			return g;
-		}
-
-		private static float GradientFilter(float n, float y, float top, float bottom)
-		{
-			//n: value to filter, from -1 to 1
-			//y: amount along gradient
-			//limits: top and bottom of gradient
-			//returns new value of n from -1 to 1
-			float g = Gradient(y, top, bottom);
-			return (n + 1) * g - 1;
 		}
 	}
 }

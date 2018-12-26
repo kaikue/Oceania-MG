@@ -152,8 +152,23 @@ namespace Oceania_MG.Source
 
 		public Color GetLight(int x, int y)
 		{
-			//TODO white above sea level, then blue -> black -> orange gradients
-			return Color.White;
+			//white above sea level, then blue -> black -> orange gradients
+			if (y <= SEA_LEVEL)
+			{
+				return Color.White;
+			}
+			else if (y < Generate.ABYSS_TOP)
+			{
+				return MathUtils.ColorGradient(y, Generate.LAND_TOP, Generate.ABYSS_TOP, Color.LightSkyBlue, Color.Black);
+			}
+			else if (y < Generate.ABYSS_BOTTOM)
+			{
+				return Color.Black;
+			}
+			else
+			{
+				return MathUtils.ColorGradient(y, Generate.ABYSS_BOTTOM, Generate.CORE_FULL, Color.Black, Color.OrangeRed);
+			}
 		}
 
 		public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
