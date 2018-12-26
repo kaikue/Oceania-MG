@@ -20,6 +20,11 @@ namespace Oceania_MG.Source
 
 		public const int SEA_LEVEL = 0;
 
+		private static readonly Color AIR_TINT = Color.White;
+		private static readonly Color WATER_TINT = new Color(192, 224, 255);
+		private static readonly Color ABYSS_TINT = Color.Black;
+		private static readonly Color CORE_TINT = new Color(255, 192, 128);
+
 		[DataMember]
 		private string dir;
 
@@ -155,19 +160,19 @@ namespace Oceania_MG.Source
 			//white above sea level, then blue -> black -> orange gradients
 			if (y <= SEA_LEVEL)
 			{
-				return Color.White;
+				return AIR_TINT;
 			}
 			else if (y < Generate.ABYSS_TOP)
 			{
-				return MathUtils.ColorGradient(y, Generate.LAND_TOP, Generate.ABYSS_TOP, Color.LightSkyBlue, Color.Black);
+				return MathUtils.ColorGradient(y, Generate.LAND_TOP, Generate.ABYSS_TOP, WATER_TINT, ABYSS_TINT);
 			}
 			else if (y < Generate.ABYSS_BOTTOM)
 			{
-				return Color.Black;
+				return ABYSS_TINT;
 			}
 			else
 			{
-				return MathUtils.ColorGradient(y, Generate.ABYSS_BOTTOM, Generate.CORE_FULL, Color.Black, Color.OrangeRed);
+				return MathUtils.ColorGradient(y, Generate.ABYSS_BOTTOM, Generate.CORE_FULL, ABYSS_TINT, CORE_TINT);
 			}
 		}
 

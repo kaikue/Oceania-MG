@@ -142,7 +142,7 @@ namespace Oceania_MG.Source
 				//block would be fully offscreen- don't render it
 				return;
 			}
-
+			
 			if (connectedTexture != ConnectedTexture.None)
 			{
 				DrawConnectedTexture(connectedFunc, pos, graphicsDevice, spriteBatch, gameTime, background, worldX, worldY, world);
@@ -205,6 +205,16 @@ namespace Oceania_MG.Source
 
 		private void DrawTexture(Texture2D texture, Vector2 pos, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime, Color color, bool background, Rectangle? sourceRect)
 		{
+			if (background)
+			{
+				color = Color.Multiply(color, 0.8f);
+			}
+
+			if (name == "water")
+			{
+				color = Color.White;
+			}
+
 			spriteBatch.Draw(texture, pos, sourceRect, color, 0, Vector2.Zero, GameplayState.SCALE, SpriteEffects.None, 0);
 		}
 

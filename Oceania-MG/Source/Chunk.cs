@@ -142,6 +142,12 @@ namespace Oceania_MG.Source
 					int worldX = (int)worldPos.X;
 					int worldY = (int)worldPos.Y;
 
+					if (worldY > World.SEA_LEVEL)
+					{
+						Block water = world.GetBlock("water");
+						water.Draw(viewportPos, graphicsDevice, spriteBatch, gameTime, false, worldX, worldY, world);
+					}
+
 					bool[] layers = { true, false };
 					foreach (bool background in layers)
 					{

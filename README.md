@@ -21,10 +21,10 @@ TODO
 	- In-game rebinding menu
 - Rendering
 	- Viewport
-	- Block backgrounds
-	- Color tint- background, targeted by player
-		- just outline for player target? lightening is hard especially above water
+	- color tint or just outline for player target? lightening is hard especially above water
+		- darker for background? or both?
 	- Randomized textures
+	- Water- no texture, bigger scrolling background
 - Copy over everything from Python
 	- World generating/saving/loading chunks
 	- Player
