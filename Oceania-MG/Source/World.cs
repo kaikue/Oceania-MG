@@ -81,7 +81,7 @@ namespace Oceania_MG.Source
 		public void GenerateNew(Player.PlayerOptions playerOptions)
 		{
 			Directory.CreateDirectory(dir);
-			player = new Player(new Vector2(0, 140), playerOptions);
+			player = new Player(new Vector2(5, 5), playerOptions);
 			GenerateChunk(0, 0);
 			GenerateChunk(0, 1);
 			GenerateChunk(1, 0);
@@ -178,9 +178,14 @@ namespace Oceania_MG.Source
 
 		public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
 		{
+			//Render blocks first, then entities (so that entities aren't partially covered by other chunks' blocks
 			foreach (Chunk chunk in loadedChunks)
 			{
-				chunk.Draw(graphicsDevice, spriteBatch, gameTime);
+				chunk.DrawBlocks(graphicsDevice, spriteBatch, gameTime);
+			}
+			foreach (Chunk chunk in loadedChunks)
+			{
+				chunk.DrawEntities(graphicsDevice, spriteBatch, gameTime);
 			}
 			player.Draw(graphicsDevice, spriteBatch, gameTime);
 		}

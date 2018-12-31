@@ -129,9 +129,8 @@ namespace Oceania_MG.Source
 			return world.GetBlock(GetBlockIDAt(x, y, background));
 		}
 
-		public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
+		public void DrawBlocks(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
 		{
-			//render blocks (background then foreground)
 			for (int x = 0; x < WIDTH; x++)
 			{
 				for (int y = 0; y < HEIGHT; y++)
@@ -156,8 +155,10 @@ namespace Oceania_MG.Source
 					}
 				}
 			}
+		}
 
-			//render entities
+		public void DrawEntities(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
+		{
 			foreach (Entity entity in entities)
 			{
 				entity.Draw(graphicsDevice, spriteBatch, gameTime);

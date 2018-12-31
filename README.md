@@ -20,6 +20,9 @@ TODO
 	- make inventories work with gamepad
 	- In-game rebinding menu
 - Rendering
+	- Render types- beyond CTM
+		- Pipes/kelp- 4x4 spritesheet
+		- Ore- get background from majority of adjacent blocks, CTM render that with ore overlay on top (or just ore overlay if no dirt/rock/etc.)
 	- Viewport
 	- color tint or just outline for player target? lightening is hard especially above water
 		- darker for background? or both?
@@ -46,7 +49,6 @@ TODO
 - Everything from old README
 - Use Monogame color tint to highlight targeted block (is it possible to lighten this way? seems to use multiply filter...)
 - Nicer background without water texture (gray tint for background blocks, no overlay)
-- Special pipe rendering connected textures
 - Spawn rates based on liveliness
 - Biomes
 	- Surface
@@ -78,7 +80,9 @@ TODO
 - Mod support
 	- Load blocks, biomes, entities, etc. from Mods folder
 - Enemies
-	- Birds (from Animals RPG Sprites)
+	- Surface
+		- Birds (from Animals RPG Sprites)
+		- Flying rays https://i.imgur.com/SyGVm1y.gif
 	- Cave
 		- Pulls back and springs towards you
 		- Shoots grapple hook towards you and pulls along it

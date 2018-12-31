@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Oceania_MG.Source.States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,10 +55,10 @@ namespace Oceania_MG.Source.Entities
 
 		public struct PlayerOptions
 		{
-			HairColor hairColor;
-			HairLength hairLength;
-			BodyColor bodyColor;
-			TailColor tailColor;
+			public HairColor hairColor;
+			public HairLength hairLength;
+			public BodyColor bodyColor;
+			public TailColor tailColor;
 
 			public PlayerOptions(HairColor hairColor, HairLength hairLength, BodyColor bodyColor, TailColor tailColor)
 			{
@@ -72,10 +74,27 @@ namespace Oceania_MG.Source.Entities
 		[DataMember]
 		private PlayerOptions playerOptions;
 
+		private Texture2D hairTexture;
+		private Texture2D bodyTexture;
+		private Texture2D tailTexture;
+
 		public Player(Vector2 position, PlayerOptions playerOptions) : base("", position, MAX_HEALTH)
 		{
 			this.playerOptions = playerOptions;
+			string hairColor = playerOptions.hairColor.ToString().ToLower() + "/" + playerOptions.hairLength.ToString().ToLower();
+			hairTexture = Game.LoadImage("Images/player/hair/" + hairColor + "/idle");
+			string bodyColor = playerOptions.bodyColor.ToString().ToLower();
+			bodyTexture = Game.LoadImage("Images/player/body/" + bodyColor + "/idle");
+			string tailColor = playerOptions.tailColor.ToString().ToLower();
+			tailTexture = Game.LoadImage("Images/player/tail/" + tailColor + "/idle");
+		}
 
+		public override void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
+		{
+			Vector2 viewportPos = ConvertUtils.WorldToViewport(position.X, position.Y);
+			spriteBatch.Draw(tailTexture, viewportPos, null, GetColor(), 0, Vector2.Zero, GameplayState.SCALE, SpriteEffects.None, 0);
+			spriteBatch.Draw(bodyTexture, viewportPos, null, GetColor(), 0, Vector2.Zero, GameplayState.SCALE, SpriteEffects.None, 0);
+			spriteBatch.Draw(hairTexture, viewportPos, null, GetColor(), 0, Vector2.Zero, GameplayState.SCALE, SpriteEffects.None, 0);
 		}
 	}
 }
