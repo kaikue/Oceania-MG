@@ -255,5 +255,5 @@ namespace Oceania_MG.Source
 	{
 		public Block[] blocks;
 	}
-#pragma warning restore 0649
 }
+#pragma warning restore 0649

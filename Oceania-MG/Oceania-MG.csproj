@@ -56,6 +56,7 @@
     <Compile Include="Source\Generate.cs" />
     <Compile Include="Source\Input.cs" />
     <Compile Include="Source\MathUtils.cs" />
+    <Compile Include="Source\Ore.cs" />
     <Compile Include="Source\PerlinNoise.cs" />
     <Compile Include="Source\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -132,6 +133,7 @@
     <None Include="Content\Config\biomes.json" />
     <None Include="Content\Config\blocks.json" />
     <None Include="Content\Config\items.json" />
+    <None Include="Content\Config\ores.json" />
     <None Include="Content\Config\structures.json" />
     <None Include="packages.config" />
   </ItemGroup>

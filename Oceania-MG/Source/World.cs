@@ -37,6 +37,7 @@ namespace Oceania_MG.Source
 		public Generate generate;
 
 		private Biome[] biomes;
+		private Dictionary<string, Ore> ores;
 
 		private Dictionary<int, Block> blocks;
 		private Dictionary<string, int> blockIDs;
@@ -52,6 +53,15 @@ namespace Oceania_MG.Source
 
 			string biomesJSON = File.ReadAllText("Content/Config/biomes.json");
 			biomes = JsonConvert.DeserializeObject<Biomes>(biomesJSON).biomes;
+
+			string oresJSON = File.ReadAllText("Content/Config/ores.json");
+			Ore[] oreList = JsonConvert.DeserializeObject<Ores>(oresJSON).ores;
+			ores = new Dictionary<string, Ore>();
+			foreach(Ore ore in oreList)
+			{
+				ores[ore.name] = ore;
+			}
+
 
 			blocks = new Dictionary<int, Block>();
 			blockIDs = new Dictionary<string, int>();
@@ -153,6 +163,11 @@ namespace Oceania_MG.Source
 		public Block GetBlock(int blockID)
 		{
 			return blocks[blockID];
+		}
+
+		public Ore GetOre(string oreName)
+		{
+			return ores[oreName];
 		}
 
 		public Color GetLight(int x, int y)

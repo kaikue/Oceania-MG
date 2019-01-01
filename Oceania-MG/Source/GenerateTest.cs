@@ -62,13 +62,19 @@ namespace Oceania_MG.Source
 
 					int[] c = biome.color;
 					Color color = new Color((int)(c[0] * value), (int)(c[1] * value), (int)(c[2] * value));
-					foreach (string ore in biome.ores)
+
+					if (values.Item1 > -0.5)
 					{
-						if (world.generate.Ore(x, y, ore) > 0.45)
+						foreach (string oreName in biome.ores)
 						{
-							color = Color.White;
+							Ore ore = world.GetOre(oreName);
+							if (world.generate.Ore(x, y, oreName, ore.scale) > ore.cutoff)
+							{
+								color = new Color((uint)oreName.GetHashCode());
+							}
 						}
 					}
+
 					colors[x][y - START_Y] = color;
 				}
 			}

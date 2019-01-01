@@ -25,6 +25,9 @@
 #begin Config/items.json
 /copy:Config/items.json
 
+#begin Config/ores.json
+/copy:Config/ores.json
+
 #begin Config/structures.json
 /copy:Config/structures.json
 

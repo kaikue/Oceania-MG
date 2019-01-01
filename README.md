@@ -13,10 +13,7 @@ TODO
 		- Balance depth so that only island/surface is at y=0
 	- Lerp biomes
 	- Add another noise function worth of caves
-	- Ore
-		- Variable # of noise functions per ore type? (cluster frequency)
-		- Variable noise cutoff? (cluster size)
-		- Variable point division factor? (cluster spacing)
+	- Ore- variable # of noise functions per ore type (cluster frequency)
 	- Sky biome with clouds
 - Input
 	- cursor position- mouse or right joystick (for targeting, inventory)

@@ -88,12 +88,17 @@ namespace Oceania_MG.Source
 				string block = terrainNoise > -0.4 ? biome.baseBlock : biome.surfaceBlock;
 				SetBlockAt(x, y, biome.surfaceBlock, background);
 
-				foreach (string ore in biome.ores)
+				//decorate foreground with ore
+				if (!background)
 				{
-					float oreNoise = world.generate.Ore(worldX, worldY, ore);
-					if (!background && oreNoise > 0.45) //TODO: variable cutoff per ore type?
+					foreach (string oreName in biome.ores)
 					{
-						SetBlockAt(x, y, ore, background);
+						Ore ore = world.GetOre(oreName);
+						float oreNoise = world.generate.Ore(worldX, worldY, oreName, ore.scale);
+						if (oreNoise > ore.cutoff)
+						{
+							SetBlockAt(x, y, oreName, background);
+						}
 					}
 				}
 			}

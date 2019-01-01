@@ -28,6 +28,5 @@ namespace Oceania_MG.Source
 	{
 		public Biome[] biomes;
 	}
-#pragma warning restore 0649
-
 }
+#pragma warning restore 0649

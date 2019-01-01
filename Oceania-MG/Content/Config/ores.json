@@ -1,0 +1,22 @@
+{
+	"ores": [
+	{
+		"name": "copper",
+		"frequency": 1,
+		"cutoff": 0.45,
+		"scale": 10
+	},
+	{
+		"name": "iron",
+		"frequency": 1,
+		"cutoff": 0.45,
+		"scale": 10
+	},
+	{
+		"name": "peridot",
+		"frequency": 1,
+		"cutoff": 0.5,
+		"scale": 10
+	}
+	]
+}
