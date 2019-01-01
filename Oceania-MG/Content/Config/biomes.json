@@ -18,7 +18,10 @@
 		"maxHeight": 30,
 		"surfaceBlock": "sand",
 		"baseBlock": "dirt",
-		"color": [255, 255, 128]
+		"color": [255, 255, 128],
+		"ores": [
+			"copper"
+		]
 	},
 	{
 		"name": "Glacier",

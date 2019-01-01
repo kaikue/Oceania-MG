@@ -13,11 +13,12 @@ namespace Oceania_MG.Source
 {
 	class Block
 	{
-		public enum ConnectedTexture
+		public enum RenderType
 		{
-			None, //Always render full block
-			Solid, //Connect to any other solid block
-			SameType, //Only connect to blocks of same type
+			Normal, //Always render full block
+			ConnectedSolid, //Connect to any other solid block
+			ConnectedSameType, //Only connect to blocks of same type
+			ConnectedOre, //Takes texture of adjacent solid blocks, with overlay
 		}
 
 		private const int CORNERS = 4;
@@ -28,7 +29,7 @@ namespace Oceania_MG.Source
 		public string[] description = new string[0];
 		public bool solid = true;
 		public bool breakable = true;
-		public ConnectedTexture connectedTexture = ConnectedTexture.None;
+		public RenderType renderType = RenderType.Normal;
 		public string entity = "";
 		public int harvestLevel = 0;
 		public int breakTime = 100;
@@ -41,7 +42,7 @@ namespace Oceania_MG.Source
 		{
 			texture = Game.LoadImage(image);
 
-			if (connectedTexture != ConnectedTexture.None)
+			if (renderType != RenderType.Normal)
 			{
 				cornerRects = new Rectangle[CORNERS][];
 				for (int c = 0; c < CORNERS; c++)
@@ -61,16 +62,13 @@ namespace Oceania_MG.Source
 					}
 				}
 
-				switch (connectedTexture)
+				if (renderType == RenderType.ConnectedSolid || renderType == RenderType.ConnectedOre)
 				{
-					case ConnectedTexture.Solid:
-						connectedFunc = block => block.solid;
-						break;
-					case ConnectedTexture.SameType:
-						connectedFunc = block => block.id == id;
-						break;
-					default:
-						break;
+					connectedFunc = block => block.solid;
+				}
+				else if (renderType == RenderType.ConnectedSameType)
+				{
+					connectedFunc = block => block.id == id;
 				}
 			}
 		}
@@ -142,15 +140,18 @@ namespace Oceania_MG.Source
 				//block would be fully offscreen- don't render it
 				return;
 			}
-			
-			if (connectedTexture != ConnectedTexture.None)
+
+			if (renderType == RenderType.Normal)
 			{
-				DrawConnectedTexture(connectedFunc, pos, graphicsDevice, spriteBatch, gameTime, background, worldX, worldY, world);
+				DrawTexture(pos, graphicsDevice, spriteBatch, gameTime, background, null, worldX, worldY, world);
+			}
+			else if (renderType == RenderType.ConnectedOre)
+			{
+				DrawOre(connectedFunc, pos, graphicsDevice, spriteBatch, gameTime, background, worldX, worldY, world);
 			}
 			else
 			{
-				Color color = world.GetLight(worldX, worldY);
-				DrawTexture(texture, pos, graphicsDevice, spriteBatch, gameTime, color, background, null);
+				DrawConnectedTexture(connectedFunc, pos, graphicsDevice, spriteBatch, gameTime, background, worldX, worldY, world);
 			}
 		}
 
@@ -194,17 +195,39 @@ namespace Oceania_MG.Source
 				bool a2 = connectFunc(world.BlockAt(worldX + xOffset2, worldY + yOffset2, background));
 				bool a3 = connectFunc(world.BlockAt(worldX + xOffset3, worldY + yOffset3, background));
 
-				Color color = world.GetLight(worldX, worldY);
-
 				int i = GetAdjacent(a1, a2, a3);
 				Rectangle cornerRect = cornerRects[c][i];
 				Vector2 subPos = pos + GetCornerOffset(c) * GameplayState.SCALE;
-				DrawTexture(texture, subPos, graphicsDevice, spriteBatch, gameTime, color, background, cornerRect);
+				DrawTexture(subPos, graphicsDevice, spriteBatch, gameTime, background, cornerRect, worldX, worldY, world);
 			}
 		}
 
-		private void DrawTexture(Texture2D texture, Vector2 pos, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime, Color color, bool background, Rectangle? sourceRect)
+		public Block GetSurroundingSolidBlock(int worldX, int worldY, bool background, World world)
 		{
+			Block[] surroundingBlocks = {
+				world.BlockAt(worldX, worldY - 1, background),
+				world.BlockAt(worldX, worldY + 1, background),
+				world.BlockAt(worldX - 1, worldY, background),
+				world.BlockAt(worldX + 1, worldY, background)
+			};
+			return surroundingBlocks.Where(x => x.solid).GroupBy(x => x).OrderByDescending(x => x.Count()).FirstOrDefault().Key; //TODO: null check?
+		}
+
+		private void DrawOre(Func<Block, bool> connectFunc, Vector2 pos, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime, bool background, int worldX, int worldY, World world)
+		{
+			//Find most frequent adjacent solid block, then render it under ore overlay texture
+			Block surroundingBlock = GetSurroundingSolidBlock(worldX, worldY, background, world);
+			if (surroundingBlock != null)
+			{
+				surroundingBlock.DrawConnectedTexture(connectedFunc, pos, graphicsDevice, spriteBatch, gameTime, background, worldX, worldY, world);
+			}
+			DrawTexture(pos, graphicsDevice, spriteBatch, gameTime, background, null, worldX, worldY, world);
+		}
+
+		private void DrawTexture(Vector2 pos, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime, bool background, Rectangle? sourceRect, int worldX, int worldY, World world)
+		{
+			Color color = world.GetLight(worldX, worldY);
+
 			if (background)
 			{
 				color = Color.Multiply(color, 0.8f);

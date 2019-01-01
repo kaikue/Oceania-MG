@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +18,7 @@ namespace Oceania_MG.Source
 		public const int ABYSS_DROPOFF = 30; //height in blocks of abyss layer background dropoff
 		private const int BIOME_WIDTH_SCALE = 50; //controls horizontal scale of biomes
 		private const int BIOME_HEIGHT_SCALE = 60; //controls vertical scale of biomes
+		private const float ORE_SCALE = 10.0f; //controls spacing of ore clusters
 
 		//Heights of world layers
 		public const int ISLAND_BOTTOM = 20;
@@ -31,6 +31,7 @@ namespace Oceania_MG.Source
 		private PerlinNoise terrainNoise2D;
 		private PerlinNoise biomeTempNoise2D;
 		private PerlinNoise biomeLifeNoise2D;
+		private Dictionary<string, PerlinNoise> oreNoises2D;
 
 		public Generate(int seed)
 		{
@@ -38,6 +39,7 @@ namespace Oceania_MG.Source
 			terrainNoise2D = new PerlinNoise(2, seed, 3);
 			biomeTempNoise2D = new PerlinNoise(2, seed, 2, true);
 			biomeLifeNoise2D = new PerlinNoise(2, -seed, 2, true);
+			oreNoises2D = new Dictionary<string, PerlinNoise>();
 		}
 
 		public Tuple<float, float> Terrain(int x, int y, int minHeight, int maxHeight)
@@ -90,12 +92,6 @@ namespace Oceania_MG.Source
 				{
 					noiseBG = -1;
 				}
-				/*float abyssG = GradientFilter(noise, y, ABYSS_TOP - 50, ABYSS_TOP);
-				if (abyssG > -0.5)
-				{
-					noiseBG = -1;
-				}
-				*/
 			}
 			else
 			{
@@ -118,6 +114,19 @@ namespace Oceania_MG.Source
 			}
 
 			return new Tuple<float, float>(noiseFG, noiseBG);
+		}
+
+		public float Ore(int x, int y, string oreName)
+		{
+			//Returns positive value (abs() of Perlin noise)
+			if (!oreNoises2D.ContainsKey(oreName))
+			{
+				oreNoises2D[oreName] = new PerlinNoise(2, seed + oreName.GetHashCode(), 4);
+			}
+
+			float[] point = new float[] { x / ORE_SCALE, y / ORE_SCALE };
+			float noise = oreNoises2D[oreName].Get(point);
+			return Math.Abs(noise);
 		}
 
 		public Tuple<float, float> Biome(int x, int y)

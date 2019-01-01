@@ -48,6 +48,11 @@ namespace Oceania_MG.Source.Entities
 			texture = Game.LoadImage(imageURL);
 		}
 
+		public virtual void Update(Input input, GameTime gameTime)
+		{
+
+		}
+
 		public virtual void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
 		{
 			if (texture == null) return;

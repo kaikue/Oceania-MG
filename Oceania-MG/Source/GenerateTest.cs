@@ -59,8 +59,16 @@ namespace Oceania_MG.Source
 					float value = values.Item1;
 					value = value < -0.5f ? (values.Item2 < -0.4f ? 0.1f : 0.25f) : value < -0.4f ? 0.8f : 1;
 					if (y < World.SEA_LEVEL) value /= 2;
+
 					int[] c = biome.color;
 					Color color = new Color((int)(c[0] * value), (int)(c[1] * value), (int)(c[2] * value));
+					foreach (string ore in biome.ores)
+					{
+						if (world.generate.Ore(x, y, ore) > 0.45)
+						{
+							color = Color.White;
+						}
+					}
 					colors[x][y - START_Y] = color;
 				}
 			}

@@ -77,18 +77,25 @@ namespace Oceania_MG.Source
 			//TODO: decorate with ores, structures, etc.
 		}
 
-		private void SetBlockFromNoise(int x, int y, float noise, bool background, Biome biome)
+		private void SetBlockFromNoise(int x, int y, float terrainNoise, bool background, Biome biome)
 		{
 			Vector2 worldPos = ConvertUtils.ChunkToWorld(x, y, this.x, this.y);
+			int worldX = (int)worldPos.X;
 			int worldY = (int)worldPos.Y;
 			//TODO variable thresholds from biome
-			if (noise > -0.4)
+			if (terrainNoise > -0.5)
 			{
-				SetBlockAt(x, y, biome.baseBlock, background);
-			}
-			else if (noise > -0.5)
-			{
+				string block = terrainNoise > -0.4 ? biome.baseBlock : biome.surfaceBlock;
 				SetBlockAt(x, y, biome.surfaceBlock, background);
+
+				foreach (string ore in biome.ores)
+				{
+					float oreNoise = world.generate.Ore(worldX, worldY, ore);
+					if (!background && oreNoise > 0.45) //TODO: variable cutoff per ore type?
+					{
+						SetBlockAt(x, y, ore, background);
+					}
+				}
 			}
 			else if (worldY > World.SEA_LEVEL)
 			{
@@ -127,6 +134,14 @@ namespace Oceania_MG.Source
 		public Block GetBlockAt(int x, int y, bool background)
 		{
 			return world.GetBlock(GetBlockIDAt(x, y, background));
+		}
+
+		public void Update(Input input, GameTime gameTime)
+		{
+			foreach (Entity entity in entities)
+			{
+				entity.Update(input, gameTime);
+			}
 		}
 
 		public void DrawBlocks(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)

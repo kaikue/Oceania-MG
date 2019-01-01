@@ -25,13 +25,13 @@
       "name": "dirt",
       "displayName": "Dirt",
       "image": "Images/blocks/dirt/dirt",
-      "connectedTexture": "Solid"
+      "renderType": "ConnectedSolid"
     },
     {
       "name": "sand",
       "displayName": "Sand",
       "image": "Images/blocks/dirt/dirt",
-      "connectedTexture": "Solid"
+      "renderType": "ConnectedSolid"
     },
     {
       "name": "basalt",
@@ -40,7 +40,7 @@
       "harvestLevel": 1,
       "breakTime": 200,
       "description": [ "A common type of stone." ],
-      "connectedTexture": "Solid"
+      "renderType": "ConnectedSolid"
     },
     {
       "name": "kelp",
@@ -132,7 +132,7 @@
       "name": "pipe",
       "displayName": "Pipe",
       "image": "Images/blocks/pipes/pipes",
-      "connectedTexture": "SameType",
+      "renderType": "ConnectedSameType",
       "solid": false,
       "entity": "EntityPipe",
       "breakTime": 30
@@ -143,6 +143,15 @@
       "image": "Images/blocks/grave/grave",
       "solid": false,
       "entity": "EntityGrave"
+    },
+	{
+      "name": "copper",
+      "displayName": "Copper Ore",
+      "image": "Images/blocks/ore/copper",
+      "harvestLevel": 1,
+      "breakTime": 200,
+      "description": [ "Can be forged into tools and armor." ],
+      "renderType": "ConnectedOre"
     }
   ]
 }

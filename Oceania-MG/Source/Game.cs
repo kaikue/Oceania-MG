@@ -97,6 +97,8 @@ namespace Oceania_MG.Source
 
 		public static Texture2D LoadImage(string imageURL)
 		{
+			if (instance == null) return null; //For GenerateTest, which needs World but not Game
+
 			if (string.IsNullOrEmpty(imageURL))
 			{
 				return new Texture2D(instance.GraphicsDevice, GameplayState.BLOCK_SIZE, GameplayState.BLOCK_SIZE);

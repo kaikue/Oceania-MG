@@ -7,11 +7,16 @@ Created by Kai Kuehner, 2013-2018.
 
 TODO
 --
+- Test ore rendering
 - World generation
 	- Island/surface biomes
 		- Balance depth so that only island/surface is at y=0
 	- Lerp biomes
 	- Add another noise function worth of caves
+	- Ore
+		- Variable # of noise functions per ore type? (cluster frequency)
+		- Variable noise cutoff? (cluster size)
+		- Variable point division factor? (cluster spacing)
 	- Sky biome with clouds
 - Input
 	- cursor position- mouse or right joystick (for targeting, inventory)
@@ -20,13 +25,12 @@ TODO
 	- make inventories work with gamepad
 	- In-game rebinding menu
 - Rendering
-	- Render types- beyond CTM
-		- Pipes/kelp- 4x4 spritesheet
-		- Ore- get background from majority of adjacent blocks, CTM render that with ore overlay on top (or just ore overlay if no dirt/rock/etc.)
+	- Pipes/kelp render type- 4x4 spritesheet
+	- Render block as item (scaled down by 50%, connected texture uses single block texture)
 	- Viewport
 	- color tint or just outline for player target? lightening is hard especially above water
 		- darker for background? or both?
-	- Randomized textures
+	- Randomized textures render type (combine with CTM?)
 	- Water- no texture, bigger scrolling background
 - Copy over everything from Python
 	- World generating/saving/loading chunks

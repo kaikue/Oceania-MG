@@ -527,6 +527,18 @@
 /processorParam:TextureFormat=Color
 /build:Images/blocks/kelp/kelp.png
 
+#begin Images/blocks/ore/copper.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/blocks/ore/copper.png
+
 #begin Images/blocks/pipes/pipes.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -176,6 +176,16 @@ namespace Oceania_MG.Source
 			}
 		}
 
+		public void Update(Input input, GameTime gameTime)
+		{
+			player.Update(input, gameTime);
+
+			foreach (Chunk chunk in loadedChunks)
+			{
+				chunk.Update(input, gameTime);
+			}
+		}
+
 		public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
 		{
 			//Render blocks first, then entities (so that entities aren't partially covered by other chunks' blocks
