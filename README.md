@@ -42,6 +42,8 @@ TODO
 	- Entities
 	- Inventory
 	- Sound
+- Apply knockback to EntityLiving movement
+- Use Point instead of Vector2 where it must be an int
 - Make sure serialization works
 	- references (including Player)
 	- image reloading

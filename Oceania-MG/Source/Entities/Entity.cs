@@ -90,26 +90,6 @@ namespace Oceania_MG.Source.Entities
 				}
 			}
 			return false;
-			/*Tuple<Vector2, Vector2> topLeftInfo = ConvertUtils.WorldToChunk(position.X, position.Y);
-			Vector2 topLeftChunk = topLeftInfo.Item1;
-			Vector2 topLeftBlock = topLeftInfo.Item2;*/
-
-			/*Tuple<Vector2, Vector2> bottomRightInfo = ConvertUtils.WorldToChunk(position.X + width, position.Y + height);
-			Vector2 bottomRightChunk = bottomRightInfo.Item1;
-			Vector2 bottomRightBlock = bottomRightInfo.Item2;
-
-			int chunkLeft = (int)topLeftChunk.X;
-			int chunkTop = (int)topLeftChunk.Y;
-			int chunkRight = (int)bottomRightChunk.X;
-			int chunkBottom = (int)bottomRightChunk.Y;
-			for (int chunkX = chunkLeft; chunkX < chunkRight; chunkX++)
-			{
-				for (int chunkY = chunkTop; chunkY < chunkBottom; chunkY++)
-				{
-
-				}
-			}
-			//int blockLeft = */
 		}
 
 		protected void CheckEntityCollisions()
@@ -132,6 +112,11 @@ namespace Oceania_MG.Source.Entities
 		public Vector2 GetChunk()
 		{
 			return ConvertUtils.WorldToChunk(position.X, position.Y).Item1;
+		}
+
+		public Point GetCenter()
+		{
+			return boundingBox.Center;
 		}
 
 		public virtual void Update(Input input, GameTime gameTime)

@@ -110,6 +110,11 @@ namespace Oceania_MG.Source
 			loadedChunks.Add(chunk);
 		}
 
+		public Player GetPlayer()
+		{
+			return player;
+		}
+
 		/// <summary>
 		/// Returns the loaded chunk with according chunk coordinates, or null if the chunk is not loaded.
 		/// </summary>

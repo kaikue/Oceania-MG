@@ -16,14 +16,31 @@ namespace Oceania_MG.Source.States
 
 		private World world;
 
+		private Vector2 viewport;
+
 		public GameplayState()
 		{
 			world = new World("defaultworld", 100); //TODO
+			viewport = new Vector2();
+			UpdateViewport();
+		}
+
+		private void UpdateViewport()
+		{
+			Point playerCenter = world.GetPlayer().GetCenter();
+			viewport.X = playerCenter.X - Game.GetWidth() / 2;
+			viewport.Y = playerCenter.Y - Game.GetHeight() / 2;
+		}
+
+		public Vector2 GetViewport()
+		{
+			return viewport;
 		}
 
 		public override void Update(Input input, GameTime gameTime)
 		{
 			world.Update(input, gameTime);
+			UpdateViewport();
 		}
 
 		public override void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)

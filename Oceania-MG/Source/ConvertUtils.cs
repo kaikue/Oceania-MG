@@ -18,8 +18,7 @@ namespace Oceania_MG.Source
 
 		public static Vector2 WorldToViewport(float x, float y)
 		{
-			//TODO: get viewport?
-			Vector2 viewport = new Vector2(0, 0);
+			Vector2 viewport = Game.GetViewport();
 			Vector2 pos = new Vector2(x, y);
 			return pos * GameplayState.SCALED_BLOCK_SIZE - viewport;
 		}

@@ -125,5 +125,14 @@ namespace Oceania_MG.Source
 		{
 			return instance.graphics.PreferredBackBufferHeight;
 		}
+
+		public static Vector2 GetViewport()
+		{
+			if (instance.state is GameplayState)
+			{
+				return ((GameplayState)instance.state).GetViewport();
+			}
+			throw new InvalidOperationException("Game not in Gameplay state");
+		}
 	}
 }
