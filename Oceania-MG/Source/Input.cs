@@ -50,6 +50,33 @@ namespace Oceania_MG.Source
 			}
 		}
 
+		class GamepadThumbstickControl : ControlType
+		{
+			public const string CONTROLLER_NAME = "GamepadThumbstick";
+
+			private readonly bool left;
+
+			public GamepadThumbstickControl(string stick)
+			{
+				string lower = stick.ToLower();
+				if (lower != "left" && lower != "right")
+				{
+					throw new ArgumentException("Stick must be either Left or Right");
+				}
+				left = lower == "left";
+			}
+
+			public Vector2 GetValue()
+			{
+				return left ? GamePad.GetState(PlayerIndex.One).ThumbSticks.Left : GamePad.GetState(PlayerIndex.One).ThumbSticks.Right;
+			}
+
+			public override bool IsPressed()
+			{
+				return false;
+			}
+		}
+
 		class MouseControl : ControlType
 		{
 			public const string CONTROLLER_NAME = "Mouse";
@@ -104,6 +131,7 @@ namespace Oceania_MG.Source
 
 		public enum Controls
 		{
+			Move,
 			Up,
 			Down,
 			Left,
@@ -178,6 +206,10 @@ namespace Oceania_MG.Source
 					if (!success2) throw new FormatException("controls.txt line " + (i + 1) + ": Invalid gamepad button " + buttonStr);
 					AddGamepadControl(control, button);
 				}
+				else if (controllerStr == GamepadThumbstickControl.CONTROLLER_NAME)
+				{
+					AddGamepadThumbstickControl(control, buttonStr);
+				}
 				else if (controllerStr == MouseControl.CONTROLLER_NAME)
 				{
 					bool success2 = Enum.TryParse(buttonStr, out MouseButtons mouseButton);
@@ -199,6 +231,11 @@ namespace Oceania_MG.Source
 		private void AddGamepadControl(Controls control, Buttons button)
 		{
 			controlMappings[control].Add(new GamepadControl(button));
+		}
+
+		private void AddGamepadThumbstickControl(Controls control, string stick)
+		{
+			controlMappings[control].Add(new GamepadThumbstickControl(stick));
 		}
 
 		private void AddMouseControl(Controls control, MouseButtons mouseButton)
@@ -276,6 +313,26 @@ namespace Oceania_MG.Source
 		public bool ControlReleased(Controls control)
 		{
 			return releasedControls.Contains(control);
+		}
+
+		/// <summary>
+		/// Returns the first value of the control not equal to (0, 0), if one is defined using GamepadThumbstick. Returns Vector2(0, 0) otherwise.
+		/// </summary>
+		public Vector2 GetAxis(Controls control)
+		{
+			foreach (ControlType controlType in controlMappings[control])
+			{
+				if (controlType is GamepadThumbstickControl)
+				{
+					GamepadThumbstickControl thumbstickControl = (GamepadThumbstickControl)controlType;
+					Vector2 value = thumbstickControl.GetValue();
+					if (value.X != 0 || value.Y != 0)
+					{
+						return value;
+					}
+				}
+			}
+			return new Vector2(0, 0);
 		}
 	}
 }

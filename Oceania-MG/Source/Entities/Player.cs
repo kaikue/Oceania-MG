@@ -101,23 +101,35 @@ namespace Oceania_MG.Source.Entities
 		{
 			base.Update(input, gameTime);
 
-			int inputX = 0;
-			int inputY = 0;
-			if (input.ControlHeld(Input.Controls.Left))
+			float inputX = 0;
+			float inputY = 0;
+
+			//Thumbstick movement takes precedence over digital key-based movement
+			Vector2 inputMove = input.GetAxis(Input.Controls.Move);
+			if (inputMove.X != 0 || inputMove.Y != 0)
 			{
-				inputX--;
+				inputX = inputMove.X;
+				inputY = -inputMove.Y; //inverted in Monogame
+				Console.WriteLine(inputX + ", " + inputY);
 			}
-			if (input.ControlHeld(Input.Controls.Right))
+			else
 			{
-				inputX++;
-			}
-			if (input.ControlHeld(Input.Controls.Up))
-			{
-				inputY--;
-			}
-			if (input.ControlHeld(Input.Controls.Down))
-			{
-				inputY++;
+				if (input.ControlHeld(Input.Controls.Left))
+				{
+					inputX--;
+				}
+				if (input.ControlHeld(Input.Controls.Right))
+				{
+					inputX++;
+				}
+				if (input.ControlHeld(Input.Controls.Up))
+				{
+					inputY--;
+				}
+				if (input.ControlHeld(Input.Controls.Down))
+				{
+					inputY++;
+				}
 			}
 
 			Vector2 goalVelocity = new Vector2(inputX, inputY) * MAX_SPEED;

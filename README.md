@@ -21,7 +21,6 @@ TODO
 	- button selection in menus- use mouse if moving, up/down/left/right on keyboard/gamepad if mouse not moved
 	- make inventories work with gamepad
 	- In-game rebinding menu
-	- analog movement velocity with joystick
 - Rendering
 	- Pipes/kelp render type- 4x4 spritesheet
 	- Render block as item (scaled down by 50%, connected texture uses single block texture)

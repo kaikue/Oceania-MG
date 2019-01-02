@@ -138,7 +138,6 @@ namespace Oceania_MG.Source.Entities
 				Point location = ConvertUtils.Vector2ToPoint(ConvertUtils.WorldToViewport(position.X, position.Y));
 				Point size = boundingBox.Size;
 				Rectangle destRect = new Rectangle(location, size);
-				Console.WriteLine("drawing at " + destRect);
 				spriteBatch.Draw(Game.GetPixelTexture(), destRect, Color.White);
 			}
 
