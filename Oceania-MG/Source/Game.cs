@@ -20,6 +20,9 @@ namespace Oceania_MG.Source
 		private Input input;
 
 		private SpriteFont font;
+		private Texture2D pixelTexture;
+
+		private bool isDebugMode = true;
         
         public Game()
         {
@@ -57,7 +60,9 @@ namespace Oceania_MG.Source
 			state = new GameplayState();
 
 			font = Content.Load<SpriteFont>("Font/CodersCrux");
-			// TODO: use this.Content to load your game content here
+
+			pixelTexture = new Texture2D(GraphicsDevice, 1, 1);
+			pixelTexture.SetData(new Color[] { Color.Black });
 		}
 
         /// <summary>
@@ -126,13 +131,23 @@ namespace Oceania_MG.Source
 			return instance.graphics.PreferredBackBufferHeight;
 		}
 
-		public static Vector2 GetViewport()
+		public static Point GetViewport()
 		{
 			if (instance.state is GameplayState)
 			{
 				return ((GameplayState)instance.state).GetViewport();
 			}
 			throw new InvalidOperationException("Game not in Gameplay state");
+		}
+
+		public static bool IsDebugMode()
+		{
+			return instance.isDebugMode;
+		}
+
+		public static Texture2D GetPixelTexture()
+		{
+			return instance.pixelTexture;
 		}
 	}
 }

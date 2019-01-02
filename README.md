@@ -30,12 +30,12 @@ TODO
 		- darker for background? or both?
 	- Randomized textures render type (combine with CTM?)
 	- Water- no texture, bigger scrolling background
+	- Rework light overlay to be per-pixel instead of per-sprite (smooth lighting, halfway out of sea surface)
 - Copy over everything from Python
 	- World generating/saving/loading chunks
 	- Player
-		- Viewport
 		- Generate chunks nearby
-		- Fixed, square (or circular???) bounding box
+		- Fixed, square (or circular???) bounding box centered on image
 		- Nice movement that slides you into 1 block gaps
 	- Menus
 		- Options- gameplay, block scale

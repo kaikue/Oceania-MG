@@ -16,12 +16,12 @@ namespace Oceania_MG.Source.States
 
 		private World world;
 
-		private Vector2 viewport;
+		private Point viewport;
 
 		public GameplayState()
 		{
 			world = new World("defaultworld", 100); //TODO
-			viewport = new Vector2();
+			viewport = new Point();
 			UpdateViewport();
 		}
 
@@ -32,7 +32,7 @@ namespace Oceania_MG.Source.States
 			viewport.Y = playerCenter.Y - Game.GetHeight() / 2;
 		}
 
-		public Vector2 GetViewport()
+		public Point GetViewport()
 		{
 			return viewport;
 		}

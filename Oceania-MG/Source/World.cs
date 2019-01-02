@@ -91,7 +91,7 @@ namespace Oceania_MG.Source
 		public void GenerateNew(Player.PlayerOptions playerOptions)
 		{
 			Directory.CreateDirectory(dir);
-			player = new Player(this, new Vector2(5, 5), playerOptions);
+			player = new Player(this, new Vector2(0, 1), playerOptions);
 			GenerateChunk(0, 0);
 			GenerateChunk(0, 1);
 			GenerateChunk(1, 0);

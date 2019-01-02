@@ -83,6 +83,12 @@ namespace Oceania_MG.Source.Entities
 		public Player(World world, Vector2 position, PlayerOptions playerOptions) : base(world, "", position, MAX_HEALTH)
 		{
 			this.playerOptions = playerOptions;
+		}
+
+		protected override void LoadImage()
+		{
+			base.LoadImage();
+
 			string hairColor = playerOptions.hairColor.ToString().ToLower() + "/" + playerOptions.hairLength.ToString().ToLower();
 			hairTexture = Game.LoadImage("Images/player/hair/" + hairColor + "/idle");
 			string bodyColor = playerOptions.bodyColor.ToString().ToLower();
@@ -120,6 +126,8 @@ namespace Oceania_MG.Source.Entities
 
 		public override void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
 		{
+			base.Draw(graphicsDevice, spriteBatch, gameTime);
+
 			Vector2 viewportPos = ConvertUtils.WorldToViewport(position.X, position.Y);
 			spriteBatch.Draw(tailTexture, viewportPos, null, GetColor(), 0, Vector2.Zero, GameplayState.SCALE, SpriteEffects.None, 0);
 			spriteBatch.Draw(bodyTexture, viewportPos, null, GetColor(), 0, Vector2.Zero, GameplayState.SCALE, SpriteEffects.None, 0);
