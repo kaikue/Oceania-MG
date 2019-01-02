@@ -7,7 +7,6 @@ Created by Kai Kuehner, 2013-2018.
 
 TODO
 --
-- Test ore rendering
 - World generation
 	- Island/surface biomes
 		- Balance depth so that only island/surface is at y=0
@@ -31,26 +30,26 @@ TODO
 	- Water- no texture, bigger scrolling background
 	- Rework light overlay to be per-pixel instead of per-sprite (smooth lighting, halfway out of sea surface)
 - Copy over everything from Python
-	- World generating/saving/loading chunks
 	- Player
-		- Generate chunks nearby
-		- Fixed, square (or circular???) bounding box centered on image
-		- Nice movement that slides you into 1 block gaps
+		- Fixed, square bounding box centered on image
 	- Menus
 		- Options- gameplay, block scale
 	- Entities
 	- Inventory
 	- Sound
 - Apply knockback to EntityLiving movement
-- Use Point instead of Vector2 where it must be an int
+- Ore not rendering properly
+- Make viewport smoother for scale=2
+- Save world state & chunks when closing world
 - Make sure serialization works
-	- references (including Player)
-	- image reloading
-- Performance testing
-	- try with big window and scale=1
-	- Garbage collection causing lag spikes?
-		- pause GC and only collect when pausing?
-	- generate/load/save chunks in background thread
+	- references (including Player) across files
+	- image reloading (combine with SetWorld)
+- Set loaded chunk radius x&y based on screen size and scale
+- Performance
+	- Load chunks in background thread (await result, add to loaded chunks or generate when loading finishes)
+	- Make generation smoother
+- Remember full screen from last setting
+- Make sure caves are actually generating
 - Everything from old README
 - Use Monogame color tint to highlight targeted block (is it possible to lighten this way? seems to use multiply filter...)
 - Nicer background without water texture (gray tint for background blocks, no overlay)

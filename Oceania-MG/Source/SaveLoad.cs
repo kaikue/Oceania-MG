@@ -37,7 +37,39 @@ namespace Oceania_MG.Source
 			}
 		}
 
-		//TODO: Make the public-facing methods write/read a file, and use the byte[] ones privately
+		private static void WriteFile(string filename, byte[] data)
+		{
+			FileInfo file = new FileInfo(filename);
+			file.Directory.Create(); //create the folder if it doesn't exist
+			File.WriteAllBytes(filename, data);
+		}
+
+		private static byte[] ReadFile(string filename)
+		{
+			if (!File.Exists(filename))
+			{
+				return null;
+			}
+			return File.ReadAllBytes(filename);
+		}
+
+		public static void Save<T>(T obj, string filename)
+		{
+			byte[] data = Serialize(obj);
+			WriteFile(filename, data);
+		}
+
+		public static T Load<T>(string filename)
+		{
+			byte[] data = ReadFile(filename);
+
+			if (data == null)
+			{
+				return default(T);
+			}
+			return Deserialize<T>(data);
+		}
+
 	}
 
 	class SaveLoadTest

@@ -53,11 +53,16 @@ namespace Oceania_MG.Source.Entities
 			Black
 		}
 
+		[DataContract]
 		public struct PlayerOptions
 		{
+			[DataMember]
 			public HairColor hairColor;
+			[DataMember]
 			public HairLength hairLength;
+			[DataMember]
 			public BodyColor bodyColor;
+			[DataMember]
 			public TailColor tailColor;
 
 			public PlayerOptions(HairColor hairColor, HairLength hairLength, BodyColor bodyColor, TailColor tailColor)

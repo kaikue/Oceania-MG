@@ -32,7 +32,6 @@ namespace Oceania_MG.Source
 		[DataMember]
 		private List<Entity> entities;
 
-		[DataMember]
 		private World world;
 
 		public Chunk(int x, int y, World world)
@@ -57,8 +56,6 @@ namespace Oceania_MG.Source
 
 		public void Generate()
 		{
-			//TODO: multithreading
-
 			//generate blocks & caves
 			for (int y = 0; y < HEIGHT; y++)
 			{
@@ -153,9 +150,9 @@ namespace Oceania_MG.Source
 			foreach (Entity entity in entities)
 			{
 				entity.Update(input, gameTime);
-				Vector2 idealChunk = entity.GetChunk();
-				int idealChunkX = (int)idealChunk.X;
-				int idealChunkY = (int)idealChunk.Y;
+				Point idealChunk = entity.GetChunk();
+				int idealChunkX = idealChunk.X;
+				int idealChunkY = idealChunk.Y;
 				if (idealChunkX != x || idealChunkY != y)
 				{
 					Chunk newChunk = world.GetChunk(idealChunkX, idealChunkY);
@@ -207,6 +204,41 @@ namespace Oceania_MG.Source
 			{
 				entity.Draw(graphicsDevice, spriteBatch, gameTime);
 			}
+		}
+
+		private void SetWorld(World world)
+		{
+			this.world = world;
+			foreach (Entity entity in entities)
+			{
+				entity.SetWorld(world);
+			}
+		}
+
+		private static string GetFilename(int x, int y, World world)
+		{
+			return world.GetDirectory() + "/" + x + "_" + y + ".chunk";
+		}
+
+		/// <summary>
+		/// Saves the chunk to disk.
+		/// </summary>
+		public void Save()
+		{
+			Task.Run(() => SaveLoad.Save(this, GetFilename(x, y, world)));
+		}
+
+		/// <summary>
+		/// Returns the chunk loaded on disk at chunk coordinates (x, y), or null if it does not exist.
+		/// </summary>
+		public static Chunk Load(int x, int y, World world)
+		{
+			Chunk chunk = SaveLoad.Load<Chunk>(GetFilename(x, y, world));
+			if (chunk != null)
+			{
+				chunk.SetWorld(world);
+			}
+			return chunk;
 		}
 	}
 }

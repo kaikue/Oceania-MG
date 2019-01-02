@@ -18,9 +18,9 @@ namespace Oceania_MG.Source
 
 		public static Vector2 WorldToViewport(float x, float y)
 		{
-			Point viewport = Game.GetViewport();
+			Vector2 viewport = Game.GetViewport();
 			Vector2 pos = new Vector2(x, y);
-			return (pos * GameplayState.BLOCK_SIZE - PointToVector2(viewport)) * GameplayState.SCALE;
+			return (pos * GameplayState.BLOCK_SIZE - viewport) * GameplayState.SCALE;
 		}
 
 		public static Vector2 ChunkToViewport(int xInChunk, int yInChunk, int chunkX, int chunkY)
@@ -34,11 +34,11 @@ namespace Oceania_MG.Source
 		/// </summary>
 		/// <param name="x">x in world coordinates</param>
 		/// <param name="y">y in world coordinates</param>
-		public static Tuple<Vector2, Vector2> WorldToChunk(float x, float y)
+		public static Tuple<Point, Vector2> WorldToChunk(float x, float y)
 		{
-			Vector2 chunk = new Vector2((float)Math.Floor(x / Chunk.WIDTH), (float)Math.Floor(y / Chunk.HEIGHT));
+			Point chunk = new Point((int)Math.Floor(x / Chunk.WIDTH), (int)Math.Floor(y / Chunk.HEIGHT));
 			Vector2 subPos = new Vector2(x - chunk.X * Chunk.WIDTH, y - chunk.Y * Chunk.HEIGHT);
-			return new Tuple<Vector2, Vector2>(chunk, subPos);
+			return new Tuple<Point, Vector2>(chunk, subPos);
 		}
 
 		public static int WorldToPoint(float p)

@@ -97,6 +97,11 @@ namespace Oceania_MG.Source
 
 		private float GetPlainNoise(float[] point)
 		{
+			while (gradient == null)
+			{
+				//wait for constructor to finish
+			}
+
 			if (point.Length != dimension)
 			{
 				throw new ArgumentException("Expected " + dimension + " values, got " + point.Length);
@@ -115,10 +120,16 @@ namespace Oceania_MG.Source
 
 			foreach(GridPoint gridPoint in Product(gridCoords))
 			{
-				if (!gradient.ContainsKey(gridPoint)) {
-					gradient[gridPoint] = GenerateGradient(gridPoint);
+				float[] grad;
+				if (gradient.ContainsKey(gridPoint))
+				{
+					grad = gradient[gridPoint];
 				}
-				float[] grad = gradient[gridPoint];
+				else
+				{
+					grad = GenerateGradient(gridPoint);
+					gradient[gridPoint] = grad;
+				}
 
 				float dot = 0;
 				for (int i = 0; i < dimension; i++)

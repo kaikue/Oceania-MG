@@ -13,7 +13,6 @@ namespace Oceania_MG.Source.Entities
 	[DataContract(IsReference = true)]
 	class Entity
 	{
-		[DataMember]
 		protected World world;
 
 		[DataMember]
@@ -23,7 +22,7 @@ namespace Oceania_MG.Source.Entities
 
 		[DataMember]
 		protected Vector2 position;
-		
+
 		[DataMember]
 		protected bool background;
 
@@ -111,7 +110,7 @@ namespace Oceania_MG.Source.Entities
 
 		}
 
-		public Vector2 GetChunk()
+		public Point GetChunk()
 		{
 			return ConvertUtils.WorldToChunk(position.X, position.Y).Item1;
 		}
@@ -126,7 +125,7 @@ namespace Oceania_MG.Source.Entities
 
 		}
 
-		public virtual bool IsFlipped()
+		protected virtual bool IsFlipped()
 		{
 			return false;
 		}
@@ -136,7 +135,7 @@ namespace Oceania_MG.Source.Entities
 			if (Game.IsDebugMode())
 			{
 				Point location = ConvertUtils.Vector2ToPoint(ConvertUtils.WorldToViewport(position.X, position.Y));
-				Point size = boundingBox.Size;
+				Point size = new Point((int)(boundingBox.Size.X * GameplayState.SCALE), (int)(boundingBox.Size.Y * GameplayState.SCALE));
 				Rectangle destRect = new Rectangle(location, size);
 				spriteBatch.Draw(Game.GetPixelTexture(), destRect, Color.White);
 			}
@@ -147,10 +146,15 @@ namespace Oceania_MG.Source.Entities
 			SpriteEffects effects = IsFlipped() ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 			spriteBatch.Draw(texture, viewportPos, null, GetColor(), 0, Vector2.Zero, GameplayState.SCALE, effects, 0);
 		}
-		
+
 		public virtual Color GetColor()
 		{
 			return world.GetLight((int)position.X, (int)position.Y);
+		}
+
+		public void SetWorld(World world)
+		{
+			this.world = world;
 		}
 	}
 }

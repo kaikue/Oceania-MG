@@ -11,28 +11,28 @@ namespace Oceania_MG.Source.States
 	class GameplayState : GameState
 	{
 		public const int BLOCK_SIZE = 16;
-		public const float SCALE = 1; //TODO: make this a variable option
+		public const float SCALE = 2; //TODO: make this a variable option
 		public const int SCALED_BLOCK_SIZE = (int)(BLOCK_SIZE * SCALE);
 
 		private World world;
 
-		private Point viewport;
+		private Vector2 viewport;
 
 		public GameplayState()
 		{
 			world = new World("defaultworld", 100); //TODO
-			viewport = new Point();
+			viewport = new Vector2();
 			UpdateViewport();
 		}
 
 		private void UpdateViewport()
 		{
 			Point playerCenter = world.GetPlayer().GetCenter();
-			viewport.X = playerCenter.X - Game.GetWidth() / 2;
-			viewport.Y = playerCenter.Y - Game.GetHeight() / 2;
+			viewport.X = playerCenter.X - Game.GetWidth() / (2 * SCALE);
+			viewport.Y = playerCenter.Y - Game.GetHeight() / (2 * SCALE);
 		}
 
-		public Point GetViewport()
+		public Vector2 GetViewport()
 		{
 			return viewport;
 		}

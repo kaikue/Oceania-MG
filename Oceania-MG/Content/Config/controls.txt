@@ -45,6 +45,7 @@ Pause:Gamepad.Start
 Select:Mouse.LeftClick
 Select:Keyboard.Enter
 Select:Gamepad.A
+Fullscreen:Keyboard.F11
 
 //Hotbar (keyboard only)
 Hotbar1:Keyboard.D1

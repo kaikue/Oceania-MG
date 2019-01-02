@@ -144,6 +144,7 @@ namespace Oceania_MG.Source
 			Inventory,
 			Pause,
 			Select,
+			Fullscreen,
 			Hotbar1,
 			Hotbar2,
 			Hotbar3,

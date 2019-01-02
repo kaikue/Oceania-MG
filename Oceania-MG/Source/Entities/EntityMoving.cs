@@ -86,7 +86,7 @@ namespace Oceania_MG.Source.Entities
 			CheckEntityCollisions();
 		}
 
-		public override bool IsFlipped()
+		protected override bool IsFlipped()
 		{
 			return facingRight;
 		}

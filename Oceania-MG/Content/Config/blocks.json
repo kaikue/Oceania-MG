@@ -144,13 +144,31 @@
       "solid": false,
       "entity": "EntityGrave"
     },
-	{
+    {
       "name": "copper",
       "displayName": "Copper Ore",
       "image": "Images/blocks/ore/copper",
       "harvestLevel": 1,
       "breakTime": 200,
       "description": [ "Can be forged into tools and armor." ],
+      "renderType": "ConnectedOre"
+    },
+    {
+      "name": "iron",
+      "displayName": "Iron Ore",
+      "image": "Images/blocks/ore/iron",
+      "harvestLevel": 2,
+      "breakTime": 200,
+      "description": [ "Can be smelted into steel." ],
+      "renderType": "ConnectedOre"
+    },
+    {
+      "name": "peridot",
+      "displayName": "Peridot",
+      "image": "Images/blocks/ore/peridot",
+      "harvestLevel": 3,
+      "breakTime": 200,
+      "description": [ "Shiny!" ],
       "renderType": "ConnectedOre"
     }
   ]

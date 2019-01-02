@@ -13,6 +13,9 @@ namespace Oceania_MG.Source
     {
 		private static Game instance;
 
+		private const int WINDOWED_WIDTH = 800;
+		private const int WINDOWED_HEIGHT = 600;
+
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
 
@@ -30,8 +33,9 @@ namespace Oceania_MG.Source
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-			graphics.PreferredBackBufferWidth = 800;
-			graphics.PreferredBackBufferHeight = 600;
+			//TODO: remember fullscreen setting
+			graphics.PreferredBackBufferWidth = WINDOWED_WIDTH;
+			graphics.PreferredBackBufferHeight = WINDOWED_HEIGHT;
 			graphics.ApplyChanges();
 		}
 
@@ -87,7 +91,12 @@ namespace Oceania_MG.Source
 			input.Update();
 			
 			state.Update(input, gameTime);
-        }
+
+			if (input.ControlPressed(Input.Controls.Fullscreen))
+			{
+				ToggleFullscreen();
+			}
+		}
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -100,6 +109,24 @@ namespace Oceania_MG.Source
 			base.Draw(gameTime);
         }
 
+		private void ToggleFullscreen()
+		{
+			if (graphics.IsFullScreen)
+			{
+				graphics.PreferredBackBufferWidth = WINDOWED_WIDTH;
+				graphics.PreferredBackBufferHeight = WINDOWED_HEIGHT;
+				graphics.IsFullScreen = false;
+				graphics.ApplyChanges();
+			}
+			else
+			{
+				graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+				graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+				graphics.IsFullScreen = true;
+				graphics.ApplyChanges();
+			}
+		}
+		
 		public static Texture2D LoadImage(string imageURL)
 		{
 			if (instance == null) return null; //For GenerateTest, which needs World but not Game
@@ -131,7 +158,7 @@ namespace Oceania_MG.Source
 			return instance.graphics.PreferredBackBufferHeight;
 		}
 
-		public static Point GetViewport()
+		public static Vector2 GetViewport()
 		{
 			if (instance.state is GameplayState)
 			{

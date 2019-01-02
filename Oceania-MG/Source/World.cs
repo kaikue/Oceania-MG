@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Oceania_MG.Source
@@ -16,6 +17,8 @@ namespace Oceania_MG.Source
 	[DataContract(IsReference = true)]
 	class World
 	{
+		private const int CHUNK_LOAD_DISTANCE = 1; //(2 * this + 1) square of chunks is loaded surrounding player's chunk
+
 		private const int BIOME_DEPTH_SCALE = 50; //divides depth by this when doing biome calculation, to make it balance out with temp/life
 
 		public const int SEA_LEVEL = 0;
@@ -26,7 +29,7 @@ namespace Oceania_MG.Source
 		private static readonly Color CORE_TINT = new Color(255, 192, 128);
 
 		[DataMember]
-		private string dir;
+		private string name;
 
 		[DataMember]
 		private int seed;
@@ -46,7 +49,7 @@ namespace Oceania_MG.Source
 
 		public World(string name, int seed)
 		{
-			dir = "dat/" + name;
+			this.name = name;
 			this.seed = seed;
 			generate = new Generate(seed);
 			loadedChunks = new HashSet<Chunk>();
@@ -61,8 +64,7 @@ namespace Oceania_MG.Source
 			{
 				ores[ore.name] = ore;
 			}
-
-
+			
 			blocks = new Dictionary<int, Block>();
 			blockIDs = new Dictionary<string, int>();
 			string blocksJSON = File.ReadAllText("Content/Config/blocks.json");
@@ -81,33 +83,57 @@ namespace Oceania_MG.Source
 
 			GenerateNew(new Player.PlayerOptions());
 		}
-
-		public void Load()
-		{
-			string path = dir + "/state";
-			LoadState(path);
-		}
-
+		
 		public void GenerateNew(Player.PlayerOptions playerOptions)
 		{
-			Directory.CreateDirectory(dir);
 			player = new Player(this, new Vector2(0, 1), playerOptions);
-			GenerateChunk(0, 0);
-			GenerateChunk(0, 1);
-			GenerateChunk(1, 0);
-			GenerateChunk(1, 1);
+			LoadChunks(0, 0);
 		}
 
-		private void LoadState(string path)
+		private void LoadChunks(int centerChunkX, int centerChunkY)
 		{
-			//TODO
+			//save all chunks, since some may be unloaded
+			foreach (Chunk chunk in loadedChunks)
+			{
+				chunk.Save();
+			}
+
+			//load the new set of chunks surrounding center
+			HashSet<Chunk> newLoadedChunks = new HashSet<Chunk>();
+			for (int x = centerChunkX - CHUNK_LOAD_DISTANCE; x <= centerChunkX + CHUNK_LOAD_DISTANCE; x++)
+			{
+				for (int y = centerChunkY - CHUNK_LOAD_DISTANCE; y <= centerChunkY + CHUNK_LOAD_DISTANCE; y++)
+				{
+					//preferences:
+					//1. use already loaded chunk
+					//2. load chunk from disk
+					//3. generate new chunk
+					Chunk chunk = GetChunk(x, y);
+					if (chunk == null)
+					{
+						//TODO: use Task for this
+						chunk = Chunk.Load(x, y, this);
+						if (chunk == null)
+						{
+							chunk = GenerateChunk(x, y);
+						}
+					}
+					newLoadedChunks.Add(chunk);
+				}
+			}
+			loadedChunks = newLoadedChunks;
 		}
 
-		private void GenerateChunk(int x, int y)
+		private Chunk GenerateChunk(int x, int y)
 		{
 			Chunk chunk = new Chunk(x, y, this);
 			chunk.Generate();
-			loadedChunks.Add(chunk);
+			return chunk;
+		}
+
+		public string GetDirectory()
+		{
+			return "Data/" + name;
 		}
 
 		public Player GetPlayer()
@@ -129,10 +155,10 @@ namespace Oceania_MG.Source
 		/// </summary>
 		public Block BlockAt(int x, int y, bool background)
 		{
-			Tuple<Vector2, Vector2> chunkInfo = ConvertUtils.WorldToChunk(x, y);
-			Vector2 chunkPos = chunkInfo.Item1;
-			int chunkX = (int)chunkPos.X;
-			int chunkY = (int)chunkPos.Y;
+			Tuple<Point, Vector2> chunkInfo = ConvertUtils.WorldToChunk(x, y);
+			Point chunkPos = chunkInfo.Item1;
+			int chunkX = chunkPos.X;
+			int chunkY = chunkPos.Y;
 			Vector2 subPos = chunkInfo.Item2;
 			Chunk chunk = GetChunk(chunkX, chunkY);
 
@@ -212,7 +238,13 @@ namespace Oceania_MG.Source
 
 		public void Update(Input input, GameTime gameTime)
 		{
+			Point oldChunk = player.GetChunk();
 			player.Update(input, gameTime);
+			Point newChunk = player.GetChunk();
+			if (oldChunk != newChunk)
+			{
+				LoadChunks(newChunk.X, newChunk.Y);
+			}
 
 			foreach (Chunk chunk in loadedChunks)
 			{
