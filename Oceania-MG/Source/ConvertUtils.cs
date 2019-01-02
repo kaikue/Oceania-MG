@@ -41,5 +41,15 @@ namespace Oceania_MG.Source
 			Vector2 subPos = new Vector2(x - chunk.X * Chunk.WIDTH, y - chunk.Y * Chunk.HEIGHT);
 			return new Tuple<Vector2, Vector2>(chunk, subPos);
 		}
+
+		public static int WorldToPixel(float p)
+		{
+			return (int)Math.Round(p * GameplayState.BLOCK_SIZE);
+		}
+
+		public static float PixelToWorld(int p)
+		{
+			return ((float)p) / GameplayState.BLOCK_SIZE;
+		}
 	}
 }

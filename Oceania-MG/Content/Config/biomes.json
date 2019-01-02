@@ -45,7 +45,7 @@
 		"baseBlock": "basalt",
 		"color": [255, 128, 255],
 		"ores": [
-		
+			"copper"
 		],
 		"structures": [
 			"coral",
@@ -63,7 +63,7 @@
 		"baseBlock": "basalt",
 		"color": [128, 255, 128],
 		"ores": [
-		
+			"copper"
 		],
 		"structures": [
 			"kelp",
@@ -80,6 +80,7 @@
 		"baseBlock": "basalt",
 		"color": [128, 255, 255],
 		"ores": [
+			"iron",
 			"peridot"
 		],
 		"structures": [
@@ -97,8 +98,8 @@
       "baseBlock": "basalt",
       "color": [ 128, 128, 255 ],
       "ores": [
-        "peridot",
-        "iron"
+        "iron",
+        "peridot"
       ],
       "structures": [
         "lava"

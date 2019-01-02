@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Oceania_MG.Source
 {
-	[DataContract]
+	[DataContract(IsReference = true)]
 	class World
 	{
 		private const int BIOME_DEPTH_SCALE = 50; //divides depth by this when doing biome calculation, to make it balance out with temp/life
@@ -91,7 +91,7 @@ namespace Oceania_MG.Source
 		public void GenerateNew(Player.PlayerOptions playerOptions)
 		{
 			Directory.CreateDirectory(dir);
-			player = new Player(new Vector2(5, 5), playerOptions);
+			player = new Player(this, new Vector2(5, 5), playerOptions);
 			GenerateChunk(0, 0);
 			GenerateChunk(0, 1);
 			GenerateChunk(1, 0);
@@ -111,6 +111,14 @@ namespace Oceania_MG.Source
 		}
 
 		/// <summary>
+		/// Returns the loaded chunk with according chunk coordinates, or null if the chunk is not loaded.
+		/// </summary>
+		public Chunk GetChunk(int chunkX, int chunkY)
+		{
+			return loadedChunks.FirstOrDefault(c => c.x == chunkX && c.y == chunkY);
+		}
+
+		/// <summary>
 		/// Returns the block at a position in world coordinates.
 		/// If the position is currently in an unloaded chunk, returns the "unknown" block.
 		/// </summary>
@@ -121,7 +129,7 @@ namespace Oceania_MG.Source
 			int chunkX = (int)chunkPos.X;
 			int chunkY = (int)chunkPos.Y;
 			Vector2 subPos = chunkInfo.Item2;
-			Chunk chunk = loadedChunks.FirstOrDefault(c => c.x == chunkX && c.y == chunkY);
+			Chunk chunk = GetChunk(chunkX, chunkY);
 
 			if (chunk == null) return GetBlock("unknown");
 			return chunk.GetBlockAt((int)subPos.X, (int)subPos.Y, background);
@@ -189,6 +197,12 @@ namespace Oceania_MG.Source
 			{
 				return MathUtils.ColorGradient(y, Generate.ABYSS_BOTTOM, Generate.CORE_FULL, ABYSS_TINT, CORE_TINT);
 			}
+		}
+
+		public IEnumerable<Entity> GetNearbyEntities(float x, float y)
+		{
+			//TODO: make this smarter by only looking at nearby chunks? have to watch out for really big entities
+			return loadedChunks.Select(chunk => chunk.GetEntities()).Aggregate((e1, e2) => e1.Concat(e2));
 		}
 
 		public void Update(Input input, GameTime gameTime)

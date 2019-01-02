@@ -141,11 +141,35 @@ namespace Oceania_MG.Source
 			return world.GetBlock(GetBlockIDAt(x, y, background));
 		}
 
+		public IEnumerable<Entity> GetEntities()
+		{
+			return entities;
+		}
+
 		public void Update(Input input, GameTime gameTime)
 		{
+			HashSet<Entity> toRemove = new HashSet<Entity>();
+
 			foreach (Entity entity in entities)
 			{
 				entity.Update(input, gameTime);
+				Vector2 idealChunk = entity.GetChunk();
+				int idealChunkX = (int)idealChunk.X;
+				int idealChunkY = (int)idealChunk.Y;
+				if (idealChunkX != x || idealChunkY != y)
+				{
+					Chunk newChunk = world.GetChunk(idealChunkX, idealChunkY);
+					if (newChunk != null)
+					{
+						newChunk.entities.Add(entity);
+						toRemove.Add(entity);
+					}
+				}
+			}
+
+			foreach(Entity entity in toRemove)
+			{
+				entities.Remove(entity);
 			}
 		}
 

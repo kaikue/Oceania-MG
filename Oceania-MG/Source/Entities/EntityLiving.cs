@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Oceania_MG.Source.Entities
 {
 	[DataContract(IsReference = true)]
-	class EntityLiving : Entity
+	class EntityLiving : EntityMoving
 	{
 		[DataMember]
 		protected int health;
@@ -26,7 +26,7 @@ namespace Oceania_MG.Source.Entities
 		[DataMember]
 		protected DamageSource attack;
 
-		public EntityLiving(string imageURL, Vector2 position, int maxHealth) : base(imageURL, position)
+		public EntityLiving(World world, string imageURL, Vector2 position, int maxHealth) : base(world, imageURL, position)
 		{
 			health = maxHealth;
 			this.maxHealth = maxHealth;
@@ -41,6 +41,16 @@ namespace Oceania_MG.Source.Entities
 		{
 			if (IsHurt()) return Color.Red;
 			return base.GetColor();
+		}
+
+		public override void Update(Input input, GameTime gameTime)
+		{
+			base.Update(input, gameTime);
+
+			if (hurtTime > 0)
+			{
+				hurtTime--;
+			}
 		}
 	}
 }

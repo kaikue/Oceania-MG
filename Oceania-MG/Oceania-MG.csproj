@@ -47,6 +47,7 @@
     <Compile Include="Source\Chunk.cs" />
     <Compile Include="Source\ConvertUtils.cs" />
     <Compile Include="Source\Entities\DamageSource.cs" />
+    <Compile Include="Source\Entities\EntityMoving.cs" />
     <Compile Include="Source\Entities\Entity.cs" />
     <Compile Include="Source\Entities\EntityLiving.cs" />
     <Compile Include="Source\BiomeTest.cs" />

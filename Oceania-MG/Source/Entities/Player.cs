@@ -70,6 +70,8 @@ namespace Oceania_MG.Source.Entities
 		}
 
 		private const int MAX_HEALTH = 20;
+		private const float MAX_SPEED = 0.2f;
+		private const float ACCELERATION = 0.1f; //1 = instant
 
 		[DataMember]
 		private PlayerOptions playerOptions;
@@ -78,7 +80,7 @@ namespace Oceania_MG.Source.Entities
 		private Texture2D bodyTexture;
 		private Texture2D tailTexture;
 
-		public Player(Vector2 position, PlayerOptions playerOptions) : base("", position, MAX_HEALTH)
+		public Player(World world, Vector2 position, PlayerOptions playerOptions) : base(world, "", position, MAX_HEALTH)
 		{
 			this.playerOptions = playerOptions;
 			string hairColor = playerOptions.hairColor.ToString().ToLower() + "/" + playerOptions.hairLength.ToString().ToLower();
@@ -87,6 +89,33 @@ namespace Oceania_MG.Source.Entities
 			bodyTexture = Game.LoadImage("Images/player/body/" + bodyColor + "/idle");
 			string tailColor = playerOptions.tailColor.ToString().ToLower();
 			tailTexture = Game.LoadImage("Images/player/tail/" + tailColor + "/idle");
+		}
+
+		public override void Update(Input input, GameTime gameTime)
+		{
+			base.Update(input, gameTime);
+
+			int inputX = 0;
+			int inputY = 0;
+			if (input.ControlHeld(Input.Controls.Left))
+			{
+				inputX--;
+			}
+			if (input.ControlHeld(Input.Controls.Right))
+			{
+				inputX++;
+			}
+			if (input.ControlHeld(Input.Controls.Up))
+			{
+				inputY--;
+			}
+			if (input.ControlHeld(Input.Controls.Down))
+			{
+				inputY++;
+			}
+
+			Vector2 goalVelocity = new Vector2(inputX, inputY) * MAX_SPEED;
+			velocity = Vector2.Lerp(velocity, goalVelocity, ACCELERATION);
 		}
 
 		public override void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
