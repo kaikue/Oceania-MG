@@ -113,7 +113,7 @@ namespace Oceania_MG.Source
 				noiseFG = -1;
 			}
 
-			return new Tuple<float, float>(noiseFG, noiseBG);
+			return new Tuple<float, float>(noiseBG, noiseFG);
 		}
 
 		public float Ore(int x, int y, string oreName, float scale)

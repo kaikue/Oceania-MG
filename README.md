@@ -31,6 +31,9 @@ TODO
 	- make inventories work with gamepad
 	- In-game rebinding menu
 - Rendering
+	- Ore rendering- keep track of base block, so that it doesn't have to check adjacent tiles (necessary for ore surrounded with other ore)
+		- make ore an entity
+	- Don't render foreground water over background blocks
 	- Pipes/kelp render type- 4x4 spritesheet
 	- Render block as item (scaled down by 50%, connected texture uses single block texture)
 	- Viewport

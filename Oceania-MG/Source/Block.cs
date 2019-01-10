@@ -215,11 +215,12 @@ namespace Oceania_MG.Source
 
 		private void DrawOre(Func<Block, bool> connectFunc, Vector2 pos, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime, bool background, int worldX, int worldY, World world)
 		{
+			//TODO: make ore an entity, since this won't work for large groups
 			//Find most frequent adjacent solid block, then render it under ore overlay texture
 			Block surroundingBlock = GetSurroundingSolidBlock(worldX, worldY, background, world);
 			if (surroundingBlock != null)
 			{
-				surroundingBlock.DrawConnectedTexture(connectedFunc, pos, graphicsDevice, spriteBatch, gameTime, background, worldX, worldY, world);
+				//surroundingBlock.Draw(pos, graphicsDevice, spriteBatch, gameTime, background, worldX, worldY, world);
 			}
 			DrawTexture(pos, graphicsDevice, spriteBatch, gameTime, background, null, worldX, worldY, world);
 		}

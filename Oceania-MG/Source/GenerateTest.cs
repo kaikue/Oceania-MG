@@ -56,14 +56,14 @@ namespace Oceania_MG.Source
 				{
 					Biome biome = world.BiomeAt(x, y);
 					Tuple<float, float> values = world.generate.Terrain(x, y, biome.minHeight, biome.maxHeight);
-					float value = values.Item1;
-					value = value < -0.5f ? (values.Item2 < -0.4f ? 0.1f : 0.25f) : value < -0.4f ? 0.8f : 1;
+					float value = values.Item2;
+					value = value < -0.5f ? (values.Item1 < -0.4f ? 0.1f : 0.25f) : value < -0.4f ? 0.8f : 1;
 					if (y < World.SEA_LEVEL) value /= 2;
 
 					int[] c = biome.color;
 					Color color = new Color((int)(c[0] * value), (int)(c[1] * value), (int)(c[2] * value));
 
-					if (values.Item1 > -0.5)
+					if (values.Item2 > -0.5)
 					{
 						foreach (string oreName in biome.ores)
 						{
