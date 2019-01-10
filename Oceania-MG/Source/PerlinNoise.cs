@@ -23,7 +23,7 @@ namespace Oceania_MG.Source
 				this.values = values;
 				//Changes the hash result, so that slightly different int lists
 				//give very different hashcodes (needed for random seeding)
-				total = values.Aggregate((x, y) => x * y + x ^ y);
+				total = values.Aggregate((x, y) => Generate.CombineSeed(x, y));
 			}
 
 			public override bool Equals(object obj)
@@ -77,7 +77,7 @@ namespace Oceania_MG.Source
 		private float[] GenerateGradient(GridPoint gridPoint)
 		{
 			int hash = gridPoint.GetHashCode();
-			Random random = new Random(seed * hash + seed ^ hash);
+			Random random = new Random(Generate.CombineSeed(seed, hash));
 
 			if (dimension == 1)
 			{
@@ -118,7 +118,7 @@ namespace Oceania_MG.Source
 
 			Queue<float> dots = new Queue<float>();
 
-			foreach(GridPoint gridPoint in Product(gridCoords))
+			foreach (GridPoint gridPoint in Product(gridCoords))
 			{
 				float[] grad;
 				if (gradient.ContainsKey(gridPoint))
@@ -234,7 +234,7 @@ namespace Oceania_MG.Source
 				new Tuple<int, int>(0, 1)
 			};
 
-			foreach(GridPoint g in Product(values))
+			foreach (GridPoint g in Product(values))
 			{
 				Console.WriteLine(g);
 			}

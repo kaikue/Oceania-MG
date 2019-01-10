@@ -23,8 +23,8 @@ namespace Oceania_MG.Source.Entities
 		[DataMember]
 		protected Vector2 knockback = new Vector2(0, 0);
 
-		[DataMember]
-		protected DamageSource attack;
+		/*[DataMember]
+		protected DamageSource attack;*/
 
 		public EntityLiving(World world, string imageURL, Vector2 position, int maxHealth) : base(world, imageURL, position)
 		{

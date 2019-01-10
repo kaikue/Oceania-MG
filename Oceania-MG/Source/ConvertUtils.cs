@@ -10,9 +10,9 @@ namespace Oceania_MG.Source
 {
 	class ConvertUtils
 	{
-		public static Vector2 ChunkToWorld(int xInChunk, int yInChunk, int chunkX, int chunkY)
+		public static Point ChunkToWorld(int xInChunk, int yInChunk, int chunkX, int chunkY)
 		{
-			return new Vector2(xInChunk + chunkX * Chunk.WIDTH,
+			return new Point(xInChunk + chunkX * Chunk.WIDTH,
 								yInChunk + chunkY * Chunk.HEIGHT);
 		}
 
@@ -25,7 +25,7 @@ namespace Oceania_MG.Source
 
 		public static Vector2 ChunkToViewport(int xInChunk, int yInChunk, int chunkX, int chunkY)
 		{
-			Vector2 worldPos = ChunkToWorld(xInChunk, yInChunk, chunkX, chunkY);
+			Point worldPos = ChunkToWorld(xInChunk, yInChunk, chunkX, chunkY);
 			return WorldToViewport(worldPos.X, worldPos.Y);
 		}
 

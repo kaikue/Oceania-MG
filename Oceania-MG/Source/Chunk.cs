@@ -56,65 +56,148 @@ namespace Oceania_MG.Source
 
 		public void Generate()
 		{
-			//generate blocks & caves
 			for (int y = 0; y < HEIGHT; y++)
 			{
 				for (int x = 0; x < WIDTH; x++)
 				{
-					Vector2 worldPos = ConvertUtils.ChunkToWorld(x, y, this.x, this.y);
-					int worldX = (int)worldPos.X;
-					int worldY = (int)worldPos.Y;
-					Biome biome = world.BiomeAt(worldX, worldY);
-					Tuple<float, float> noise = world.generate.Terrain(worldX, worldY, biome.minHeight, biome.maxHeight);
-					SetBlockFromNoise(x, y, noise.Item2, false, biome);
-					SetBlockFromNoise(x, y, noise.Item1, true, biome);
+					GenerateBlock(x, y);
 				}
 			}
-
-			//TODO: decorate with ores, structures, etc.
 		}
 
-		private void SetBlockFromNoise(int x, int y, float terrainNoise, bool background, Biome biome)
+		private void GenerateBlock(int x, int y)
 		{
-			Vector2 worldPos = ConvertUtils.ChunkToWorld(x, y, this.x, this.y);
-			int worldX = (int)worldPos.X;
-			int worldY = (int)worldPos.Y;
+			Point worldPos = ConvertUtils.ChunkToWorld(x, y, this.x, this.y);
+			int worldX = worldPos.X;
+			int worldY = worldPos.Y;
+			Biome biome = world.BiomeAt(worldX, worldY);
+			Tuple<float, float> noise = world.generate.Terrain(worldX, worldY, biome.minHeight, biome.maxHeight);
+
+			string blockBG = GetBlockFromNoise(x, y, noise.Item1, true, biome);
+			string blockFG = GetBlockFromNoise(x, y, noise.Item2, false, biome);
+
+			blockFG = GetOreAt(worldX, worldY, biome, blockFG);
+			
+			Tuple<string, string> structureBlocks = GetStructureAt(worldX, worldY, biome, blockBG, blockFG);
+			blockBG = structureBlocks.Item1;
+			blockFG = structureBlocks.Item2;
+
+			SetBlockAt(x, y, blockBG, true);
+			SetBlockAt(x, y, blockFG, false);
+		}
+
+		private string GetBlockFromNoise(int worldX, int worldY, float terrainNoise, bool background, Biome biome)
+		{
 			//TODO variable thresholds from biome
 			if (terrainNoise > -0.5)
 			{
 				string block = terrainNoise > -0.4 ? biome.baseBlock : biome.surfaceBlock;
-				SetBlockAt(x, y, biome.surfaceBlock, background);
-
-				//decorate foreground with ore
-				if (!background)
-				{
-					foreach (string oreName in biome.ores)
-					{
-						Ore ore = world.GetOre(oreName);
-						float oreNoise = world.generate.Ore(worldX, worldY, oreName, ore.scale);
-						if (oreNoise > ore.cutoff)
-						{
-							SetBlockAt(x, y, oreName, background);
-						}
-					}
-				}
+				return block;
 			}
 			else if (worldY > World.SEA_LEVEL)
 			{
-				SetBlockAt(x, y, world.GetBlock("water"), background);
+				return "water";
 			}
 			else
 			{
-				SetBlockAt(x, y, world.GetBlock("air"), background);
+				return "air";
 			}
 		}
 
-		private void SetBlocksAt(int x, int y, Block block)
+		private string GetOreAt(int worldX, int worldY, Biome biome, string baseBlock)
 		{
-			SetBlockAt(x, y, block, false);
-			SetBlockAt(x, y, block, true);
+			Block block = world.GetBlock(baseBlock);
+			if (!block.solid) return baseBlock; //Only allow ore on solid terrain blocks
+
+			foreach (string oreName in biome.ores)
+			{
+				Ore ore = world.GetOre(oreName);
+				float oreNoise = world.generate.Ore(worldX, worldY, oreName, ore.scale);
+				if (oreNoise > ore.cutoff)
+				{
+					return oreName;
+				}
+			}
+
+			return baseBlock;
 		}
 
+		private Tuple<string, string> GetStructureAt(int worldX, int worldY, Biome biome, string baseBlockBG, string baseBlockFG)
+		{
+			Point currentChunk = ConvertUtils.WorldToChunk(worldX, worldY).Item1;
+			int currentChunkX = currentChunk.X;
+			int currentChunkY = currentChunk.Y;
+			/*
+			 * Currently only looks at structures that are valid for the current biome. This could lead to cases where a 
+			 * structure is cut in half by a slice of another biome where it can't spawn, while both ends are in valid
+			 * biomes.
+			 * This could be fixed by looking at all structures for all biomes, but that would be slower, and result in
+			 * structures frequently "leaking out" of the edges of the biomes where they can spawn.
+			 */
+			foreach (string structureName in biome.structures)
+			{
+				Tuple<string, string> structureBlocks = TrySpawnStructure(structureName, worldX, worldY, currentChunkX, currentChunkY);
+				if (structureBlocks != null)
+				{
+					//Valid structure found
+					return structureBlocks;
+				}
+			}
+
+			//No structure found
+			return new Tuple<string, string>(baseBlockBG, baseBlockFG);
+		}
+
+		private Tuple<string, string> TrySpawnStructure(string structureName, int worldX, int worldY, int currentChunkX, int currentChunkY)
+		{
+			Structure structure = world.GetStructure(structureName);
+			Point minChunk = ConvertUtils.WorldToChunk(worldX - structure.GetWidth() + 1, worldY - structure.GetHeight() + 1).Item1;
+			int minChunkX = minChunk.X;
+			int minChunkY = minChunk.Y;
+			for (int chunkX = currentChunkX; chunkX >= minChunkX; chunkX--)
+			{
+				for (int chunkY = currentChunkY; chunkY >= minChunkY; chunkY--)
+				{
+					Tuple<string, string> chunkResult = TrySpawnStructureInChunk(structure, worldX, worldY, chunkX, chunkY);
+					if (chunkResult != null) return chunkResult;
+				}
+			}
+			return null;
+		}
+
+		private Tuple<string, string> TrySpawnStructureInChunk(Structure structure, int worldX, int worldY, int chunkX, int chunkY)
+		{
+			int structuresPerChunk = world.generate.StructuresPerChunk(chunkX, chunkY, structure);
+			if (structuresPerChunk == 0)
+			{
+				return null; //Early out, to avoid making full checks for each chunk
+			}
+
+			int structuresFound = 0;
+			Point[] points = world.generate.ShufflePositions(chunkX, chunkY); //Randomly permute sub-chunk positions, seeded with chunkX, chunkY
+			foreach (Point point in points)
+			{
+				Point structureWorldPos = ConvertUtils.ChunkToWorld(point.X, point.Y, chunkX, chunkY);
+				if (structure.CanSpawnAt(structureWorldPos.X, structureWorldPos.Y, world))
+				{
+					//If the structure contains this position: return its foreground and background blocks there
+					int xInStructure = worldX - structureWorldPos.X;
+					int yInStructure = worldY - structureWorldPos.Y;
+					Tuple<string, string> structureBlock = structure.GetBlocksAt(xInStructure, yInStructure);
+					if (structureBlock != null) return structureBlock;
+
+					structuresFound++;
+					if (structuresFound == structuresPerChunk)
+					{
+						//All structures for this chunk generated, none contain this block
+						return null;
+					}
+				}
+			}
+			//tried everything, no valid options
+			return null;
+		}
+		
 		private void SetBlockAt(int x, int y, string blockName, bool background)
 		{
 			Block block = world.GetBlock(blockName);
@@ -164,7 +247,7 @@ namespace Oceania_MG.Source
 				}
 			}
 
-			foreach(Entity entity in toRemove)
+			foreach (Entity entity in toRemove)
 			{
 				entities.Remove(entity);
 			}
@@ -178,9 +261,9 @@ namespace Oceania_MG.Source
 				{
 					//TODO: occlusion check? would need to make sure there were no transparent pixels
 					Vector2 viewportPos = ConvertUtils.ChunkToViewport(x, y, this.x, this.y);
-					Vector2 worldPos = ConvertUtils.ChunkToWorld(x, y, this.x, this.y);
-					int worldX = (int)worldPos.X;
-					int worldY = (int)worldPos.Y;
+					Point worldPos = ConvertUtils.ChunkToWorld(x, y, this.x, this.y);
+					int worldX = worldPos.X;
+					int worldY = worldPos.Y;
 
 					if (worldY > World.SEA_LEVEL)
 					{

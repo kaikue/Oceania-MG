@@ -42,6 +42,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Source\Structure.cs" />
     <Compile Include="Source\Biome.cs" />
     <Compile Include="Source\Block.cs" />
     <Compile Include="Source\Chunk.cs" />

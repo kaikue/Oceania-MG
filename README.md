@@ -14,6 +14,16 @@ TODO
 	- Add another noise function worth of caves
 	- Ore- variable # of noise functions per ore type (cluster frequency)
 	- Sky biome with clouds
+	- Structures
+		- Test deterministic generation
+		- Put each one in separate json in Config/Structures/
+		- Character-to-block name mapping
+		- Anchor blocks (require solid/water in corners)
+		- Puzzle, coral
+		- Loot tables (once inventories & chests are done)
+		- Random elements
+			- Kelp with random height and branches
+			- Dungeons with random mazes
 - Input
 	- cursor position- mouse or right joystick (for targeting, inventory)
 		- should snap back when not held for targeting
@@ -37,6 +47,7 @@ TODO
 	- Entities
 	- Inventory
 	- Sound
+	- Tile puzzle
 - Apply knockback to EntityLiving movement
 - Ore not rendering properly
 - Make viewport smoother for scale=2
@@ -44,6 +55,7 @@ TODO
 - Make sure serialization works
 	- references (including Player) across files
 	- image reloading (combine with SetWorld)
+	- Serialize and load blockIDs in World- only add new mapping if not already present (keeps IDs consistent with adding/removing blocks)
 - Set loaded chunk radius x&y based on screen size and scale
 - Performance
 	- Load chunks in background thread (await result, add to loaded chunks or generate when loading finishes)
@@ -87,7 +99,51 @@ TODO
 	- Surface
 		- Birds (from Animals RPG Sprites)
 		- Flying rays https://i.imgur.com/SyGVm1y.gif
+	- Open waters
+		- Guys that try to ram into you, you can deflect them back into other enemies/walls
 	- Cave
 		- Pulls back and springs towards you
 		- Shoots grapple hook towards you and pulls along it
 		- Stationary guys that shoot lasers spinning around
+
+Progression:
+--
+### 1. Sea
+- T0: Stone Age
+    - Spawn in world
+    - Pick up flint
+    - Right click flint with it several times to make Sharpened Flint
+    - Right click Sharpened Flint on bone (from killing something or skeleton in world) to make basic pick
+- T1: Copper Age
+    - Collect copper ore
+    - Cold forging- heat? then hit with hammer? to make pick head or sword blade
+    - Copper tools, armor
+    - Shells, eggshells, coral -heat-> quicklime + sand -> limestone
+- T2: Bronze Age
+    - Collect tin, lead, zinc ore
+    - Crucible
+            - Place crucible over hydrothermal vent, place ore into crucible, inject into mold for whatever part (like sword blade)
+            - Up to 800°, melt metals in forge, basic alloys, cast into molds
+        - Craft molds with sand + clay, imprint with some natural material for type (e.g. narwhal horn for sword blade)
+        - Melt sand into glass, pour into empty mold
+    - Alloys- brass, bronze
+    - Machines
+    - Alchemy?
+- T3: Iron Age
+    - Collect iron ore
+    - Bloomery?
+    - Steel
+    - Mangalloy
+    - Alchemy?
+- T4: Final Age
+    - Collect cobalt, chromium
+    - Make vitallum
+    - Make Reverse Atmospheric Diving Suit, climb ashore
+### 2. Land
+- Explore islands
+- Trade with natives
+- Land temples?
+### 3. Sky
+- Flight (clunky jetpack at first, then better wings)
+- Explore floating sky temples
+- Cosmic space stuff

@@ -41,8 +41,11 @@ namespace Oceania_MG.Source
 
 		private Biome[] biomes;
 		private Dictionary<string, Ore> ores;
+		private Dictionary<string, Structure> structures;
 
 		private Dictionary<int, Block> blocks;
+
+		[DataMember]
 		private Dictionary<string, int> blockIDs;
 
 		private HashSet<Chunk> loadedChunks;
@@ -54,17 +57,34 @@ namespace Oceania_MG.Source
 			generate = new Generate(seed);
 			loadedChunks = new HashSet<Chunk>();
 
-			string biomesJSON = File.ReadAllText("Content/Config/biomes.json");
-			biomes = JsonConvert.DeserializeObject<Biomes>(biomesJSON).biomes;
-
 			string oresJSON = File.ReadAllText("Content/Config/ores.json");
 			Ore[] oreList = JsonConvert.DeserializeObject<Ores>(oresJSON).ores;
 			ores = new Dictionary<string, Ore>();
-			foreach(Ore ore in oreList)
+			foreach (Ore ore in oreList)
 			{
 				ores[ore.name] = ore;
 			}
-			
+
+			string structuresJSON = File.ReadAllText("Content/Config/structures.json");
+			Structure[] structuresList = JsonConvert.DeserializeObject<Structures>(structuresJSON).structures;
+			structures = new Dictionary<string, Structure>();
+			foreach (Structure structure in structuresList)
+			{
+				structures[structure.name] = structure;
+			}
+
+			string biomesJSON = File.ReadAllText("Content/Config/biomes.json");
+			biomes = JsonConvert.DeserializeObject<Biomes>(biomesJSON).biomes;
+
+			//sort each biome's structures by size (width + height) so that larger structures take priority in generation
+			foreach (Biome biome in biomes)
+			{
+				biome.structures = biome.structures.OrderByDescending(structureName => {
+					Structure structure = structures[structureName];
+					return structure.GetWidth() + structure.GetHeight();
+				}).ToArray();
+			}
+
 			blocks = new Dictionary<int, Block>();
 			blockIDs = new Dictionary<string, int>();
 			string blocksJSON = File.ReadAllText("Content/Config/blocks.json");
@@ -207,6 +227,11 @@ namespace Oceania_MG.Source
 		public Ore GetOre(string oreName)
 		{
 			return ores[oreName];
+		}
+
+		public Structure GetStructure(string structureName)
+		{
+			return structures[structureName];
 		}
 
 		public Color GetLight(int x, int y)

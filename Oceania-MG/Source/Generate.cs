@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -134,6 +135,61 @@ namespace Oceania_MG.Source
 			float temperatureNoise = biomeTempNoise2D.Get(point);
 			float livelinessNoise = biomeLifeNoise2D.Get(point);
 			return new Tuple<float, float>(temperatureNoise, livelinessNoise);
+		}
+		
+		public int StructuresPerChunk(int chunkX, int chunkY, Structure structure)
+		{
+			Random random = new Random(CombineSeed(chunkX, chunkY, structure.name.GetHashCode()));
+
+			double freqCheck = random.NextDouble();
+			if (freqCheck > structure.frequency) return 0;
+
+			//Can use the same Random object here
+			return random.Next(structure.minPerChunk, structure.maxPerChunk + 1);
+		}
+
+		/// <summary>
+		/// Returns deterministically-randomly permuted array of locations within the chunk.
+		/// </summary>
+		public Point[] ShufflePositions(int chunkX, int chunkY)
+		{
+			Random random = new Random(CombineSeed(chunkX, chunkY));
+
+			//Shuffle a list from 0 to Chunk.WIDTH * Chunk.HEIGHT, then convert it into positions
+			//Based on https://stackoverflow.com/a/1262619
+			int n = Chunk.WIDTH * Chunk.HEIGHT;
+			Point[] list = new Point[n];
+			while (n > 1)
+			{
+				n--;
+				list[n] = IntToChunkPoint(n);
+				int k = random.Next(n + 1);
+				Point value = list[k];
+				if (value == null) value = IntToChunkPoint(k);
+				list[k] = list[n];
+				list[n] = value;
+			}
+			return list;
+		}
+
+		private Point IntToChunkPoint(int i)
+		{
+			return new Point(i % Chunk.WIDTH, i / Chunk.WIDTH);
+		}
+
+		/// <summary>
+		/// Combines two ints into one, giving a roughly evenly distributed result.
+		/// Useful for seeding a Random() with two values.
+		/// Uses a completely arbitrary algorithm that seemed to work well enough.
+		/// </summary>
+		public static int CombineSeed(int seed1, int seed2)
+		{
+			return seed1 * seed2 + seed1 ^ seed2;
+		}
+
+		public static int CombineSeed(int seed1, int seed2, int seed3)
+		{
+			return CombineSeed(CombineSeed(seed1, seed2), seed3);
 		}
 	}
 }

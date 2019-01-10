@@ -48,7 +48,7 @@
 			"copper"
 		],
 		"structures": [
-			"coral",
+			"flint",
 			"temple"
 		]
 	},
@@ -67,8 +67,7 @@
 		],
 		"structures": [
 			"kelp",
-			"flint",
-			"puzzle"
+			"flint"
 		]
 	},
 	{
@@ -84,44 +83,39 @@
 			"peridot"
 		],
 		"structures": [
-			"kelp",
-			"temple",
 			"flint"
 		]
 	},
-    {
-      "name": "Volcanic Pipe",
-      "temperature": -1,
-      "liveliness": -1,
-      "depth": 200,
-      "surfaceBlock": "basalt",
-      "baseBlock": "basalt",
-      "color": [ 128, 128, 255 ],
-      "ores": [
-        "iron",
-        "peridot"
-      ],
-      "structures": [
-        "lava"
-      ]
-    },
-    {
-      "name": "Abyss",
-      "temperature": -1,
-      "liveliness": 0,
-      "depth": 350,
-      "surfaceBlock": "basalt",
-      "baseBlock": "basalt",
-      "color": [ 128, 128, 128 ]
-    },
-    {
-      "name": "Core",
-      "temperature": 1,
-      "liveliness": 0,
-      "depth": 550,
-      "surfaceBlock": "basalt",
-      "baseBlock": "basalt",
-      "color": [ 255, 128, 128 ]
-    }
+	{
+		"name": "Volcanic Pipe",
+		"temperature": -1,
+		"liveliness": -1,
+		"depth": 200,
+		"surfaceBlock": "basalt",
+		"baseBlock": "basalt",
+		"color": [ 128, 128, 255 ],
+		"ores": [
+			"iron",
+			"peridot"
+		]
+	},
+	{
+		"name": "Abyss",
+		"temperature": -1,
+		"liveliness": 0,
+		"depth": 350,
+		"surfaceBlock": "basalt",
+		"baseBlock": "basalt",
+		"color": [ 128, 128, 128 ]
+	},
+	{
+		"name": "Core",
+		"temperature": 1,
+		"liveliness": 0,
+		"depth": 550,
+		"surfaceBlock": "basalt",
+		"baseBlock": "basalt",
+		"color": [ 255, 128, 128 ]
+	}
 	]
 }

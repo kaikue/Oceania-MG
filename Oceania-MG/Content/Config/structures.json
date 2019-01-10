@@ -1,32 +1,28 @@
 {
-	"flint": {
-		"type": "singleblock",
-		"block": "flint",
-		"frequency": 0.2
+	"structures": [
+	{
+		"name": "flint",
+		"frequency": 1,
+		"minPerChunk": 0,
+		"maxPerChunk": 4,
+		"blocksForeground": [["flint"]],
+		"blocksBackground": [["water"]]
 	},
-	"kelp": {
-		"type": "column",
-		"block": "kelp",
-		"minheight": 4,
-		"maxheight": 24,
-		"frequency": 0.2
+	{
+		"name": "kelp",
+		"frequency": 0.8,
+		"minPerChunk": 1,
+		"maxPerChunk": 8,
+		"blocksForeground": [["kelp"], ["kelp"], ["kelp"], ["kelp"]],
+		"blocksBackground": [["water"], ["water"], ["water"], ["water"]]
 	},
-	"temple": {
-		"type": "json",
-		"location": "gen/temple.json",
-		"frequency": 0.05
-	},
-	"puzzle": {
-		"type": "json",
-		"location": "gen/puzzle.json",
-		"frequency": 0.025
-	},
-	"ridge": {
-		"type": "mountain",
-		"frequency": 0.0
-	},
-	"coral": {
-		"type": "blob",
-		"frequency": 0.0
+	{
+		"name": "temple",
+		"frequency": 0.5,
+		"minPerChunk": 1,
+		"maxPerChunk": 1,
+		"blocksForeground": [["basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt"]],
+		"blocksBackground": [["basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt", "basalt"]]
 	}
+	]
 }
