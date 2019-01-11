@@ -1,9 +1,10 @@
 //Format: Action:Controller.Button
-//Controller can be Keyboard, Mouse, Gamepad
+//Controller can be Keyboard, Mouse, Gamepad, GamepadThumbstick
 //Button: dependent on Controller
 //	Mouse: LeftClick, RightClick, MiddleClick, ScrollUp, ScrollDown
 //	Keyboard: see https://github.com/MonoGame/MonoGame/blob/master/MonoGame.Framework/Input/Keys.cs
 //	Gamepad: see https://github.com/MonoGame/MonoGame/blob/master/MonoGame.Framework/Input/Buttons.cs
+//	GamepadThumbstick: Left, Right (only valid for Move action)
 //Empty lines and comments (like this one) are ignored.
 
 //Movement

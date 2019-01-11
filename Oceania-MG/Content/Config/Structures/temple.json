@@ -1,0 +1,18 @@
+{
+	"frequency": 0.5,
+	"minPerChunk": 1,
+	"maxPerChunk": 1,
+	"layout": [
+		" BBBBBBBBBBBBBBBBBBBB ",
+		" BBBBBBBBBBBBBBBBBBBB ",
+		"WBBBBBBBBBBBBBBBBBBBBW",
+		" S                  S "
+	],
+	"blocks": {
+		"B": ["basalt", "basalt"]
+	},
+	"anchors": {
+		"W": ["water", "water"],
+		"S": ["_solid", "_solid"]
+	}
+}

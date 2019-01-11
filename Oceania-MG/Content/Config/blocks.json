@@ -2,7 +2,7 @@
 	"blocks": [
 	{
 		"name": "unknown",
-		"displayName": "Missingno",
+		"displayName": "Unknown",
 		"solid": true,
 		"image": "Images/blocks/water",
 		"breakable": false

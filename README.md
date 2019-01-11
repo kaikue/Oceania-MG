@@ -15,10 +15,8 @@ TODO
 	- Ore- variable # of noise functions per ore type (cluster frequency)
 	- Sky biome with clouds
 	- Structures
-		- Test deterministic generation
-		- Put each one in separate json in Config/Structures/
-		- Character-to-block name mapping
-		- Anchor blocks (require solid/water in corners)
+		- Read each one from json in Config/Structures/
+			- _solid, _any anchors
 		- Puzzle, coral
 		- Loot tables (once inventories & chests are done)
 		- Random elements
