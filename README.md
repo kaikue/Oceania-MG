@@ -11,7 +11,7 @@ TODO
 	- Island/surface biomes
 		- Balance depth so that only island/surface is at y=0
 	- Lerp biomes
-	- Add another noise function worth of caves
+	- Add another noise function worth of caves?
 	- Ore- variable # of noise functions per ore type (cluster frequency)
 	- Sky biome with clouds
 	- Structures

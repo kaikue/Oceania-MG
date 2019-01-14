@@ -23,6 +23,7 @@ namespace Oceania_MG.Source
 		}
 
 		private const int CORNERS = 4;
+		private const float BACKGROUND_TINT = 0.6f;
 
 		public string name;
 		public string displayName;
@@ -236,7 +237,8 @@ namespace Oceania_MG.Source
 
 			if (background)
 			{
-				color = Color.Multiply(color, 0.8f);
+
+				color = new Color((int)(color.R * BACKGROUND_TINT), (int)(color.G * BACKGROUND_TINT), (int)(color.B * BACKGROUND_TINT), color.A);
 			}
 
 			if (name == "water")
