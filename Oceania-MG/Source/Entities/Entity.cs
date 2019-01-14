@@ -110,6 +110,11 @@ namespace Oceania_MG.Source.Entities
 
 		}
 
+		public Vector2 GetPosition()
+		{
+			return position;
+		}
+
 		public Point GetChunk()
 		{
 			return ConvertUtils.WorldToChunk(position.X, position.Y).Item1;

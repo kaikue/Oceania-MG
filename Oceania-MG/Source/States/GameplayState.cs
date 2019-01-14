@@ -52,7 +52,10 @@ namespace Oceania_MG.Source.States
 			world.Draw(graphicsDevice, spriteBatch, gameTime);
 
 			float fps = 1.0f / (float)gameTime.ElapsedGameTime.TotalSeconds;
-			spriteBatch.DrawString(Game.GetFont(), "FPS: " + fps, new Vector2(100, 100), Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
+			Vector2 playerPos = world.GetPlayer().GetPosition();
+			string biome = world.GetBiomeAt((int)playerPos.X, (int)playerPos.Y).name;
+			string info = "FPS: " + fps + "\n[" + playerPos.X + ", " + playerPos.Y + "]\nBiome: " + biome;
+			spriteBatch.DrawString(Game.GetFont(), info, new Vector2(50, 50), Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0);
 
 			spriteBatch.End();
 		}
