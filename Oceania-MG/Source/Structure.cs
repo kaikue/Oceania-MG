@@ -54,7 +54,7 @@ namespace Oceania_MG.Source
 		public float frequency; //What % of valid chunks to spawn in- between 0 (never) and 1 (always)
 		public int minPerChunk = 1; //Inclusive
 		public int maxPerChunk = 1; //Inclusive
-		public int attempts = Chunk.HEIGHT; //How many tries to fit this structure in a chunk
+		public int attempts = 4 * Chunk.HEIGHT; //How many tries to fit this structure in a chunk
 		public string[] layout;
 		public Dictionary<string, string[]> blocks;
 		public Dictionary<string, string[]> anchors;
@@ -92,9 +92,15 @@ namespace Oceania_MG.Source
 			}
 		}
 
+		public bool ContainsPosition(int x, int y)
+		{
+			//Check y first in case it's 0 (for some reason)
+			return y >= 0 && x >= 0 && y < GetHeight() && x < GetWidth();
+		}
+
 		public Tuple<string, string> GetBlocksAt(int x, int y)
 		{
-			if (y < 0 || x < 0 || y >= GetHeight() || x >= GetWidth()) return null;
+			if (!ContainsPosition(x, y)) return null;
 			string blockBG = GetBlockAt(x, y, true);
 			string blockFG = GetBlockAt(x, y, false);
 			if (blockBG == null && blockFG == null) return null; //If both are empty, allow other structures to generate here
@@ -121,6 +127,14 @@ namespace Oceania_MG.Source
 		{
 			foreach (Anchor anchor in anchorsSet)
 			{
+				//Check that the structure can spawn in this biome
+				Biome biome = world.GetBiomeAt(worldX, worldY);
+				if (!biome.structures.Contains(name))
+				{
+					return false;
+				}
+
+				//Check that the anchor constraints are satisfied
 				Tuple<Block, Block> terrain = world.GetTerrainAt(worldX + anchor.x, worldY + anchor.y);
 				Block terrainBG = terrain.Item1;
 				Block terrainFG = terrain.Item2;
@@ -130,6 +144,20 @@ namespace Oceania_MG.Source
 				}
 			}
 			return true;
+		}
+	}
+
+	class SpawnedStructure
+	{
+		public int x;
+		public int y;
+		public Structure structure;
+
+		public SpawnedStructure(int x, int y, Structure structure)
+		{
+			this.x = x;
+			this.y = y;
+			this.structure = structure;
 		}
 	}
 }

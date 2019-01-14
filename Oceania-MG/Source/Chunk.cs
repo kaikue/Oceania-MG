@@ -34,6 +34,8 @@ namespace Oceania_MG.Source
 
 		private World world;
 
+		private List<SpawnedStructure> structures;
+
 		public Chunk(int x, int y, World world)
 		{
 			this.x = x;
@@ -56,6 +58,7 @@ namespace Oceania_MG.Source
 
 		public void Generate()
 		{
+			ProcessStructures();
 			for (int y = 0; y < HEIGHT; y++)
 			{
 				for (int x = 0; x < WIDTH; x++)
@@ -63,6 +66,84 @@ namespace Oceania_MG.Source
 					GenerateBlock(x, y);
 				}
 			}
+		}
+
+		private void ProcessStructures()
+		{
+			structures = new List<SpawnedStructure>();
+			//Find all structures that overlap this chunk and can generate
+			IEnumerable<string> structuresList = world.GetStructures();
+			Point worldPos = ConvertUtils.ChunkToWorld(0, 0, x, y);
+			int worldX = worldPos.X;
+			int worldY = worldPos.Y;
+			foreach (string structureName in structuresList)
+			{
+				Structure structure = world.GetStructure(structureName);
+				Point minChunk = ConvertUtils.WorldToChunk(worldX - structure.GetWidth() + 1, worldY - structure.GetHeight() + 1).Item1;
+				int minChunkX = minChunk.X;
+				int minChunkY = minChunk.Y;
+				for (int chunkX = x; chunkX >= minChunkX; chunkX--)
+				{
+					for (int chunkY = y; chunkY >= minChunkY; chunkY--)
+					{
+						List<SpawnedStructure> spawnedStructures = TryPlaceStructuresInChunk(structure, chunkX, chunkY);
+						structures.AddRange(spawnedStructures);
+					}
+				}
+			}
+		}
+
+		private List<SpawnedStructure> TryPlaceStructuresInChunk(Structure structure, int chunkX, int chunkY)
+		{
+			List<SpawnedStructure> spawnedStructures = new List<SpawnedStructure>();
+
+			int structuresPerChunk = world.generate.StructuresPerChunk(chunkX, chunkY, structure);
+			if (structuresPerChunk == 0)
+			{
+				return spawnedStructures;
+			}
+
+			int structuresFound = 0;
+			Point point = world.generate.Position(chunkX, chunkY, structuresFound);
+			for (int i = 0; i < structure.attempts; i++)
+			{
+				Point structureWorldPos = ConvertUtils.ChunkToWorld(point.X, point.Y, chunkX, chunkY);
+				if (structure.CanSpawnAt(structureWorldPos.X, structureWorldPos.Y, world))
+				{
+					spawnedStructures.Add(new SpawnedStructure(structureWorldPos.X, structureWorldPos.Y, structure));
+
+					structuresFound++;
+					if (structuresFound == structuresPerChunk)
+					{
+						//All structures for this chunk generated
+						break;
+					}
+					point = world.generate.Position(chunkX, chunkY, structuresFound);
+				}
+				else
+				{
+					point = NextPoint(point);
+				}
+			}
+			
+			return spawnedStructures;
+		}
+
+		private static Point NextPoint(Point point)
+		{
+			//Go in columns, since many structures are restricted to the surface
+			int newX = point.X;
+			int newY = point.Y + 1;
+			if (newY >= HEIGHT)
+			{
+				newY -= HEIGHT;
+				newX++;
+				if (newX >= WIDTH)
+				{
+					newX -= WIDTH;
+				}
+			}
+			return new Point(newX, newY);
 		}
 
 		private void GenerateBlock(int x, int y)
@@ -77,7 +158,7 @@ namespace Oceania_MG.Source
 
 			blockFG = GetOreAt(worldX, worldY, biome, blockFG);
 			
-			Tuple<string, string> structureBlocks = GetStructureAt(worldX, worldY, biome, blockBG, blockFG);
+			Tuple<string, string> structureBlocks = GetStructureAt(worldX, worldY, blockBG, blockFG);
 			if (structureBlocks.Item1 != null) blockBG = structureBlocks.Item1;
 			if (structureBlocks.Item2 != null) blockFG = structureBlocks.Item2;
 
@@ -127,106 +208,25 @@ namespace Oceania_MG.Source
 			return baseBlock;
 		}
 
-		private Tuple<string, string> GetStructureAt(int worldX, int worldY, Biome biome, string baseBlockBG, string baseBlockFG)
+		private Tuple<string, string> GetStructureAt(int worldX, int worldY, string baseBlockBG, string baseBlockFG)
 		{
-			Point currentChunk = ConvertUtils.WorldToChunk(worldX, worldY).Item1;
-			int currentChunkX = currentChunk.X;
-			int currentChunkY = currentChunk.Y;
-			/*
-			 * Currently only looks at structures that are valid for the current biome. This could lead to cases where a 
-			 * structure is cut in half by a slice of another biome where it can't spawn, while both ends are in valid
-			 * biomes.
-			 * This could be fixed by looking at all structures for all biomes, but that would be slower, and result in
-			 * structures frequently "leaking out" of the edges of the biomes where they can spawn.
-			 */
-			foreach (string structureName in biome.structures)
+			foreach (SpawnedStructure spawnedStructure in structures)
 			{
-				Tuple<string, string> structureBlocks = TrySpawnStructure(structureName, worldX, worldY, currentChunkX, currentChunkY);
-				if (structureBlocks != null)
+				int xInStructure = worldX - spawnedStructure.x;
+				int yInStructure = worldY - spawnedStructure.y;
+				Structure structure = spawnedStructure.structure;
+				if (structure.ContainsPosition(xInStructure, yInStructure))
 				{
-					//Valid structure found
-					return structureBlocks;
-				}
-			}
-
-			//No structure found
-			return new Tuple<string, string>(baseBlockBG, baseBlockFG);
-		}
-
-		private Tuple<string, string> TrySpawnStructure(string structureName, int worldX, int worldY, int currentChunkX, int currentChunkY)
-		{
-			Structure structure = world.GetStructure(structureName);
-			Point minChunk = ConvertUtils.WorldToChunk(worldX - structure.GetWidth() + 1, worldY - structure.GetHeight() + 1).Item1;
-			int minChunkX = minChunk.X;
-			int minChunkY = minChunk.Y;
-			for (int chunkX = currentChunkX; chunkX >= minChunkX; chunkX--)
-			{
-				for (int chunkY = currentChunkY; chunkY >= minChunkY; chunkY--)
-				{
-					Tuple<string, string> chunkResult = TrySpawnStructureInChunk(structure, worldX, worldY, chunkX, chunkY);
-					if (chunkResult != null) return chunkResult;
-				}
-			}
-			return null;
-		}
-
-		private Tuple<string, string> TrySpawnStructureInChunk(Structure structure, int worldX, int worldY, int chunkX, int chunkY)
-		{
-			int structuresPerChunk = world.generate.StructuresPerChunk(chunkX, chunkY, structure);
-			if (structuresPerChunk == 0)
-			{
-				return null; //Early out, to avoid making full checks for each chunk
-			}
-
-			int structuresFound = 0;
-
-			Point point = world.generate.Position(chunkX, chunkY, structuresFound);
-			for (int i = 0; i < structure.attempts; i++)
-			{
-				Point structureWorldPos = ConvertUtils.ChunkToWorld(point.X, point.Y, chunkX, chunkY);
-				if (structure.CanSpawnAt(structureWorldPos.X, structureWorldPos.Y, world))
-				{
-					//If the structure contains this position: return its foreground and background blocks there
-					int xInStructure = worldX - structureWorldPos.X;
-					int yInStructure = worldY - structureWorldPos.Y;
 					Tuple<string, string> structureBlock = structure.GetBlocksAt(xInStructure, yInStructure);
 					if (structureBlock != null)
 					{
 						return structureBlock;
 					}
+				}
+			}
 
-					structuresFound++;
-					if (structuresFound == structuresPerChunk)
-					{
-						//All structures for this chunk generated, none contain this block
-						return null;
-					}
-					point = world.generate.Position(chunkX, chunkY, structuresFound);
-				}
-				else
-				{
-					point = NextPoint(point);
-				}
-			}
-			//tried everything, no valid options
-			return null;
-		}
-		
-		private static Point NextPoint(Point point)
-		{
-			//Go in columns, since many structures are restricted to the surface
-			int newX = point.X;
-			int newY = point.Y + 1;
-			if (newY >= HEIGHT)
-			{
-				newY -= HEIGHT;
-				newX++;
-				if (newX >= WIDTH)
-				{
-					newX -= WIDTH;
-				}
-			}
-			return new Point(newX, newY);
+			//No structure found
+			return new Tuple<string, string>(baseBlockBG, baseBlockFG);
 		}
 
 		private void SetBlockAt(int x, int y, string blockName, bool background)

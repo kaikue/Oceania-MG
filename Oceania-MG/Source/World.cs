@@ -243,6 +243,11 @@ namespace Oceania_MG.Source
 			return ores[oreName];
 		}
 
+		public IEnumerable<string> GetStructures()
+		{
+			return structures.Keys;
+		}
+
 		public Structure GetStructure(string structureName)
 		{
 			return structures[structureName];
