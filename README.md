@@ -17,7 +17,6 @@ TODO
 	- Structures
 		- Make temples generate more often
 			- anchors that at least 1 must be fulfilled?
-		- Flint shouldn't generate over kelp- bigger structures generate first
 		- Puzzle, coral
 		- Loot tables (once inventories & chests are done)
 		- Random elements

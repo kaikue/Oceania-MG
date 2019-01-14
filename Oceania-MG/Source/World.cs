@@ -42,6 +42,7 @@ namespace Oceania_MG.Source
 		private Biome[] biomes;
 		private Dictionary<string, Ore> ores;
 		private Dictionary<string, Structure> structures;
+		private List<string> structureNames;
 
 		private Dictionary<int, Block> blocks;
 
@@ -77,6 +78,9 @@ namespace Oceania_MG.Source
 				structures[structureName] = structure;
 				Console.WriteLine("Read structure " + structureName + " from " + structureFile);
 			}
+			structureNames = structures.OrderByDescending(structureInfo => {
+				return structureInfo.Value.GetWidth() + structureInfo.Value.GetHeight();
+			}).Select(structureInfo => structureInfo.Key).ToList();
 
 			string biomesJSON = File.ReadAllText("Content/Config/biomes.json");
 			biomes = JsonConvert.DeserializeObject<Biomes>(biomesJSON).biomes;
@@ -243,9 +247,9 @@ namespace Oceania_MG.Source
 			return ores[oreName];
 		}
 
-		public IEnumerable<string> GetStructures()
+		public List<string> GetStructures()
 		{
-			return structures.Keys;
+			return structureNames;
 		}
 
 		public Structure GetStructure(string structureName)
