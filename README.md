@@ -15,8 +15,6 @@ TODO
 	- Ore- variable # of noise functions per ore type (cluster frequency)
 	- Sky biome with clouds
 	- Structures
-		- Make temples generate more often
-			- anchors that at least 1 must be fulfilled?
 		- Puzzle, coral
 		- Loot tables (once inventories & chests are done)
 		- Random elements

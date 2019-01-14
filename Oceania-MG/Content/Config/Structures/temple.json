@@ -3,8 +3,8 @@
 	"minPerChunk": 1,
 	"maxPerChunk": 1,
 	"layout": [
-		"WBBBBBBBBBBBBBBBBBBBBW",
-		"WBBBBBBBBBBBBBBBBBBBBW",
+		" BBBBBBBBBBBBBBBBBBBB ",
+		" BBBBBBBBBBBBBBBBBBBB ",
 		"WBBBBBBBBBBBBBBBBBBBBW",
 		" S                  S "
 	],
@@ -12,7 +12,7 @@
 		"B": ["basalt", "basalt"]
 	},
 	"anchors": {
-		"W": ["water", "water"],
+		"W": ["water", "water", "anySatisfied"],
 		"S": ["_solid", "_solid"]
 	}
 }

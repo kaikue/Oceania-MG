@@ -16,17 +16,20 @@ namespace Oceania_MG.Source
 			private const string ANY = "_any";
 			private const string ANYSOLID = "_solid";
 
+			public const string ANY_SATISFIED = "anySatisfied";
+
 			public int x;
 			public int y;
 			private string foregroundBlock;
 			private string backgroundBlock;
 
-			public Anchor(int x, int y, string foregroundBlock, string backgroundBlock)
+
+			public Anchor(int x, int y, string[] info)
 			{
 				this.x = x;
 				this.y = y;
-				this.foregroundBlock = foregroundBlock;
-				this.backgroundBlock = backgroundBlock;
+				foregroundBlock = info[0];
+				backgroundBlock = info[1];
 			}
 
 			public bool IsValid(Block terrainBG, Block terrainFG)
@@ -61,13 +64,15 @@ namespace Oceania_MG.Source
 		public string name;
 		private string[][] blocksForeground;
 		private string[][] blocksBackground;
-		private HashSet<Anchor> anchorsSet;
+		private HashSet<Anchor> strictAnchorsSet;
+		private HashSet<Anchor> lenientAnchorsSet;
 
 		public void Process()
 		{
 			blocksForeground = new string[layout.Length][];
 			blocksBackground = new string[layout.Length][];
-			anchorsSet = new HashSet<Anchor>();
+			strictAnchorsSet = new HashSet<Anchor>();
+			lenientAnchorsSet = new HashSet<Anchor>();
 
 			for (int i = 0; i < layout.Length; i++)
 			{
@@ -85,8 +90,18 @@ namespace Oceania_MG.Source
 					}
 					if (anchors.ContainsKey(blockSymbol))
 					{
-						string[] anchorPair = anchors[blockSymbol];
-						anchorsSet.Add(new Anchor(j, i, anchorPair[0], anchorPair[1]));
+						string[] anchorInfo = anchors[blockSymbol];
+						Anchor anchor = new Anchor(j, i, anchorInfo);
+						if (anchorInfo.Length > 2 && anchorInfo[2] == Anchor.ANY_SATISFIED)
+						{
+							Console.WriteLine("Adding lenient anchor " + blockSymbol + " for structure " + name);
+							lenientAnchorsSet.Add(anchor);
+						}
+						else
+						{
+							Console.WriteLine("Adding strict anchor " + blockSymbol + " for structure " + name);
+							strictAnchorsSet.Add(anchor);
+						}
 					}
 				}
 			}
@@ -125,25 +140,41 @@ namespace Oceania_MG.Source
 
 		public bool CanSpawnAt(int worldX, int worldY, World world)
 		{
-			foreach (Anchor anchor in anchorsSet)
+			//All of strict anchors must be true
+			foreach (Anchor anchor in strictAnchorsSet)
 			{
-				//Check that the structure can spawn in this biome
-				Biome biome = world.GetBiomeAt(worldX, worldY);
-				if (!biome.structures.Contains(name))
-				{
-					return false;
-				}
-
-				//Check that the anchor constraints are satisfied
-				Tuple<Block, Block> terrain = world.GetTerrainAt(worldX + anchor.x, worldY + anchor.y);
-				Block terrainBG = terrain.Item1;
-				Block terrainFG = terrain.Item2;
-				if (!anchor.IsValid(terrainBG, terrainFG))
+				if (!AnchorSatisfied(anchor, worldX, worldY, world))
 				{
 					return false;
 				}
 			}
-			return true;
+
+			//Any of lenient anchors must be true
+			bool satisfied = lenientAnchorsSet.Count() == 0;
+			foreach (Anchor anchor in lenientAnchorsSet)
+			{
+				if (AnchorSatisfied(anchor, worldX, worldY, world))
+				{
+					satisfied = true;
+				}
+			}
+			return satisfied;
+		}
+
+		private bool AnchorSatisfied(Anchor anchor, int worldX, int worldY, World world)
+		{
+			//Check that the structure can spawn in this biome
+			Biome biome = world.GetBiomeAt(worldX, worldY);
+			if (!biome.structures.Contains(name))
+			{
+				return false;
+			}
+
+			//Check that the anchor constraints are satisfied
+			Tuple<Block, Block> terrain = world.GetTerrainAt(worldX + anchor.x, worldY + anchor.y);
+			Block terrainBG = terrain.Item1;
+			Block terrainFG = terrain.Item2;
+			return anchor.IsValid(terrainBG, terrainFG);
 		}
 	}
 

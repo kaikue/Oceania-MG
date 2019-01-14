@@ -72,12 +72,13 @@ namespace Oceania_MG.Source
 			{
 				string structureJSON = File.ReadAllText(structureFile);
 				Structure structure = JsonConvert.DeserializeObject<Structure>(structureJSON);
-				structure.Process();
 				string structureName = Path.GetFileNameWithoutExtension(structureFile);
 				structure.name = structureName;
+				structure.Process();
 				structures[structureName] = structure;
-				Console.WriteLine("Read structure " + structureName + " from " + structureFile);
 			}
+
+			//sort structures by size (width + height) so that larger structures take priority in generation
 			structureNames = structures.OrderByDescending(structureInfo => {
 				return structureInfo.Value.GetWidth() + structureInfo.Value.GetHeight();
 			}).Select(structureInfo => structureInfo.Key).ToList();
@@ -85,6 +86,7 @@ namespace Oceania_MG.Source
 			string biomesJSON = File.ReadAllText("Content/Config/biomes.json");
 			biomes = JsonConvert.DeserializeObject<Biomes>(biomesJSON).biomes;
 
+			/*
 			//sort each biome's structures by size (width + height) so that larger structures take priority in generation
 			foreach (Biome biome in biomes)
 			{
@@ -92,7 +94,7 @@ namespace Oceania_MG.Source
 					Structure structure = structures[structureName];
 					return structure.GetWidth() + structure.GetHeight();
 				}).ToArray();
-			}
+			}*/
 
 			blocks = new Dictionary<int, Block>();
 			blockIDs = new Dictionary<string, int>();
@@ -108,7 +110,6 @@ namespace Oceania_MG.Source
 				blockIDs[block.name] = block.id;
 
 				block.LoadImage();
-				Console.WriteLine(block.name + " " + block.renderType);
 			}
 
 			GenerateNew(new Player.PlayerOptions());
@@ -116,8 +117,9 @@ namespace Oceania_MG.Source
 		
 		public void GenerateNew(Player.PlayerOptions playerOptions)
 		{
-			player = new Player(this, new Vector2(0, 1), playerOptions);
-			LoadChunks(0, 0);
+			player = new Player(this, new Vector2(0, 80), playerOptions);
+			Point playerChunk = player.GetChunk();
+			LoadChunks(playerChunk.X, playerChunk.Y);
 		}
 
 		private void LoadChunks(int centerChunkX, int centerChunkY)
