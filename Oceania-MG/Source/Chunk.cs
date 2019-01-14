@@ -70,23 +70,28 @@ namespace Oceania_MG.Source
 			Point worldPos = ConvertUtils.ChunkToWorld(x, y, this.x, this.y);
 			int worldX = worldPos.X;
 			int worldY = worldPos.Y;
-			Biome biome = world.BiomeAt(worldX, worldY);
-			Tuple<float, float> noise = world.generate.Terrain(worldX, worldY, biome.minHeight, biome.maxHeight);
 
-			string blockBG = GetBlockFromNoise(x, y, noise.Item1, true, biome);
-			string blockFG = GetBlockFromNoise(x, y, noise.Item2, false, biome);
+			Biome biome = world.GetBiomeAt(worldX, worldY);
+			string blockBG = GetTerrainAt(world, worldX, worldY, true, biome);
+			string blockFG = GetTerrainAt(world, worldX, worldY, false, biome);
 
 			blockFG = GetOreAt(worldX, worldY, biome, blockFG);
 			
 			Tuple<string, string> structureBlocks = GetStructureAt(worldX, worldY, biome, blockBG, blockFG);
-			blockBG = structureBlocks.Item1;
-			blockFG = structureBlocks.Item2;
+			if (structureBlocks.Item1 != null) blockBG = structureBlocks.Item1;
+			if (structureBlocks.Item2 != null) blockFG = structureBlocks.Item2;
 
 			SetBlockAt(x, y, blockBG, true);
 			SetBlockAt(x, y, blockFG, false);
 		}
 
-		private string GetBlockFromNoise(int worldX, int worldY, float terrainNoise, bool background, Biome biome)
+		public static string GetTerrainAt(World world, int worldX, int worldY, bool background, Biome biome)
+		{
+			Tuple<float, float> noise = world.generate.Terrain(worldX, worldY, biome.minHeight, biome.maxHeight);
+			return GetBlockFromNoise(worldX, worldY, background ? noise.Item1 : noise.Item2, background, biome);
+		}
+
+		private static string GetBlockFromNoise(int worldX, int worldY, float terrainNoise, bool background, Biome biome)
 		{
 			//TODO variable thresholds from biome
 			if (terrainNoise > -0.5)
@@ -174,8 +179,9 @@ namespace Oceania_MG.Source
 			}
 
 			int structuresFound = 0;
-			Point[] points = world.generate.ShufflePositions(chunkX, chunkY); //Randomly permute sub-chunk positions, seeded with chunkX, chunkY
-			foreach (Point point in points)
+
+			Point point = world.generate.Position(chunkX, chunkY, structuresFound);
+			for (int i = 0; i < structure.attempts; i++)
 			{
 				Point structureWorldPos = ConvertUtils.ChunkToWorld(point.X, point.Y, chunkX, chunkY);
 				if (structure.CanSpawnAt(structureWorldPos.X, structureWorldPos.Y, world))
@@ -184,7 +190,10 @@ namespace Oceania_MG.Source
 					int xInStructure = worldX - structureWorldPos.X;
 					int yInStructure = worldY - structureWorldPos.Y;
 					Tuple<string, string> structureBlock = structure.GetBlocksAt(xInStructure, yInStructure);
-					if (structureBlock != null) return structureBlock;
+					if (structureBlock != null)
+					{
+						return structureBlock;
+					}
 
 					structuresFound++;
 					if (structuresFound == structuresPerChunk)
@@ -192,12 +201,34 @@ namespace Oceania_MG.Source
 						//All structures for this chunk generated, none contain this block
 						return null;
 					}
+					point = world.generate.Position(chunkX, chunkY, structuresFound);
+				}
+				else
+				{
+					point = NextPoint(point);
 				}
 			}
 			//tried everything, no valid options
 			return null;
 		}
 		
+		private static Point NextPoint(Point point)
+		{
+			//Go in columns, since many structures are restricted to the surface
+			int newX = point.X;
+			int newY = point.Y + 1;
+			if (newY >= HEIGHT)
+			{
+				newY -= HEIGHT;
+				newX++;
+				if (newX >= WIDTH)
+				{
+					newX -= WIDTH;
+				}
+			}
+			return new Point(newX, newY);
+		}
+
 		private void SetBlockAt(int x, int y, string blockName, bool background)
 		{
 			Block block = world.GetBlock(blockName);
@@ -264,12 +295,6 @@ namespace Oceania_MG.Source
 					Point worldPos = ConvertUtils.ChunkToWorld(x, y, this.x, this.y);
 					int worldX = worldPos.X;
 					int worldY = worldPos.Y;
-
-					if (worldY > World.SEA_LEVEL)
-					{
-						Block water = world.GetBlock("water");
-						water.Draw(viewportPos, graphicsDevice, spriteBatch, gameTime, false, worldX, worldY, world);
-					}
 
 					bool[] layers = { true, false };
 					foreach (bool background in layers)

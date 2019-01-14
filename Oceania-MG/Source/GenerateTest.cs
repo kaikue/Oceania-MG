@@ -54,7 +54,7 @@ namespace Oceania_MG.Source
 				colors[x] = new Color[HEIGHT];
 				for (int y = START_Y; y < END_Y; y++)
 				{
-					Biome biome = world.BiomeAt(x, y);
+					Biome biome = world.GetBiomeAt(x, y);
 					Tuple<float, float> values = world.generate.Terrain(x, y, biome.minHeight, biome.maxHeight);
 					float value = values.Item2;
 					value = value < -0.5f ? (values.Item1 < -0.4f ? 0.1f : 0.25f) : value < -0.4f ? 0.8f : 1;
@@ -114,7 +114,7 @@ namespace Oceania_MG.Source
 
 			int mouseX = Mouse.GetState().X / SCALE;
 			int mouseY = Mouse.GetState().Y / SCALE + START_Y;
-			Biome hoverBiome = world.BiomeAt(mouseX, mouseY);
+			Biome hoverBiome = world.GetBiomeAt(mouseX, mouseY);
 			hoverBiomeName = mouseX + ", " + mouseY + ": " + hoverBiome.name;
 
 			base.Update(gameTime);

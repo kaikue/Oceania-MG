@@ -82,7 +82,7 @@ namespace Oceania_MG.Source.Entities
 			{
 				for (int y = top; y <= bottom; y++)
 				{
-					Block block = world.BlockAt(x, y, background);
+					Block block = world.GetBlockAt(x, y, background);
 					Rectangle blockRect = new Rectangle(ConvertUtils.WorldToPoint(x), ConvertUtils.WorldToPoint(y), ConvertUtils.WorldToPoint(1), ConvertUtils.WorldToPoint(1));
 					if (block.solid && CollidesWith(blockRect))
 					{

@@ -1,0 +1,22 @@
+{
+	"frequency": 0.8,
+	"minPerChunk": 1,
+	"maxPerChunk": 8,
+	"layout": [
+		" K ",
+		" K ",
+		" K ",
+		" K ",
+		" K ",
+		" K ",
+		"WKW",
+		" S "
+	],
+	"blocks": {
+		"K": ["kelp", "water"]
+	},
+	"anchors": {
+		"W": ["water", "water"],
+		"S": ["_solid", "_solid"]
+	}
+}

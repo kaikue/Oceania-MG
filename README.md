@@ -15,8 +15,7 @@ TODO
 	- Ore- variable # of noise functions per ore type (cluster frequency)
 	- Sky biome with clouds
 	- Structures
-		- Read each one from json in Config/Structures/
-			- _solid, _any anchors
+		- Generation is slow
 		- Puzzle, coral
 		- Loot tables (once inventories & chests are done)
 		- Random elements

@@ -147,7 +147,8 @@ namespace Oceania_MG.Source
 			//Can use the same Random object here
 			return random.Next(structure.minPerChunk, structure.maxPerChunk + 1);
 		}
-
+		
+		/*
 		/// <summary>
 		/// Returns deterministically-randomly permuted array of locations within the chunk.
 		/// </summary>
@@ -175,6 +176,15 @@ namespace Oceania_MG.Source
 		private Point IntToChunkPoint(int i)
 		{
 			return new Point(i % Chunk.WIDTH, i / Chunk.WIDTH);
+		}
+		*/
+
+		public Point Position(int chunkX, int chunkY, int i)
+		{
+			Random random = new Random(CombineSeed(chunkX, chunkY, i));
+			int x = random.Next(Chunk.WIDTH);
+			int y = random.Next(Chunk.HEIGHT);
+			return new Point(x, y);
 		}
 
 		/// <summary>

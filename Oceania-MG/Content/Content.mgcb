@@ -28,8 +28,14 @@
 #begin Config/ores.json
 /copy:Config/ores.json
 
-#begin Config/structures.json
-/copy:Config/structures.json
+#begin Config/Structures/flint.json
+/copy:Config/Structures/flint.json
+
+#begin Config/Structures/kelp.json
+/copy:Config/Structures/kelp.json
+
+#begin Config/Structures/temple.json
+/copy:Config/Structures/temple.json
 
 #begin Font/CodersCrux.spritefont
 /importer:FontDescriptionImporter
@@ -529,18 +535,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/blocks/kelp/kelp.png
-
-#begin Images/blocks/ore/copper.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/blocks/ore/copper.png
 
 #begin Images/blocks/ore/copper.png
 /importer:TextureImporter

@@ -11,17 +11,94 @@ namespace Oceania_MG.Source
 {
 	class Structure
 	{
-		public string name;
+		private struct Anchor
+		{
+			private const string ANY = "_any";
+			private const string ANYSOLID = "_solid";
+
+			public int x;
+			public int y;
+			private string foregroundBlock;
+			private string backgroundBlock;
+
+			public Anchor(int x, int y, string foregroundBlock, string backgroundBlock)
+			{
+				this.x = x;
+				this.y = y;
+				this.foregroundBlock = foregroundBlock;
+				this.backgroundBlock = backgroundBlock;
+			}
+
+			public bool IsValid(Block terrainBG, Block terrainFG)
+			{
+				return IsValidLayer(terrainBG, backgroundBlock) && IsValidLayer(terrainFG, foregroundBlock);
+			}
+
+			private bool IsValidLayer(Block block, string requirement)
+			{
+				if (requirement == ANY)
+				{
+					return true;
+				}
+				else if (requirement == ANYSOLID)
+				{
+					return block.solid;
+				}
+				else
+				{
+					return block.name == requirement;
+				}
+			}
+		}
+
 		public float frequency; //What % of valid chunks to spawn in- between 0 (never) and 1 (always)
 		public int minPerChunk = 1; //Inclusive
 		public int maxPerChunk = 1; //Inclusive
-		public string[][] blocksForeground;
-		public string[][] blocksBackground;
+		public int attempts = Chunk.HEIGHT; //How many tries to fit this structure in a chunk
+		public string[] layout;
+		public Dictionary<string, string[]> blocks;
+		public Dictionary<string, string[]> anchors;
+		public string name;
+		private string[][] blocksForeground;
+		private string[][] blocksBackground;
+		private HashSet<Anchor> anchorsSet;
+
+		public void Process()
+		{
+			blocksForeground = new string[layout.Length][];
+			blocksBackground = new string[layout.Length][];
+			anchorsSet = new HashSet<Anchor>();
+
+			for (int i = 0; i < layout.Length; i++)
+			{
+				string line = layout[i];
+				blocksForeground[i] = new string[line.Length];
+				blocksBackground[i] = new string[line.Length];
+				for (int j = 0; j < line.Length; j++)
+				{
+					string blockSymbol = line[j].ToString();
+					if (blocks.ContainsKey(blockSymbol))
+					{
+						string[] blockPair = blocks[blockSymbol];
+						blocksForeground[i][j] = blockPair[0];
+						blocksBackground[i][j] = blockPair[1];
+					}
+					if (anchors.ContainsKey(blockSymbol))
+					{
+						string[] anchorPair = anchors[blockSymbol];
+						anchorsSet.Add(new Anchor(j, i, anchorPair[0], anchorPair[1]));
+					}
+				}
+			}
+		}
 
 		public Tuple<string, string> GetBlocksAt(int x, int y)
 		{
 			if (y < 0 || x < 0 || y >= GetHeight() || x >= GetWidth()) return null;
-			return new Tuple<string, string>(GetBlockAt(x, y, true), GetBlockAt(x, y, false));
+			string blockBG = GetBlockAt(x, y, true);
+			string blockFG = GetBlockAt(x, y, false);
+			if (blockBG == null && blockFG == null) return null; //If both are empty, allow other structures to generate here
+			return new Tuple<string, string>(blockBG, blockFG);
 		}
 
 		public string GetBlockAt(int x, int y, bool background)
@@ -42,14 +119,18 @@ namespace Oceania_MG.Source
 
 		public bool CanSpawnAt(int worldX, int worldY, World world)
 		{
-			//TODO Check all anchors- terrain there is solid, biome there contains structure
+			foreach (Anchor anchor in anchorsSet)
+			{
+				Tuple<Block, Block> terrain = world.GetTerrainAt(worldX + anchor.x, worldY + anchor.y);
+				Block terrainBG = terrain.Item1;
+				Block terrainFG = terrain.Item2;
+				if (!anchor.IsValid(terrainBG, terrainFG))
+				{
+					return false;
+				}
+			}
 			return true;
 		}
-	}
-
-	struct Structures
-	{
-		public Structure[] structures;
 	}
 }
 #pragma warning restore 0649

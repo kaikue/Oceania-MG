@@ -136,7 +136,9 @@
     <None Include="Content\Config\blocks.json" />
     <None Include="Content\Config\items.json" />
     <None Include="Content\Config\ores.json" />
-    <None Include="Content\Config\structures.json" />
+    <None Include="Content\Config\Structures\flint.json" />
+    <None Include="Content\Config\Structures\kelp.json" />
+    <None Include="Content\Config\Structures\temple.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

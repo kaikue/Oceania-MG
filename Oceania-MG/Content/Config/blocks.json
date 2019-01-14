@@ -4,7 +4,7 @@
 		"name": "unknown",
 		"displayName": "Unknown",
 		"solid": true,
-		"image": "Images/blocks/water",
+		"renderType": "Water",
 		"breakable": false
 	},
 	{
@@ -18,7 +18,7 @@
 		"name": "water",
 		"displayName": "Water",
 		"solid": false,
-		"image": "Images/blocks/water",
+		"renderType": "Water",
 		"breakable": false
 	},
 	{

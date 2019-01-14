@@ -65,12 +65,17 @@ namespace Oceania_MG.Source
 				ores[ore.name] = ore;
 			}
 
-			string structuresJSON = File.ReadAllText("Content/Config/structures.json");
-			Structure[] structuresList = JsonConvert.DeserializeObject<Structures>(structuresJSON).structures;
 			structures = new Dictionary<string, Structure>();
-			foreach (Structure structure in structuresList)
+			string[] structureFiles = Directory.GetFiles("Content/Config/Structures", "*.json");
+			foreach (string structureFile in structureFiles)
 			{
-				structures[structure.name] = structure;
+				string structureJSON = File.ReadAllText(structureFile);
+				Structure structure = JsonConvert.DeserializeObject<Structure>(structureJSON);
+				structure.Process();
+				string structureName = Path.GetFileNameWithoutExtension(structureFile);
+				structure.name = structureName;
+				structures[structureName] = structure;
+				Console.WriteLine("Read structure " + structureName + " from " + structureFile);
 			}
 
 			string biomesJSON = File.ReadAllText("Content/Config/biomes.json");
@@ -99,6 +104,7 @@ namespace Oceania_MG.Source
 				blockIDs[block.name] = block.id;
 
 				block.LoadImage();
+				Console.WriteLine(block.name + " " + block.renderType);
 			}
 
 			GenerateNew(new Player.PlayerOptions());
@@ -173,7 +179,7 @@ namespace Oceania_MG.Source
 		/// Returns the block at a position in world coordinates.
 		/// If the position is currently in an unloaded chunk, returns the "unknown" block.
 		/// </summary>
-		public Block BlockAt(int x, int y, bool background)
+		public Block GetBlockAt(int x, int y, bool background)
 		{
 			Tuple<Point, Vector2> chunkInfo = ConvertUtils.WorldToChunk(x, y);
 			Point chunkPos = chunkInfo.Item1;
@@ -186,7 +192,7 @@ namespace Oceania_MG.Source
 			return chunk.GetBlockAt((int)subPos.X, (int)subPos.Y, background);
 		}
 
-		public Biome BiomeAt(int x, int y)
+		public Biome GetBiomeAt(int x, int y)
 		{
 			Tuple<float, float> properties = generate.Biome(x, y);
 			return GetBiome(properties.Item1, properties.Item2, y);
@@ -212,6 +218,14 @@ namespace Oceania_MG.Source
 
 			//return blendedBiome;
 			return bestBiome;
+		}
+
+		public Tuple<Block, Block> GetTerrainAt(int x, int y)
+		{
+			Biome biome = GetBiomeAt(x, y);
+			string blockBG = Chunk.GetTerrainAt(this, x, y, true, biome);
+			string blockFG = Chunk.GetTerrainAt(this, x, y, false, biome);
+			return new Tuple<Block, Block>(GetBlock(blockBG), GetBlock(blockFG));
 		}
 
 		public Block GetBlock(string blockName)

@@ -16,6 +16,7 @@ namespace Oceania_MG.Source
 		public enum RenderType
 		{
 			Normal, //Always render full block
+			Water, //Transparent
 			ConnectedSolid, //Connect to any other solid block
 			ConnectedSameType, //Only connect to blocks of same type
 			ConnectedOre, //Takes texture of adjacent solid blocks, with overlay
@@ -141,17 +142,21 @@ namespace Oceania_MG.Source
 				return;
 			}
 
-			if (renderType == RenderType.Normal)
+			switch (renderType)
 			{
-				DrawTexture(pos, graphicsDevice, spriteBatch, gameTime, background, null, worldX, worldY, world);
-			}
-			else if (renderType == RenderType.ConnectedOre)
-			{
-				DrawOre(connectedFunc, pos, graphicsDevice, spriteBatch, gameTime, background, worldX, worldY, world);
-			}
-			else
-			{
-				DrawConnectedTexture(connectedFunc, pos, graphicsDevice, spriteBatch, gameTime, background, worldX, worldY, world);
+				case RenderType.Normal:
+					DrawTexture(pos, graphicsDevice, spriteBatch, gameTime, background, null, worldX, worldY, world);
+					break;
+				case RenderType.Water:
+					//TODO: draw something?
+					break;
+				case RenderType.ConnectedOre:
+					DrawOre(connectedFunc, pos, graphicsDevice, spriteBatch, gameTime, background, worldX, worldY, world);
+					break;
+				case RenderType.ConnectedSameType:
+				case RenderType.ConnectedSolid:
+					DrawConnectedTexture(connectedFunc, pos, graphicsDevice, spriteBatch, gameTime, background, worldX, worldY, world);
+					break;
 			}
 		}
 
@@ -191,9 +196,9 @@ namespace Oceania_MG.Source
 				xOffset2 = xOffset1 + xOffset3;
 				yOffset2 = yOffset1 + yOffset3;
 
-				bool a1 = connectFunc(world.BlockAt(worldX + xOffset1, worldY + yOffset1, background));
-				bool a2 = connectFunc(world.BlockAt(worldX + xOffset2, worldY + yOffset2, background));
-				bool a3 = connectFunc(world.BlockAt(worldX + xOffset3, worldY + yOffset3, background));
+				bool a1 = connectFunc(world.GetBlockAt(worldX + xOffset1, worldY + yOffset1, background));
+				bool a2 = connectFunc(world.GetBlockAt(worldX + xOffset2, worldY + yOffset2, background));
+				bool a3 = connectFunc(world.GetBlockAt(worldX + xOffset3, worldY + yOffset3, background));
 
 				int i = GetAdjacent(a1, a2, a3);
 				Rectangle cornerRect = cornerRects[c][i];
@@ -205,10 +210,10 @@ namespace Oceania_MG.Source
 		public Block GetSurroundingSolidBlock(int worldX, int worldY, bool background, World world)
 		{
 			Block[] surroundingBlocks = {
-				world.BlockAt(worldX, worldY - 1, background),
-				world.BlockAt(worldX, worldY + 1, background),
-				world.BlockAt(worldX - 1, worldY, background),
-				world.BlockAt(worldX + 1, worldY, background)
+				world.GetBlockAt(worldX, worldY - 1, background),
+				world.GetBlockAt(worldX, worldY + 1, background),
+				world.GetBlockAt(worldX - 1, worldY, background),
+				world.GetBlockAt(worldX + 1, worldY, background)
 			};
 			return surroundingBlocks.Where(x => x.solid).GroupBy(x => x).OrderByDescending(x => x.Count()).FirstOrDefault().Key; //TODO: null check?
 		}

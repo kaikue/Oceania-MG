@@ -1,0 +1,16 @@
+{
+	"frequency": 1,
+	"minPerChunk": 0,
+	"maxPerChunk": 4,
+	"layout": [
+		"F",
+		"S"
+	],
+	"blocks": {
+		"F": ["flint", "water"]
+	},
+	"anchors": {
+		"F": ["water", "water"],
+		"S": ["_solid", "_solid"]
+	}
+}
