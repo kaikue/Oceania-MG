@@ -44,6 +44,30 @@
 /processorParam:TextureFormat=Compressed
 /build:Font/CodersCrux.spritefont
 
+#begin Images/backgrounds/default/far.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/backgrounds/default/far.png
+
+#begin Images/backgrounds/default/mid.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/backgrounds/default/mid.png
+
 #begin Images/blocks/basalt/basalt_bricks_1.png
 /importer:TextureImporter
 /processor:TextureProcessor

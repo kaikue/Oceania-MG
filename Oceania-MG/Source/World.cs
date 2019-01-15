@@ -86,15 +86,10 @@ namespace Oceania_MG.Source
 			string biomesJSON = File.ReadAllText("Content/Config/biomes.json");
 			biomes = JsonConvert.DeserializeObject<Biomes>(biomesJSON).biomes;
 
-			/*
-			//sort each biome's structures by size (width + height) so that larger structures take priority in generation
 			foreach (Biome biome in biomes)
 			{
-				biome.structures = biome.structures.OrderByDescending(structureName => {
-					Structure structure = structures[structureName];
-					return structure.GetWidth() + structure.GetHeight();
-				}).ToArray();
-			}*/
+				biome.LoadBackgrounds();
+			}
 
 			blocks = new Dictionary<int, Block>();
 			blockIDs = new Dictionary<string, int>();
@@ -304,7 +299,9 @@ namespace Oceania_MG.Source
 
 		public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
 		{
-			//Render blocks first, then entities (so that entities aren't partially covered by other chunks' blocks
+			DrawBackground(graphicsDevice, spriteBatch, gameTime);
+
+			//Render all blocks first, then entities (so that entities aren't partially covered by other chunks' blocks)
 			foreach (Chunk chunk in loadedChunks)
 			{
 				chunk.DrawBlocks(graphicsDevice, spriteBatch, gameTime);
@@ -314,6 +311,34 @@ namespace Oceania_MG.Source
 				chunk.DrawEntities(graphicsDevice, spriteBatch, gameTime);
 			}
 			player.Draw(graphicsDevice, spriteBatch, gameTime);
+		}
+
+		private void DrawBackground(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
+		{
+			Vector2 playerPos = player.GetPosition();
+			Biome biome = GetBiomeAt((int)playerPos.X, (int)playerPos.Y);
+
+			graphicsDevice.Clear(biome.backgroundColor);
+
+			int numLayers = biome.backgroundImages.Length;
+			for (int layer = numLayers - 1; layer >= 0; layer--)
+			{
+				Texture2D backgroundImage = biome.backgroundImages[layer];
+				
+				float scaledWidth = (int)(backgroundImage.Width * GameplayState.SCALE);
+				int repetitions = (int)Math.Ceiling(Game.GetWidth() / scaledWidth) + 1;
+				float xParallax = (numLayers - layer) * 0.1f; //lower layers get more
+				float yParallax = xParallax * 20;
+				float playerX = ConvertUtils.WorldToPoint(playerPos.X);
+				float xPos = (playerX * -xParallax) % scaledWidth;
+				float yPos = (playerPos.Y - biome.depth) * -yParallax + 100; //TODO align to bottom somehow
+				Vector2 position = new Vector2(xPos, yPos);
+				for (int i = 0; i < repetitions; i++)
+				{
+					Vector2 offset = new Vector2((i - 1) * scaledWidth, 0);
+					spriteBatch.Draw(backgroundImage, position + offset, null, Color.White, 0, Vector2.Zero, GameplayState.SCALE, SpriteEffects.None, 0);
+				}
+			}
 		}
 	}
 }

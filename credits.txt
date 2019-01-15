@@ -1,0 +1,26 @@
+Background:
+	Artwork created by Luis Zuno (@ansimuz)
+    License for Everyone. This piece is under a CC-BY-3.0 License http://creativecommons.org/licenses/by/3.0/
+    You can copy, modify, distribute and perform the work, even for commercial purposes, as long as you give appropiate credit.
+    You are not require to credit this work if you are or had been a Patreon Supporter at https://www.patreon.com/ansimuz
+    Thanks get more like these at: https://www.patreon.com/ansimuz
+
+Dirt:
+	Dirt Tileset by TinyWorlds
+	https://opengameart.org/content/dirt-tileset
+	License: CC0
+	https://creativecommons.org/publicdomain/zero/1.0/
+
+Kelp:
+	Leaf sprite by Sogomn, edited by Kai Kuehner
+	http://opengameart.org/content/falling-leaf
+
+Other blocks, player sprite:
+	16x16 Orthogonal Tilesets and Sidescroller by Denzi
+	http://opengameart.org/content/denzis-16x16-orthogonal-tilesets
+	http://opengameart.org/content/denzis-sidescroller-tilesets
+	http://opengameart.org/content/denzis-96x96-and-64x64-isometric-tilesets
+	License: CC-BY-SA attribution, share alike
+
+	DENZI部屋のドット絵フリー素材は、クリエイティブ・コモンズ・ライセンス (http://www3.wind.ne.jp/DENZI/diary/) に基づいて公開しています。　（CC-by SA　表示-継承)
+	http://creativecommons.org/licenses/by-sa/3.0/

@@ -18,6 +18,7 @@ TODO
 		- Puzzle, coral
 		- Loot tables (once inventories & chests are done)
 		- Random elements
+			- Generate with SpawnedStructure
 			- Kelp with random height and branches
 			- Dungeons with random mazes
 - Input
@@ -48,7 +49,7 @@ TODO
 	- Sound
 	- Tile puzzle
 - Apply knockback to EntityLiving movement
-- Ore not rendering properly
+- Biome lerping- backgrounds, music (music is 0 when mix is 0.5 or less, scales up to 1)
 - Make viewport smoother for scale=2
 - Save world state & chunks when closing world
 - Make sure serialization works
@@ -60,7 +61,6 @@ TODO
 	- Load chunks in background thread (await result, add to loaded chunks or generate when loading finishes)
 	- Make generation smoother
 - Remember full screen from last setting
-- Make sure caves are actually generating
 - Everything from old README
 - Use Monogame color tint to highlight targeted block (is it possible to lighten this way? seems to use multiply filter...)
 - Nicer background without water texture (gray tint for background blocks, no overlay)

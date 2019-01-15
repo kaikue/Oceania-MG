@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,20 @@ namespace Oceania_MG.Source
 		public string[] ores = new string[0];
 		public string[] structures = new string[0];
 		public int[] color = new int[] { 255, 255, 255 };
+		public Color backgroundColor;
+
+		public string[] backgrounds = { "Images/backgrounds/default/mid", "Images/backgrounds/default/far" };
+		public Texture2D[] backgroundImages;
+
+		public void LoadBackgrounds()
+		{
+			backgroundColor = new Color(color[0], color[1], color[2]);
+			backgroundImages = new Texture2D[backgrounds.Length];
+			for (int i = 0; i < backgrounds.Length; i++)
+			{
+				backgroundImages[i] = Game.LoadImage(backgrounds[i]);
+			}
+		}
 	}
 
 	struct Biomes

@@ -43,7 +43,7 @@
 		"maxHeight": 128,
 		"surfaceBlock": "sand",
 		"baseBlock": "basalt",
-		"color": [255, 128, 255],
+		"color": [62, 121, 221],
 		"ores": [
 			"copper"
 		],
