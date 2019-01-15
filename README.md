@@ -2,7 +2,7 @@ Oceania
 ==
 A procedurally generated 2D underwater sandbox game.
 Written in Monogame. [Previously written in Pygame.](https://github.com/kaikue/Oceania)
-Created by Kai Kuehner, 2013-2018.
+Created by Kai Kuehner, 2013-2019.
 ![Screenshot](http://i.imgur.com/wUVoCkr.png)
 
 TODO
@@ -42,6 +42,7 @@ TODO
 - Copy over everything from Python
 	- Player
 		- Fixed, square bounding box centered on image
+		- Make hair (+ body/tail?) white and use Monogame color multiplication to allow any color
 	- Menus
 		- Options- gameplay, block scale
 	- Entities

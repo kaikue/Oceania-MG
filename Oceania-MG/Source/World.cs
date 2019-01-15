@@ -328,10 +328,10 @@ namespace Oceania_MG.Source
 				float scaledWidth = (int)(backgroundImage.Width * GameplayState.SCALE);
 				int repetitions = (int)Math.Ceiling(Game.GetWidth() / scaledWidth) + 1;
 				float xParallax = (numLayers - layer) * 0.1f; //lower layers get more
-				float yParallax = xParallax * 20;
+				float yParallax = xParallax * 10;
 				float playerX = ConvertUtils.WorldToPoint(playerPos.X);
 				float xPos = (playerX * -xParallax) % scaledWidth;
-				float yPos = (playerPos.Y - biome.depth) * -yParallax + 100; //TODO align to bottom somehow
+				float yPos = (biome.depth + 80 - playerPos.Y) * yParallax; //TODO align to bottom better
 				Vector2 position = new Vector2(xPos, yPos);
 				for (int i = 0; i < repetitions; i++)
 				{
