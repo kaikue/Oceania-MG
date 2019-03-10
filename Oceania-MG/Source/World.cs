@@ -310,7 +310,9 @@ namespace Oceania_MG.Source
 			{
 				chunk.DrawEntities(graphicsDevice, spriteBatch, gameTime);
 			}
+			//Render player on top of blocks and other entities
 			player.Draw(graphicsDevice, spriteBatch, gameTime);
+			//TODO: effects?
 		}
 
 		private void DrawBackground(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)

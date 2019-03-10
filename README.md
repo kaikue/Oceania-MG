@@ -30,10 +30,8 @@ TODO
 - Rendering
 	- Ore rendering- keep track of base block, so that it doesn't have to check adjacent tiles (necessary for ore surrounded with other ore)
 		- make ore an entity
-	- Don't render foreground water over background blocks
 	- Pipes/kelp render type- 4x4 spritesheet
 	- Render block as item (scaled down by 50%, connected texture uses single block texture)
-	- Viewport
 	- color tint or just outline for player target? lightening is hard especially above water
 		- darker for background? or both?
 	- Randomized textures render type (combine with CTM?)
@@ -105,6 +103,8 @@ TODO
 		- Pulls back and springs towards you
 		- Shoots grapple hook towards you and pulls along it
 		- Stationary guys that shoot lasers spinning around
+- Multiplayer?
+	- https://github.com/lidgren/lidgren-network-gen3
 
 Progression:
 --

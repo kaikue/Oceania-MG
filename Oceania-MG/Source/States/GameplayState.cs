@@ -28,6 +28,7 @@ namespace Oceania_MG.Source.States
 		private void UpdateViewport()
 		{
 			Point playerCenter = world.GetPlayer().GetCenter();
+			//Vector2 playerCenter = world.GetPlayer().GetPosition() * GameplayState.BLOCK_SIZE;
 			viewport.X = playerCenter.X - Game.GetWidth() / (2 * SCALE);
 			viewport.Y = playerCenter.Y - Game.GetHeight() / (2 * SCALE);
 		}
