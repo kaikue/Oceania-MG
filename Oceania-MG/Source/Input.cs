@@ -145,6 +145,7 @@ namespace Oceania_MG.Source
 			Pause,
 			Select,
 			Fullscreen,
+			DebugMode,
 			Hotbar1,
 			Hotbar2,
 			Hotbar3,

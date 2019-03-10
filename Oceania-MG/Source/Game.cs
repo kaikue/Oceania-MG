@@ -92,6 +92,11 @@ namespace Oceania_MG.Source
 			
 			state.Update(input, gameTime);
 
+			if (input.ControlPressed(Input.Controls.DebugMode))
+			{
+				isDebugMode = !isDebugMode;
+			}
+
 			if (input.ControlPressed(Input.Controls.Fullscreen))
 			{
 				ToggleFullscreen();

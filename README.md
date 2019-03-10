@@ -3,7 +3,7 @@ Oceania
 A procedurally generated 2D underwater sandbox game.
 Written in Monogame. [Previously written in Pygame.](https://github.com/kaikue/Oceania)
 Created by Kai Kuehner, 2013-2019.
-![Screenshot](http://i.imgur.com/wUVoCkr.png)
+![Screenshot](https://i.imgur.com/i0RLh7r.png)
 
 TODO
 --
@@ -105,6 +105,8 @@ TODO
 		- Stationary guys that shoot lasers spinning around
 - Multiplayer?
 	- https://github.com/lidgren/lidgren-network-gen3
+- Physics?
+	- https://github.com/VelcroPhysics/VelcroPhysics
 
 Progression:
 --
