@@ -9,10 +9,11 @@ namespace Oceania_MG.Source
 {
 	class Generate
 	{
-		private const int TERRAIN_SCALE = 30; //controls overall scale of terrain features
-		private const int CAVE_SCALE = 40; //controls overall scale & thickness of caves
+		private const float TERRAIN_SCALE = 30; //controls overall scale of terrain features
+		private const float CAVE_SCALE = 40; //controls overall scale & thickness of caves
 		private const float CAVE_CUTOFF = 0.05f; //controls thickness of caves
-		private const float ISLAND_EXPANSION = 2.0f; //controls how much quickly islands taper off at the bottom (exponential)
+		private const float SKY_ISLAND_EXPANSION = 2.0f; //controls how much quickly islands taper off at the bottom (exponential)
+		private const float ISLAND_SCALE = 60; //controls width of islands
 		private const float CAVE_EXPANSION = 3.0f; //controls how much thicker caves are at the bottom of the cave layer (exponential)
 		private const float CORE_CAVE_EXPANSION = 3.0f; //controls how much thicker caves are at the top of the core layer (exponential)
 		private const float CORE_CAVE_THICKNESS = 2.0f; //controls how much thicker caves are in the core layer in general (linear)
@@ -21,6 +22,9 @@ namespace Oceania_MG.Source
 		private const int BIOME_HEIGHT_SCALE = 60; //controls vertical scale of biomes
 
 		//Heights of world layers
+		public const int SKY_ISLAND_FULL = -80;
+		public const int SKY_ISLAND_BOTTOM = -50;
+		public const int ISLAND_TOP = -20;
 		public const int ISLAND_BOTTOM = 20;
 		public const int LAND_TOP = 50;
 		public const int ABYSS_TOP = 300;
@@ -32,6 +36,7 @@ namespace Oceania_MG.Source
 		private PerlinNoise biomeTempNoise2D;
 		private PerlinNoise biomeLifeNoise2D;
 		private Dictionary<string, PerlinNoise> oreNoises2D;
+		private PerlinNoise islandNoise1D;
 
 		public Generate(int seed)
 		{
@@ -40,12 +45,13 @@ namespace Oceania_MG.Source
 			biomeTempNoise2D = new PerlinNoise(2, seed, 2, true);
 			biomeLifeNoise2D = new PerlinNoise(2, -seed, 2, true);
 			oreNoises2D = new Dictionary<string, PerlinNoise>();
+			islandNoise1D = new PerlinNoise(1, seed, 3);
 		}
 
 		public Tuple<float, float> Terrain(int x, int y, int minHeight, int maxHeight)
 		{
 			//regular 2D Perlin noise
-			float[] point = new float[] { x / (float)TERRAIN_SCALE, y / (float)TERRAIN_SCALE };
+			float[] point = new float[] { x / TERRAIN_SCALE, y / TERRAIN_SCALE };
 			float noise = terrainNoise2D.Get(point);
 
 			//apply gradient to make lower areas denser
@@ -54,23 +60,41 @@ namespace Oceania_MG.Source
 			float noiseFG = noiseBG;
 
 			//cut out caves if foreground
-			float[] cavePoint = new float[] { x / (float)CAVE_SCALE, y / (float)CAVE_SCALE };
+			float[] cavePoint = new float[] { x / CAVE_SCALE, y / CAVE_SCALE };
 			float cave = terrainNoise2D.Get(cavePoint);
 			
-			if (y < ISLAND_BOTTOM)
+			if (y < SKY_ISLAND_BOTTOM)
 			{
-				//island gradient- no caves
-				float islandG = MathUtils.Gradient(y, World.SEA_LEVEL, ISLAND_BOTTOM);
-				float islandAdjust = 1 - (float)Math.Pow(islandG, ISLAND_EXPANSION);
+				//TODO better floating islands
+				float islandG = MathUtils.Gradient(y, SKY_ISLAND_FULL, SKY_ISLAND_BOTTOM);
+				float islandAdjust = 1 - (float)Math.Pow(islandG, SKY_ISLAND_EXPANSION);
 				//if (y < World.SEA_LEVEL) cave = -1;
 				//islandAdjust /= 1.5f;
-				if (Math.Abs(cave * islandAdjust) < CAVE_CUTOFF)
+				if (Math.Abs(cave * islandAdjust * 0.25f) < CAVE_CUTOFF)
+				{
+					noiseFG = -1;
+					noiseBG = -1;
+				}
+				cave = -1; //don't apply caves to this step
+			}
+			else if (y < ISLAND_BOTTOM)
+			{
+				//surface islands- use 1D heightmap to avoid small floating islands
+				float islandNoise = islandNoise1D.Get(new float[] { x / ISLAND_SCALE });
+				float islandHeight = islandNoise * (ISLAND_BOTTOM - ISLAND_TOP);
+				bool isIsland = y > islandHeight && y < -islandHeight;
+				if (isIsland)
+				{
+					noiseFG = 1;
+					noiseBG = 1;
+				}
+				else
 				{
 					noiseFG = -1;
 					noiseBG = -1;
 				}
 
-				cave = -1; //don't apply caves to this step
+				//cave = -1; //don't apply caves to this step
 			}
 			else if (y < LAND_TOP)
 			{

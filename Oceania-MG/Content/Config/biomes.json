@@ -1,21 +1,21 @@
 {
 	"biomes": [
-	{
-		"name": "Sky",
-		"temperature": 0,
-		"liveliness": 0,
-		"depth": -100,
-		"surfaceBlock": "sand",
-		"baseBlock": "dirt",
-		"color": [128, 128, 128]
-	},
+    {
+      "name": "Sky",
+      "temperature": 0,
+      "liveliness": 0,
+      "depth": -100,
+      "minHeight": -100,
+      "maxHeight": -50,
+      "surfaceBlock": "sand",
+      "baseBlock": "dirt",
+      "color": [ 128, 128, 128 ]
+    },
 	{
 		"name": "Island",
 		"temperature": 1,
 		"liveliness": 1,
 		"depth": 0,
-		"minHeight": -20,
-		"maxHeight": 30,
 		"surfaceBlock": "sand",
 		"baseBlock": "dirt",
 		"color": [255, 255, 128],
@@ -28,8 +28,6 @@
 		"temperature": -1,
 		"liveliness": 1,
 		"depth": 0,
-		"minHeight": -20,
-		"maxHeight": 30,
 		"surfaceBlock": "sand",
 		"baseBlock": "dirt",
 		"color": [255, 255, 255]

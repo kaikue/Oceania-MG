@@ -322,6 +322,8 @@ namespace Oceania_MG.Source
 
 			graphicsDevice.Clear(biome.backgroundColor);
 
+			return; //TODO take this out and make background look nicer
+
 			int numLayers = biome.backgroundImages.Length;
 			for (int layer = numLayers - 1; layer >= 0; layer--)
 			{
