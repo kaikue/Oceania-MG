@@ -201,10 +201,10 @@ namespace Oceania_MG.Source
 
 		public Biome GetBiome(float temperature, float liveliness, float depth)
 		{
-			Biome blendedBiome = new Biome(); //TODO lerp between biomes if just about halfway between them (so that heights smoothly transition)
-
 			float minDistance = float.MaxValue;
-			Biome bestBiome = new Biome();
+			float nextMinDistance = float.MaxValue;
+			Biome bestBiome = null;
+			Biome nextBestBiome = null;
 			foreach (Biome biome in biomes)
 			{
 				Vector3 biomePos = new Vector3(biome.temperature, biome.liveliness, biome.depth / BIOME_DEPTH_SCALE);
@@ -212,12 +212,26 @@ namespace Oceania_MG.Source
 				float distance = Vector3.Distance(biomePos, currentPos);
 				if (distance < minDistance)
 				{
+					nextMinDistance = minDistance;
+					nextBestBiome = bestBiome;
+
 					minDistance = distance;
 					bestBiome = biome;
 				}
+				else if (distance < nextMinDistance)
+				{
+					nextMinDistance = distance;
+					nextBestBiome = biome;
+				}
 			}
 
-			//return blendedBiome;
+			if (nextBestBiome != null && Math.Abs(minDistance - nextMinDistance) < 0.1f) //TODO make this a constant or depend on height?
+			{
+				//lerp between biomes if just about halfway between them (so that heights smoothly transition)
+				float t = 0.4f; //TODO calculate based on minDistance and nextMinDistance
+				Biome blendedBiome = Biome.Lerp(bestBiome, nextBestBiome, t);
+				return blendedBiome;
+			}
 			return bestBiome;
 		}
 

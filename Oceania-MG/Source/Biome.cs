@@ -37,6 +37,27 @@ namespace Oceania_MG.Source
 				backgroundImages[i] = Game.LoadImage(backgrounds[i]);
 			}
 		}
+
+		public static Biome Lerp(Biome a, Biome b, float t)
+		{
+			Biome dominantBiome = t < 0.5f ? a : b;
+			Biome biome = new Biome
+			{
+				name = "Mix (" + a.name + ", " + b.name + ")",
+				temperature = MathUtils.Lerp(a.temperature, b.temperature, t),
+				liveliness = MathUtils.Lerp(a.liveliness, b.liveliness, t),
+				depth = MathUtils.Lerp(a.depth, b.depth, t),
+				baseBlock = dominantBiome.baseBlock,
+				surfaceBlock = dominantBiome.surfaceBlock,
+				minHeight = MathUtils.Lerp(a.minHeight, b.minHeight, t),
+				maxHeight = MathUtils.Lerp(a.maxHeight, b.maxHeight, t),
+				ores = dominantBiome.ores,
+				structures = dominantBiome.structures,
+				color = dominantBiome.color,
+				backgroundColor = Color.Lerp(a.backgroundColor, b.backgroundColor, t)
+			};
+			return biome;
+		}
 	}
 
 	struct Biomes

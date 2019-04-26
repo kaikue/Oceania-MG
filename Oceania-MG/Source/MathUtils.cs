@@ -31,5 +31,15 @@ namespace Oceania_MG.Source
 			float t = Gradient(y, top, bottom);
 			return Color.Lerp(topColor, bottomColor, t);
 		}
+
+		public static float Lerp(float a, float b, float t)
+		{
+			return (1 - t) * a + t * b;
+		}
+
+		public static int Lerp(int a, int b, float t)
+		{
+			return (int)Lerp((float)a, b, t);
+		}
 	}
 }
