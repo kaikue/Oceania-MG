@@ -40,7 +40,7 @@ namespace Oceania_MG.Source
 
 		public static Biome Lerp(Biome a, Biome b, float t)
 		{
-			Biome dominantBiome = t < 0.5f ? a : b;
+			Biome dominantBiome = t <= 0.5f ? a : b;
 			Biome biome = new Biome
 			{
 				name = "Mix (" + a.name + ", " + b.name + ")",

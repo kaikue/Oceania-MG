@@ -20,6 +20,7 @@ namespace Oceania_MG.Source
 		private const int CHUNK_LOAD_DISTANCE = 1; //(2 * this + 1) square of chunks is loaded surrounding player's chunk
 
 		private const int BIOME_DEPTH_SCALE = 50; //divides depth by this when doing biome calculation, to make it balance out with temp/life
+		private const float BIOME_BLEND_DISTANCE = 0.1f; //how far apart to start blending biomes together
 
 		public const int SEA_LEVEL = 0;
 
@@ -225,10 +226,12 @@ namespace Oceania_MG.Source
 				}
 			}
 
-			if (nextBestBiome != null && Math.Abs(minDistance - nextMinDistance) < 0.1f) //TODO make this a constant or depend on height?
+			if (nextBestBiome != null && Math.Abs(minDistance - nextMinDistance) < BIOME_BLEND_DISTANCE)
 			{
 				//lerp between biomes if just about halfway between them (so that heights smoothly transition)
-				float t = 0.4f; //TODO calculate based on minDistance and nextMinDistance
+				//if minDistance == nextMinDistance: t = 0.5
+				//if Math.Abs(minDistance - nextMinDistance) == 0.1f: t = 0
+				float t = MathUtils.Lerp(0.5f, 0, Math.Abs(minDistance - nextMinDistance) / BIOME_BLEND_DISTANCE);
 				Biome blendedBiome = Biome.Lerp(bestBiome, nextBestBiome, t);
 				return blendedBiome;
 			}
