@@ -9,15 +9,17 @@ TODO
 --
 - Structure editor
 	- Block palette
-		- Properly deselect previous selected block
+		- White background behind selected block
 		- Keep scroll buttons fixed
 		- Crop GUIContainer to bounds
 		- Add label height to containerpanel offset, if label is not null
+		- Show name of hovered SelectableBlock somewhere (tooltip?)
 	- GUI stuff
 		- Text fields
-		- Anchor scrollable block selection popup
+		- Checkbox
 	- PlaceableObject? class for cursor contents: Block(string), Anchor, InPopup
 	- Anchors palette
+		- Scrollable block selection popup
 	- Properties text fields
 	- Keep a flag for unsaved changes
 	- Confirm unsaved changes on close event https://stackoverflow.com/questions/23717111/xna-c-sharp-trap-and-cancel-the-close-window-x-button-and-ctrl-f4

@@ -116,20 +116,19 @@ namespace Oceania_MG.Source
 			int blockSize = GameplayState.BLOCK_SIZE * GUIElement.scale;
 			foreach (Block block in resources.GetBlocks())
 			{
+				
+				SelectableBlock blockSelect = new SelectableBlock(new Rectangle(x, y, blockSize, blockSize), block);
 				Action selectAction = () =>
 				{
 					if (selectedBlock != null) selectedBlock.Deselect();
-				};
-				SelectableBlock blockSelect = new SelectableBlock(new Rectangle(x, y, blockSize, blockSize), block, selectAction);
-				selectAction += () =>
-				{
 					selectedBlock = blockSelect;
 				};
+				blockSelect.SetSelectAction(selectAction);
 
 				palette.Add(blockSelect);
 
 				x += blockSize + PALETTE_SPACING;
-				if (x > palette.GetBounds().Width)
+				if (x + blockSize > palette.GetBounds().Width)
 				{
 					x = PALETTE_SPACING;
 					y += blockSize + PALETTE_SPACING;
@@ -263,7 +262,7 @@ namespace Oceania_MG.Source
 
 	class StructureEditPanel : GUIElement
 	{
-		private Color hoverTint = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+		private Color hoverTint = new Color(1.0f, 1.0f, 1.0f, 0.25f);
 
 		private Structure structure;
 

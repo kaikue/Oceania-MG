@@ -18,12 +18,16 @@ namespace Oceania_MG.Source.GUI
 		private Block block;
 		private bool selected = false;
 
-		public SelectableBlock(Rectangle bounds, Block block, Action selectAction) : base(bounds)
+		public SelectableBlock(Rectangle bounds, Block block) : base(bounds)
 		{
 			this.block = block;
-			this.selectAction = selectAction;
 
 			RefreshBounds();
+		}
+
+		public void SetSelectAction(Action selectAction)
+		{
+			this.selectAction = selectAction;
 		}
 
 		protected override void RefreshBounds()
