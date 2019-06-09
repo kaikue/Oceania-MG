@@ -31,6 +31,15 @@ namespace Oceania_MG.Source.GUI
 		{
 			bounds.X += offset.X;
 			bounds.Y += offset.Y;
+			RefreshBounds();
+		}
+
+		/// <summary>
+		/// Called when the bounds have been changed.
+		/// </summary>
+		protected virtual void RefreshBounds()
+		{
+
 		}
 
 		/// <summary>

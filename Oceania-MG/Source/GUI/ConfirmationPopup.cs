@@ -11,7 +11,7 @@ namespace Oceania_MG.Source.GUI
 	{
 		private const int BUTTON_HEIGHT = 25;
 		private const int BUTTON_WIDTH = 75;
-		private const int BUTTON_SPACING = 5;
+		private const int BUTTON_SPACING = 15;
 		private const int BUTTON_VERTICAL_OFFSET = 40;
 
 		public const int TOTAL_WIDTH = 4 * BUTTON_SPACING + 3 * BUTTON_WIDTH;

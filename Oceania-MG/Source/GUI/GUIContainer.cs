@@ -21,14 +21,16 @@ namespace Oceania_MG.Source.GUI
 
 		public void Update(Input input)
 		{
-			foreach (GUIElement element in elements)
+			HashSet<GUIElement> cachedElements = new HashSet<GUIElement>(elements); //Prevent concurrent modification exceptions
+
+			foreach (GUIElement element in cachedElements)
 			{
 				element.Update(input);
 			}
 
 			foreach (Input.Controls pressedControl in input.PressedControls())
 			{
-				foreach (GUIElement element in elements)
+				foreach (GUIElement element in cachedElements)
 				{
 					element.ControlPressed(pressedControl);
 				}
@@ -36,7 +38,7 @@ namespace Oceania_MG.Source.GUI
 
 			foreach (Input.Controls releasedControl in input.ReleasedControls())
 			{
-				foreach (GUIElement element in elements)
+				foreach (GUIElement element in cachedElements)
 				{
 					element.ControlReleased(releasedControl);
 				}

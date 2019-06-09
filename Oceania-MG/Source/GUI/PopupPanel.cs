@@ -16,9 +16,16 @@ namespace Oceania_MG.Source.GUI
 
 		public PopupPanel(Rectangle bounds, GUIContainer parent, string label = null) : base(bounds, label)
 		{
-			contents = new GUIContainer();
-			offset = bounds.Location; //TODO: move the offset over some?
 			this.parent = parent;
+			contents = new GUIContainer();
+
+			RefreshBounds();
+		}
+
+		protected override void RefreshBounds()
+		{
+			base.RefreshBounds();
+			offset = bounds.Location; //TODO: move the offset over some?
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)

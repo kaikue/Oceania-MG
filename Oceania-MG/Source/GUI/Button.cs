@@ -38,6 +38,11 @@ namespace Oceania_MG.Source.GUI
 			this.label = label;
 			this.clickAction = clickAction;
 
+			RefreshBounds();
+		}
+
+		protected override void RefreshBounds()
+		{
 			Point outlineOffset = new Point(scale, scale); //scaled-thickness outline
 			bodyRect = new Rectangle(bounds.Location + outlineOffset, bounds.Size - outlineOffset - outlineOffset);
 

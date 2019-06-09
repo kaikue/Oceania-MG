@@ -21,6 +21,12 @@ namespace Oceania_MG.Source.GUI
 		public Panel(Rectangle bounds, string label = null) : base(bounds)
 		{
 			this.label = label;
+
+			RefreshBounds();
+		}
+
+		protected override void RefreshBounds()
+		{
 			Point outlineOffset = new Point(scale, scale); //scaled-thickness outline
 			bodyRect = new Rectangle(bounds.Location + outlineOffset, bounds.Size - outlineOffset - outlineOffset);
 		}
