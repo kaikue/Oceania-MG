@@ -78,7 +78,7 @@ namespace Oceania_MG.Source
 			pixel.SetData(new Color[] { Color.White });
 
 
-			resources = new Resources();
+			resources = new Resources(this);
 			resources.LoadBiomes();
 		}
 

@@ -24,6 +24,16 @@ namespace Oceania_MG.Source.GUI
 		}
 
 		/// <summary>
+		/// Shift this GUIElement over by an offset (useful for when it is a sub-element of another GUIElement).
+		/// </summary>
+		/// <param name="offset">the amount to shift by</param>
+		public void ApplyOffset(Point offset)
+		{
+			bounds.X += offset.X;
+			bounds.Y += offset.Y;
+		}
+
+		/// <summary>
 		/// Called when this GUIElement should be drawn to the SpriteBatch.
 		/// </summary>
 		/// <param name="spriteBatch">the SpriteBatch to draw onto</param>

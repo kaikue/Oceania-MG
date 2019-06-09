@@ -31,13 +31,13 @@ namespace Oceania_MG.Source
 		public string[] backgrounds = { "Images/backgrounds/default/mid", "Images/backgrounds/default/far" };
 		public Texture2D[] backgroundImages;
 
-		public void LoadBackgrounds()
+		public void LoadBackgrounds(Resources resources)
 		{
 			backgroundColor = new Color(color[0], color[1], color[2]);
 			backgroundImages = new Texture2D[backgrounds.Length];
 			for (int i = 0; i < backgrounds.Length; i++)
 			{
-				backgroundImages[i] = Game.LoadImage(backgrounds[i]);
+				backgroundImages[i] = resources.LoadTexture(backgrounds[i]);
 			}
 		}
 

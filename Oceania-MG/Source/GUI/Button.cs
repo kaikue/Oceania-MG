@@ -73,7 +73,6 @@ namespace Oceania_MG.Source.GUI
 				if (state == ButtonState.Hovered) state = ButtonState.None;
 				else if (state == ButtonState.Pressed) state = ButtonState.DraggedAway;
 			}
-
 		}
 
 		public override void ControlPressed(Input.Controls control)

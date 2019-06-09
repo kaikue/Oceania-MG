@@ -62,7 +62,7 @@ namespace Oceania_MG.Source
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			resources = new Resources();
+			resources = new Resources(this);
 			resources.LoadAll();
 			state = new GameplayState(resources);
 
@@ -135,17 +135,6 @@ namespace Oceania_MG.Source
 			}
 		}
 		
-		public static Texture2D LoadImage(string imageURL)
-		{
-			if (instance == null) return null; //For GenerateTest, which needs World but not Game
-
-			if (string.IsNullOrEmpty(imageURL))
-			{
-				return new Texture2D(instance.GraphicsDevice, GameplayState.BLOCK_SIZE, GameplayState.BLOCK_SIZE);
-			}
-			return instance.Content.Load<Texture2D>(imageURL);
-		}
-
 		public static SpriteFont GetFont()
 		{
 			return instance.font;
@@ -183,6 +172,11 @@ namespace Oceania_MG.Source
 		public static Texture2D GetPixelTexture()
 		{
 			return instance.pixelTexture;
+		}
+
+		public static Texture2D LoadImage(string imageURL)
+		{
+			return instance.resources.LoadTexture(imageURL);
 		}
 	}
 }

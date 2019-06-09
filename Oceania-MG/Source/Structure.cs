@@ -68,6 +68,21 @@ namespace Oceania_MG.Source
 		private HashSet<Anchor> strictAnchorsSet;
 		private HashSet<Anchor> lenientAnchorsSet;
 
+		public Structure()
+		{
+			//blocksForeground = new string[0][];
+			//blocksBackground = new string[0][];
+
+			blocksForeground = new string[1][];
+			blocksBackground = new string[1][];
+			blocksForeground[0] = new string[1] { "basalt" };
+			blocksBackground[0] = new string[1] { "basalt" };
+
+			strictAnchorsSet = new HashSet<Anchor>();
+			lenientAnchorsSet = new HashSet<Anchor>();
+		}
+
+		[Obsolete("Remove this once structure editor is done")]
 		public void Process()
 		{
 			blocksForeground = new string[layout.Length][];
@@ -131,6 +146,8 @@ namespace Oceania_MG.Source
 
 		public int GetWidth()
 		{
+			if (blocksForeground.Length == 0) return 0;
+
 			return blocksForeground[0].Length;
 		}
 

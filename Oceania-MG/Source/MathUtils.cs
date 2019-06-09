@@ -41,5 +41,6 @@ namespace Oceania_MG.Source
 		{
 			return (int)Lerp((float)a, b, t);
 		}
+
 	}
 }

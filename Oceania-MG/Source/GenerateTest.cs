@@ -52,7 +52,7 @@ namespace Oceania_MG.Source
 			pixel = new Texture2D(GraphicsDevice, 1, 1);
 			pixel.SetData(new Color[] { Color.White });
 
-			resources = new Resources();
+			resources = new Resources(this);
 			resources.LoadAll();
 		}
 

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Oceania_MG.Source.GUI;
+using Oceania_MG.Source.States;
 using System;
 
 namespace Oceania_MG.Source
@@ -26,8 +27,11 @@ namespace Oceania_MG.Source
 		private const int EDIT_BAR_HEIGHT = 150;
 
 		private Input input;
-		private Structure structure;
 		private GUIContainer gui;
+		private StructureEditPanel structureEditPanel;
+		private bool unsavedChanges;
+
+		internal Resources resources;
 
 		public StructureEditor()
         {
@@ -41,17 +45,35 @@ namespace Oceania_MG.Source
 			Window.Title = "Structure Editor";
 		}
 		
+        protected override void LoadContent()
+        {
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+			font = Content.Load<SpriteFont>("Font/CodersCrux");
+			
+			pixel = new Texture2D(GraphicsDevice, 1, 1);
+			pixel.SetData(new Color[] { Color.White });
+
+			GUIElement.scale = SCALE;
+			GUIElement.font = font;
+			GUIElement.pixel = pixel;
+
+			resources = new Resources(this);
+			resources.LoadBlocks();
+		}
+
         protected override void Initialize()
         {
 			base.Initialize();
 			IsMouseVisible = true;
 			input = new Input();
 
-			//create empty structure
-			structure = new Structure();
-
 			//initialize GUI
 			gui = new GUIContainer();
+
+			//structure editor
+			structureEditPanel = new StructureEditPanel(new Rectangle(0, FILE_BAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - FILE_BAR_HEIGHT - EDIT_BAR_HEIGHT), this);
+			gui.Add(structureEditPanel);
 
 			//top bar (new, load, save)
 			Panel fileBar = new Panel(new Rectangle(0, 0, SCREEN_WIDTH, FILE_BAR_HEIGHT));
@@ -67,26 +89,12 @@ namespace Oceania_MG.Source
 			gui.Add(saveButton);
 
 			//bottom bar (block palette, anchors, properties)
-			Panel editBar = new Panel(new Rectangle(0, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, SCREEN_WIDTH, EDIT_BAR_HEIGHT));
+			Panel editBar = new Panel(new Rectangle(0, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, SCREEN_WIDTH, EDIT_BAR_HEIGHT), "Edit");
 			gui.Add(editBar);
 
 			//TODO: draw current layer button (foreground/background)
 		}
 		
-        protected override void LoadContent()
-        {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-			font = Content.Load<SpriteFont>("Font/CodersCrux");
-			
-			pixel = new Texture2D(GraphicsDevice, 1, 1);
-			pixel.SetData(new Color[] { Color.White });
-
-			GUIElement.scale = SCALE;
-			GUIElement.font = font;
-			GUIElement.pixel = pixel;
-		}
-
 		protected override void UnloadContent()
 		{
 			base.UnloadContent();
@@ -111,19 +119,24 @@ namespace Oceania_MG.Source
 
 			input.Update();
 
-			/*if (input.ControlPressed(Input.Controls.LeftClick))
-			{
-				Console.WriteLine("Left click!");
-			}*/
-
 			gui.Update(input);
 
-			/*float mouseX = (float)(Mouse.GetState().X / SCALE * 2 - WIDTH) / WIDTH;
-			float mouseY = (float)(Mouse.GetState().Y / SCALE * 2 - HEIGHT) / HEIGHT;
-			Biome hoverBiome = world.GetBiome(mouseX, mouseY, depth);
-			hoverBiomeName = mouseX + ", " + mouseY + ": " + hoverBiome.name;*/
-
-            base.Update(gameTime);
+			//TODO: don't activate these when editing text field
+			//OR... make the control CTRL+whatever (needs input system change)
+			if (input.ControlPressed(Input.Controls.EditorNew))
+			{
+				New();
+			}
+			if (input.ControlPressed(Input.Controls.EditorOpen))
+			{
+				Open();
+			}
+			if (input.ControlPressed(Input.Controls.EditorSave))
+			{
+				Save();
+			}
+			
+			base.Update(gameTime);
         }
 
         /// <summary>
@@ -133,16 +146,7 @@ namespace Oceania_MG.Source
         protected override void Draw(GameTime gameTime)
         {
 			GraphicsDevice.Clear(Color.CornflowerBlue);
-			spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
-			//TODO: draw structure itself
-			//TODO: if mouse in structure region: highlight hovered block
-
-			//TODO: draw top bar (new, load, save)
-
-			//TODO: draw bottom bar (block palette, anchors, properties)
-
-			//TODO: draw current layer button (foreground/background)
+			spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.NonPremultiplied);
 
 			/*for (int x = 0; x < WIDTH; x++)
 			{
@@ -164,20 +168,41 @@ namespace Oceania_MG.Source
 			base.Draw(gameTime);
         }
 
-		private bool ConfirmUnsavedChanges()
+		private void ConfirmUnsavedChanges(Action action)
 		{
-			//TODO: show a dialogue with "You have unsaved changes! Do you want to save?", options "Yes", "No", "Cancel"
-			return true;
+			unsavedChanges = true; //TODO: keep a flag for this
+
+			if (unsavedChanges)
+			{
+				Action yes = () =>
+				{
+					Save();
+					action();
+				};
+				Action no = () =>
+				{
+					action();
+				};
+
+				ConfirmationPopup popup = new ConfirmationPopup(new Rectangle(SCREEN_WIDTH / 2 - ConfirmationPopup.TOTAL_WIDTH / 2, 100, ConfirmationPopup.TOTAL_WIDTH, ConfirmationPopup.TOTAL_HEIGHT),
+					gui, "Save unsaved changes?", yes, no);
+				gui.Add(popup);
+			}
+			else
+			{
+				action();
+			}
 		}
 
 		private void New()
 		{
 			Console.WriteLine("New pressed");
-			if (ConfirmUnsavedChanges())
+			ConfirmUnsavedChanges(() =>
 			{
-				structure = new Structure();
+				structureEditPanel.Reset();
 				//TODO: reset everything in menus
-			}
+			});
+
 		}
 
 		private void Open()
@@ -190,6 +215,127 @@ namespace Oceania_MG.Source
 		{
 			Console.WriteLine("Save pressed");
 			//TODO: serialize and write to file
+			unsavedChanges = false;
 		}
     }
+
+	class StructureEditPanel : GUIElement
+	{
+		private Color hoverTint = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+
+		private Structure structure;
+
+		private StructureEditor editor;
+
+		private Point offset;
+
+		private Point mousePos;
+		private bool panning = false;
+		private float zoom = scale;
+		private int zoomedBlockSize { get { return (int)(zoom * GameplayState.BLOCK_SIZE); } }
+
+		public StructureEditPanel(Rectangle bounds, StructureEditor editor) : base(bounds)
+		{
+			this.editor = editor;
+			Reset();
+		}
+
+		public override void Update(Input input)
+		{
+			base.Update(input);
+
+			Point oldMousePos = mousePos;
+
+			mousePos = input.GetMousePosition();
+			if (panning)
+			{
+				Point mouseMovement = mousePos - oldMousePos;
+				offset += mouseMovement;
+			}
+		}
+
+		public override void Draw(SpriteBatch spriteBatch)
+		{
+			bool[] layers = { true, false };
+			foreach (bool background in layers)
+			{
+				for (int structureX = 0; structureX < structure.GetWidth(); structureX++)
+				{
+					for (int structureY = 0; structureY < structure.GetWidth(); structureY++)
+					{
+						Vector2 pos = ConvertUtils.PointToVector2(GetBlockRenderPosition(new Point(structureX, structureY)));
+
+						string blockName = structure.GetBlockAt(structureX, structureY, background);
+						Block block = editor.resources.GetBlock(blockName);
+
+						int textureOffset = block.HasConnectedTexture() ? 2 * GameplayState.BLOCK_SIZE : 0; //If connected texture, use the texture portion at the top-right
+						Rectangle sourceRect = new Rectangle(textureOffset, 0, GameplayState.BLOCK_SIZE, GameplayState.BLOCK_SIZE);
+						spriteBatch.Draw(block.GetTexture(), pos, sourceRect, Color.White, 0, Vector2.Zero, zoom, SpriteEffects.None, 0);
+
+						//TODO: CTM rendering and background-layer tinting- use empty World()?
+						//block.Draw(viewportPos, graphicsDevice, spriteBatch, new GameTime(), background, worldX, worldY, world);
+					}
+				}
+			}
+
+			if (hovered)
+			{
+				//draw highlight on hovered block space
+				Rectangle hoverRect = new Rectangle(GetBlockRenderPosition(GetHoveredBlock()), new Point(zoomedBlockSize, zoomedBlockSize));
+				spriteBatch.Draw(pixel, hoverRect, hoverTint);
+			}
+		}
+
+		private Point GetHoveredBlock()
+		{
+			float fx = (float)(mousePos.X - offset.X) / zoomedBlockSize;
+			int x = (int)Math.Floor(fx);
+
+			float fy = (float)(mousePos.Y - offset.Y) / zoomedBlockSize;
+			int y = (int)Math.Floor(fy);
+
+			return new Point(x, y);
+		}
+
+		private Point GetBlockRenderPosition(Point blockPos)
+		{
+			return new Point(offset.X + blockPos.X * zoomedBlockSize, offset.Y + blockPos.Y * zoomedBlockSize);
+		}
+
+		public override void ControlPressed(Input.Controls control)
+		{
+			if (hovered) {
+				if (control == Input.Controls.LeftClick)
+				{
+					//TODO: place according to the cursor state
+					if (true)
+					{
+
+					}
+				}
+				else if (control == Input.Controls.RightClick)
+				{
+					panning = true;
+				}
+				else if (control == Input.Controls.MiddleClick)
+				{
+					//TODO pick block
+				}
+			}
+		}
+
+		public override void ControlReleased(Input.Controls control)
+		{
+			if (control == Input.Controls.RightClick)
+			{
+				panning = false;
+			}
+		}
+
+		public void Reset()
+		{
+			structure = new Structure();
+			offset = new Point(bounds.Width / 2, bounds.Height / 2); //start so that block position (0, 0) is in the center
+		}
+	}
 }

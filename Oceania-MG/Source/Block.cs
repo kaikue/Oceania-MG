@@ -40,10 +40,9 @@ namespace Oceania_MG.Source
 		private Rectangle[][] cornerRects;
 		private Func<Block, bool> connectedFunc;
 
-		public void LoadImage()
+		public void LoadImage(Texture2D texture)
 		{
-			texture = Game.LoadImage(image);
-
+			this.texture = texture;
 			if (renderType != RenderType.Normal)
 			{
 				cornerRects = new Rectangle[CORNERS][];
@@ -77,8 +76,8 @@ namespace Oceania_MG.Source
 
 		private Rectangle GetSubRect(int corner, bool adj1, bool adj2, bool adj3)
 		{
-			int mainX = 0;
-			int mainY = 0;
+			int mainX;
+			int mainY;
 			if (!adj1 && !adj3)
 			{
 				//don't care about corner adjacent block
@@ -116,7 +115,7 @@ namespace Oceania_MG.Source
 			Vector2 cornerOffset = GetCornerOffset(corner);
 			int subX = mainX * GameplayState.BLOCK_SIZE + (int)cornerOffset.X;
 			int subY = mainY * GameplayState.BLOCK_SIZE + (int)cornerOffset.Y;
-			
+
 			Rectangle rect = new Rectangle(subX, subY, GameplayState.BLOCK_SIZE / 2, GameplayState.BLOCK_SIZE / 2);
 			return rect;
 		}
@@ -256,6 +255,16 @@ namespace Oceania_MG.Source
 			if (a2) i += 2;
 			if (a3) i += 1;
 			return i;
+		}
+
+		public Texture2D GetTexture()
+		{
+			return texture;
+		}
+
+		public bool HasConnectedTexture()
+		{
+			return renderType == RenderType.ConnectedSameType || renderType == RenderType.ConnectedSolid;
 		}
 	}
 

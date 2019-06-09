@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
+using Oceania_MG.Source.States;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,9 +24,11 @@ namespace Oceania_MG.Source
 
 		private Dictionary<string, int> blockIDs;
 
-		public Resources()
-		{
+		private Microsoft.Xna.Framework.Game instance;
 
+		public Resources(Microsoft.Xna.Framework.Game instance)
+		{
+			this.instance = instance;
 		}
 
 		public void LoadAll()
@@ -74,7 +77,7 @@ namespace Oceania_MG.Source
 
 			foreach (Biome biome in biomes)
 			{
-				biome.LoadBackgrounds();
+				biome.LoadBackgrounds(this);
 			}
 		}
 
@@ -96,9 +99,8 @@ namespace Oceania_MG.Source
 				blocks[block.id] = block;
 				blockIDs[block.name] = block.id;
 
-				block.LoadImage();
+				block.LoadImage(LoadTexture(block.image));
 			}
-
 		}
 
 		public Block GetBlock(string blockName)
@@ -167,6 +169,15 @@ namespace Oceania_MG.Source
 				return blendedBiome;
 			}
 			return bestBiome;
+		}
+
+		public Texture2D LoadTexture(string imageURL)
+		{
+			if (string.IsNullOrEmpty(imageURL))
+			{
+				return new Texture2D(instance.GraphicsDevice, GameplayState.BLOCK_SIZE, GameplayState.BLOCK_SIZE);
+			}
+			return instance.Content.Load<Texture2D>(imageURL);
 		}
 
 	}

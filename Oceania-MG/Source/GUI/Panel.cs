@@ -12,11 +12,15 @@ namespace Oceania_MG.Source.GUI
 	{
 		private Color bodyColor = Color.White;
 		private Color outlineColor = Color.Black;
+		private Color labelColor = Color.Black;
+
+		private string label;
 
 		private Rectangle bodyRect;
 
-		public Panel(Rectangle bounds) : base(bounds)
+		public Panel(Rectangle bounds, string label = null) : base(bounds)
 		{
+			this.label = label;
 			Point outlineOffset = new Point(scale, scale); //scaled-thickness outline
 			bodyRect = new Rectangle(bounds.Location + outlineOffset, bounds.Size - outlineOffset - outlineOffset);
 		}
@@ -25,6 +29,11 @@ namespace Oceania_MG.Source.GUI
 		{
 			spriteBatch.Draw(pixel, bounds, outlineColor);
 			spriteBatch.Draw(pixel, bodyRect, bodyColor);
+			if (label != null)
+			{
+				Vector2 labelPos = new Vector2(bounds.X + 3 * scale, bounds.Y + 3 * scale);
+				spriteBatch.DrawString(font, label, labelPos, labelColor, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+			}
 		}
 	}
 }

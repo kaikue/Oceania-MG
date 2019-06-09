@@ -11,6 +11,12 @@ TODO
 	- GUI stuff
 		- Scroll panels
 		- Text fields
+		- Anchor scrollable block selection popup
+	- PlaceableObject? class for cursor contents: Block(string), Anchor, InPopup
+	- Block palette
+	- Anchors palette
+	- Properties text fields
+	- Keep a flag for unsaved changes
 	- Confirm unsaved changes on close event https://stackoverflow.com/questions/23717111/xna-c-sharp-trap-and-cancel-the-close-window-x-button-and-ctrl-f4
 - World generation
 	- Island/surface biomes

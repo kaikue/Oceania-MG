@@ -120,6 +120,23 @@ namespace Oceania_MG.Source
 			}
 		}
 
+		class MultiControl : ControlType
+		{
+			private readonly ControlType control1;
+			private readonly ControlType control2;
+
+			public MultiControl(ControlType control1, ControlType control2)
+			{
+				this.control1 = control1;
+				this.control2 = control2;
+			}
+
+			public override bool IsPressed()
+			{
+				return control1.IsPressed() && control2.IsPressed();
+			}
+		}
+
 		enum MouseButtons
 		{
 			LeftClick,
@@ -161,6 +178,10 @@ namespace Oceania_MG.Source
 			MiddleClick,
 			ScrollUp,
 			ScrollDown,
+			EditorNew,
+			EditorOpen,
+			EditorSave,
+			EditorSwitchLayer,
 		}
 
 		private Dictionary<Controls, HashSet<ControlType>> controlMappings;
@@ -192,45 +213,66 @@ namespace Oceania_MG.Source
 			{
 				string line = lines[i];
 				if (line.Length == 0 || line.StartsWith("//")) continue;
-				string[] split = line.Split(':', '.');
-				if (split.Length != 3) throw new FormatException("controls.txt line " + (i + 1) + " must be of format Action:Controller.Button");
-				string actionStr = split[0].Trim(' ');
-				string controllerStr = split[1].Trim(' ');
-				string buttonStr = split[2].Trim(' ');
 
+				//split by : first, then potentially &, then .
+
+				string[] split = line.Split(':');
+				if (split.Length != 2) throw new FormatException("controls.txt line " + (i + 1) + " must be of format Action:Controller.Button[&Controller.Button]");
+
+				string actionStr = split[0].Trim(' ');
 				bool success = Enum.TryParse(actionStr, out Controls control);
 				if (!success) throw new FormatException("controls.txt line " + (i + 1) + ": Invalid action " + actionStr);
 
-				if (controllerStr == KeyControl.CONTROLLER_NAME)
+				string[] controls = split[1].Split('&');
+
+				ControlType controlType = ParseControl(controls[0], i + 1);
+				//in case of more than one control, create a multi-control
+				for (int j = 1; j < controls.Length; j++)
 				{
-					bool success2 = Enum.TryParse(buttonStr, out Keys key);
-					if (!success2) throw new FormatException("controls.txt line " + (i + 1) + ": Invalid key " + buttonStr);
-					AddKeyControl(control, key);
+					ControlType nextControl = ParseControl(controls[j], i + 1);
+					controlType = new MultiControl(controlType, nextControl);
 				}
-				else if (controllerStr == GamepadControl.CONTROLLER_NAME)
-				{
-					bool success2 = Enum.TryParse(buttonStr, out Buttons button);
-					if (!success2) throw new FormatException("controls.txt line " + (i + 1) + ": Invalid gamepad button " + buttonStr);
-					AddGamepadControl(control, button);
-				}
-				else if (controllerStr == GamepadThumbstickControl.CONTROLLER_NAME)
-				{
-					AddGamepadThumbstickControl(control, buttonStr);
-				}
-				else if (controllerStr == MouseControl.CONTROLLER_NAME)
-				{
-					bool success2 = Enum.TryParse(buttonStr, out MouseButtons mouseButton);
-					if (!success2) throw new FormatException("controls.txt line " + (i + 1) + ": Invalid mouse button " + buttonStr);
-					AddMouseControl(control, mouseButton);
-				}
-				else
-				{
-					throw new FormatException("controls.txt line " + (i + 1) + ": Invalid controller " + controllerStr);
-				}
+
+				AddControl(control, controlType);
 			}
 		}
 
-		private void AddKeyControl(Controls control, Keys key)
+		private ControlType ParseControl(string control, int line = -1)
+		{
+			string[] split = control.Split('.');
+			if (split.Length != 2) throw new FormatException("controls.txt line " + line + " must be of format Action:Controller.Button[&Controller.Button]");
+			string controllerStr = split[0].Trim(' ');
+			string buttonStr = split[1].Trim(' ');
+
+			if (controllerStr == KeyControl.CONTROLLER_NAME)
+			{
+				bool success = Enum.TryParse(buttonStr, out Keys key);
+				if (!success) throw new FormatException("controls.txt line " + line + ": Invalid key " + buttonStr);
+				return new KeyControl(key);
+			}
+			else if (controllerStr == GamepadControl.CONTROLLER_NAME)
+			{
+				bool success = Enum.TryParse(buttonStr, out Buttons button);
+				if (!success) throw new FormatException("controls.txt line " + line + ": Invalid gamepad button " + buttonStr);
+				return new GamepadControl(button);
+			}
+			else if (controllerStr == GamepadThumbstickControl.CONTROLLER_NAME)
+			{
+				return new GamepadThumbstickControl(buttonStr);
+			}
+			else if (controllerStr == MouseControl.CONTROLLER_NAME)
+			{
+				bool success = Enum.TryParse(buttonStr, out MouseButtons mouseButton);
+				if (!success) throw new FormatException("controls.txt line " + line + ": Invalid mouse button " + buttonStr);
+				return new MouseControl(mouseButton);
+			}
+			else
+			{
+				throw new FormatException("controls.txt line " + line + ": Invalid controller " + controllerStr);
+			}
+		}
+
+		/*private void AddKeyControl(Controls control, Keys key)
 		{
 			controlMappings[control].Add(new KeyControl(key));
 		}
@@ -248,6 +290,11 @@ namespace Oceania_MG.Source
 		private void AddMouseControl(Controls control, MouseButtons mouseButton)
 		{
 			controlMappings[control].Add(new MouseControl(mouseButton));
+		}*/
+
+		private void AddControl(Controls control, ControlType controlType)
+		{
+			controlMappings[control].Add(controlType);
 		}
 
 		/// <summary>

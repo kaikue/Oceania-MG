@@ -55,5 +55,10 @@ namespace Oceania_MG.Source.GUI
 		{
 			elements.Add(element);
 		}
+
+		public void Remove(GUIElement element)
+		{
+			elements.Remove(element);
+		}
 	}
 }

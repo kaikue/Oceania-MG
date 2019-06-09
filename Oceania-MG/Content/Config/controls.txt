@@ -61,9 +61,13 @@ Hotbar8:Keyboard.D8
 Hotbar9:Keyboard.D9
 Hotbar0:Keyboard.D0
 
-//Editor
+//Editor (keyboard only)
 LeftClick:Mouse.LeftClick
 RightClick:Mouse.RightClick
 MiddleClick:Mouse.MiddleClick
 ScrollUp:Mouse.ScrollUp
 ScrollDown:Mouse.ScrollDown
+EditorNew:Keyboard.LeftControl&Keyboard.N
+EditorOpen:Keyboard.LeftControl&Keyboard.O
+EditorSave:Keyboard.LeftControl&Keyboard.S
+EditorSwitchLayer:Keyboard.Space
