@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace Oceania_MG.Source.GUI
 {
-	class SelectableImage : GUIElement
+	class SelectableBlock : GUIElement
 	{
 		private Color outlineColor = Color.Black;
 		
 		private Action selectAction;
 
 		private Rectangle outlineRect;
-		private Texture2D texture;
+		private Block block;
 		private bool selected = false;
 
-		public SelectableImage(Rectangle bounds, Texture2D texture, Action selectAction) : base(bounds)
+		public SelectableBlock(Rectangle bounds, Block block, Action selectAction) : base(bounds)
 		{
-			this.texture = texture;
+			this.block = block;
 			this.selectAction = selectAction;
 
 			RefreshBounds();
@@ -39,7 +39,8 @@ namespace Oceania_MG.Source.GUI
 				spriteBatch.Draw(pixel, outlineRect, outlineColor);
 			}
 
-			spriteBatch.Draw(texture, ConvertUtils.PointToVector2(bounds.Location), null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+			block.DrawSimple(spriteBatch, ConvertUtils.PointToVector2(bounds.Location), scale);
+			//spriteBatch.Draw(texture, ConvertUtils.PointToVector2(bounds.Location), null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
 		}
 
 		public override void ControlPressed(Input.Controls control)
@@ -54,6 +55,11 @@ namespace Oceania_MG.Source.GUI
 		public void Deselect()
 		{
 			selected = false;
+		}
+
+		public Block GetBlock()
+		{
+			return block;
 		}
 	}
 }

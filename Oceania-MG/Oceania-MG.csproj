@@ -42,7 +42,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Source\GUI\SelectableImage.cs" />
+    <Compile Include="Source\GUI\SelectableBlock.cs" />
     <Compile Include="Source\GUI\ConfirmationPopup.cs" />
     <Compile Include="Source\GUI\ContainerPanel.cs" />
     <Compile Include="Source\GUI\ScrollPanel.cs" />

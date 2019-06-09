@@ -257,14 +257,16 @@ namespace Oceania_MG.Source
 			return i;
 		}
 
-		public Texture2D GetTexture()
-		{
-			return texture;
-		}
-
-		public bool HasConnectedTexture()
+		private bool HasConnectedTexture()
 		{
 			return renderType == RenderType.ConnectedSameType || renderType == RenderType.ConnectedSolid;
+		}
+
+		public void DrawSimple(SpriteBatch spriteBatch, Vector2 pos, float zoom)
+		{
+			int textureOffset = HasConnectedTexture() ? 2 * GameplayState.BLOCK_SIZE : 0; //If connected texture, use the texture portion at the top-right
+			Rectangle sourceRect = new Rectangle(textureOffset, 0, GameplayState.BLOCK_SIZE, GameplayState.BLOCK_SIZE);
+			spriteBatch.Draw(texture, pos, sourceRect, Color.White, 0, Vector2.Zero, zoom, SpriteEffects.None, 0);
 		}
 	}
 

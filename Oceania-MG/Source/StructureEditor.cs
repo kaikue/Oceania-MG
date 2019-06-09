@@ -33,7 +33,7 @@ namespace Oceania_MG.Source
 		private StructureEditPanel structureEditPanel;
 		private bool unsavedChanges;
 
-		private SelectableImage selectedBlock;
+		private SelectableBlock selectedBlock;
 
 		internal Resources resources;
 
@@ -120,7 +120,7 @@ namespace Oceania_MG.Source
 				{
 					if (selectedBlock != null) selectedBlock.Deselect();
 				};
-				SelectableImage blockSelect = new SelectableImage(new Rectangle(x, y, blockSize, blockSize), block.GetTexture(), selectAction);
+				SelectableBlock blockSelect = new SelectableBlock(new Rectangle(x, y, blockSize, blockSize), block, selectAction);
 				selectAction += () =>
 				{
 					selectedBlock = blockSelect;
@@ -309,10 +309,7 @@ namespace Oceania_MG.Source
 
 						string blockName = structure.GetBlockAt(structureX, structureY, background);
 						Block block = editor.resources.GetBlock(blockName);
-
-						int textureOffset = block.HasConnectedTexture() ? 2 * GameplayState.BLOCK_SIZE : 0; //If connected texture, use the texture portion at the top-right
-						Rectangle sourceRect = new Rectangle(textureOffset, 0, GameplayState.BLOCK_SIZE, GameplayState.BLOCK_SIZE);
-						spriteBatch.Draw(block.GetTexture(), pos, sourceRect, Color.White, 0, Vector2.Zero, zoom, SpriteEffects.None, 0);
+						block.DrawSimple(spriteBatch, pos, zoom);
 
 						//TODO: CTM rendering and background-layer tinting- use empty World()?
 						//block.Draw(viewportPos, graphicsDevice, spriteBatch, new GameTime(), background, worldX, worldY, world);

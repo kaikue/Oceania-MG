@@ -11,9 +11,8 @@ TODO
 	- Block palette
 		- Properly deselect previous selected block
 		- Keep scroll buttons fixed
-		- Crop default block texture
 		- Crop GUIContainer to bounds
-		- String to remember selected block name
+		- Add label height to containerpanel offset, if label is not null
 	- GUI stuff
 		- Text fields
 		- Anchor scrollable block selection popup
