@@ -7,6 +7,11 @@ Created by Kai Kuehner, 2013-2019.
 
 TODO
 --
+- Structure editor
+	- GUI stuff
+		- Scroll panels
+		- Text fields
+	- Confirm unsaved changes on close event https://stackoverflow.com/questions/23717111/xna-c-sharp-trap-and-cancel-the-close-window-x-button-and-ctrl-f4
 - World generation
 	- Island/surface biomes
 		- Balance depth so that only island/surface is at y=0
@@ -21,6 +26,7 @@ TODO
 			- Generate with SpawnedStructure
 			- Kelp with random height and branches
 			- Dungeons with random mazes
+			- Rooms hook together like jigsaw pieces
 - Input
 	- cursor position- mouse or right joystick (for targeting, inventory)
 		- should snap back when not held for targeting
@@ -54,7 +60,8 @@ TODO
 - Make sure serialization works
 	- references (including Player) across files
 	- image reloading (combine with SetWorld)
-	- Serialize and load blockIDs in World- only add new mapping if not already present (keeps IDs consistent with adding/removing blocks)
+	- Consistent block IDs in Resources
+		- Serialize and load blockIDs in World?- only add new mapping if not already present (keeps IDs consistent with adding/removing blocks)
 - Set loaded chunk radius x&y based on screen size and scale
 - Performance
 	- Load chunks in background thread (await result, add to loaded chunks or generate when loading finishes)

@@ -62,6 +62,7 @@ namespace Oceania_MG.Source
 		public Dictionary<string, string[]> blocks;
 		public Dictionary<string, string[]> anchors;
 		public string name;
+
 		private string[][] blocksForeground;
 		private string[][] blocksBackground;
 		private HashSet<Anchor> strictAnchorsSet;

@@ -19,6 +19,7 @@ namespace Oceania_MG.Source
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
 
+		private Resources resources;
 		private GameState state;
 		private Input input;
 
@@ -61,7 +62,9 @@ namespace Oceania_MG.Source
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			state = new GameplayState();
+			resources = new Resources();
+			resources.LoadAll();
+			state = new GameplayState(resources);
 
 			font = Content.Load<SpriteFont>("Font/CodersCrux");
 

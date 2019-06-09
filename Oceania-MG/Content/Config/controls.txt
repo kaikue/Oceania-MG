@@ -60,3 +60,10 @@ Hotbar7:Keyboard.D7
 Hotbar8:Keyboard.D8
 Hotbar9:Keyboard.D9
 Hotbar0:Keyboard.D0
+
+//Editor
+LeftClick:Mouse.LeftClick
+RightClick:Mouse.RightClick
+MiddleClick:Mouse.MiddleClick
+ScrollUp:Mouse.ScrollUp
+ScrollDown:Mouse.ScrollDown

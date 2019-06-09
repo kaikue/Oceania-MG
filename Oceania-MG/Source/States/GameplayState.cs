@@ -18,9 +18,9 @@ namespace Oceania_MG.Source.States
 
 		private Vector2 viewport;
 
-		public GameplayState()
+		public GameplayState(Resources resources)
 		{
-			world = new World("defaultworld", 100); //TODO
+			world = new World("defaultworld", 100, resources); //TODO
 			viewport = new Vector2();
 			UpdateViewport();
 		}

@@ -156,6 +156,11 @@ namespace Oceania_MG.Source
 			Hotbar8,
 			Hotbar9,
 			Hotbar0,
+			LeftClick,
+			RightClick,
+			MiddleClick,
+			ScrollUp,
+			ScrollDown,
 		}
 
 		private Dictionary<Controls, HashSet<ControlType>> controlMappings;
@@ -335,6 +340,38 @@ namespace Oceania_MG.Source
 				}
 			}
 			return new Vector2(0, 0);
+		}
+
+		/// <summary>
+		/// Returns the position (in screen coordinates) of the mouse.
+		/// </summary>
+		public Point GetMousePosition()
+		{
+			return Mouse.GetState().Position;
+		}
+
+		/// <summary>
+		/// Returns all the controls that were pressed on this frame.
+		/// </summary>
+		public IEnumerable<Controls> PressedControls()
+		{
+			return pressedControls;
+		}
+
+		/// <summary>
+		/// Returns all the controls that were held on this frame.
+		/// </summary>
+		public IEnumerable<Controls> HeldControls()
+		{
+			return heldControls;
+		}
+
+		/// <summary>
+		/// Returns all the controls that were released on this frame.
+		/// </summary>
+		public IEnumerable<Controls> ReleasedControls()
+		{
+			return releasedControls;
 		}
 	}
 }

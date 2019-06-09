@@ -72,13 +72,13 @@ namespace Oceania_MG.Source
 		{
 			structures = new List<SpawnedStructure>();
 			//Find all structures that overlap this chunk and can generate
-			IEnumerable<string> structuresList = world.GetStructures();
+			IEnumerable<string> structuresList = world.resources.GetStructures();
 			Point worldPos = ConvertUtils.ChunkToWorld(0, 0, x, y);
 			int worldX = worldPos.X;
 			int worldY = worldPos.Y;
 			foreach (string structureName in structuresList)
 			{
-				Structure structure = world.GetStructure(structureName);
+				Structure structure = world.resources.GetStructure(structureName);
 				Point minChunk = ConvertUtils.WorldToChunk(worldX - structure.GetWidth() + 1, worldY - structure.GetHeight() + 1).Item1;
 				int minChunkX = minChunk.X;
 				int minChunkY = minChunk.Y;
@@ -192,12 +192,12 @@ namespace Oceania_MG.Source
 
 		private string GetOreAt(int worldX, int worldY, Biome biome, string baseBlock)
 		{
-			Block block = world.GetBlock(baseBlock);
+			Block block = world.resources.GetBlock(baseBlock);
 			if (!block.solid) return baseBlock; //Only allow ore on solid terrain blocks
 
 			foreach (string oreName in biome.ores)
 			{
-				Ore ore = world.GetOre(oreName);
+				Ore ore = world.resources.GetOre(oreName);
 				float oreNoise = world.generate.Ore(worldX, worldY, oreName, ore.scale);
 				if (oreNoise > ore.cutoff)
 				{
@@ -231,7 +231,7 @@ namespace Oceania_MG.Source
 
 		private void SetBlockAt(int x, int y, string blockName, bool background)
 		{
-			Block block = world.GetBlock(blockName);
+			Block block = world.resources.GetBlock(blockName);
 			SetBlockAt(x, y, block, background);
 		}
 
@@ -249,7 +249,7 @@ namespace Oceania_MG.Source
 
 		public Block GetBlockAt(int x, int y, bool background)
 		{
-			return world.GetBlock(GetBlockIDAt(x, y, background));
+			return world.resources.GetBlock(GetBlockIDAt(x, y, background));
 		}
 
 		public IEnumerable<Entity> GetEntities()

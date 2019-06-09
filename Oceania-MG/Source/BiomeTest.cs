@@ -18,7 +18,7 @@ namespace Oceania_MG.Source
 		private Color[][][] colors;
 		private Random random = new Random();
 		private string hoverBiomeName = "";
-		private World world;
+		private Resources resources;
 
 		private int depth;
 		private int minDepth = 0;
@@ -47,8 +47,6 @@ namespace Oceania_MG.Source
 		
 		private void Generate()
 		{
-			world = new World("biometest", 0);
-
 			colors = new Color[maxDepth - minDepth][][];
 			for (int d = 0; d < maxDepth - minDepth; d++)
 			{
@@ -61,7 +59,7 @@ namespace Oceania_MG.Source
 					{
 						float sX = (float)((2 * x) - WIDTH) / WIDTH;
 						float sY = (float)((2 * y) - HEIGHT) / HEIGHT;
-						Biome biome = world.GetBiome(sX, sY, d + minDepth);
+						Biome biome = resources.GetBiome(sX, sY, d + minDepth);
 						int[] c = biome.color;
 						Color color = new Color(c[0], c[1], c[2]);
 						colors[d][x][y] = color;
@@ -78,6 +76,10 @@ namespace Oceania_MG.Source
 
 			pixel = new Texture2D(GraphicsDevice, 1, 1);
 			pixel.SetData(new Color[] { Color.White });
+
+
+			resources = new Resources();
+			resources.LoadBiomes();
 		}
 
 		protected override void UnloadContent()
@@ -101,7 +103,7 @@ namespace Oceania_MG.Source
 			
 			float mouseX = (float)(Mouse.GetState().X / SCALE * 2 - WIDTH) / WIDTH;
 			float mouseY = (float)(Mouse.GetState().Y / SCALE * 2 - HEIGHT) / HEIGHT;
-			Biome hoverBiome = world.GetBiome(mouseX, mouseY, depth);
+			Biome hoverBiome = resources.GetBiome(mouseX, mouseY, depth);
 			hoverBiomeName = mouseX + ", " + mouseY + ": " + hoverBiome.name;
 			
 			if (!Keyboard.GetState().IsKeyDown(Keys.Space))

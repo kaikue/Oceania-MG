@@ -17,6 +17,7 @@ namespace Oceania_MG.Source
 		private Color[][] colors;
 		private Random random = new Random();
 		private World world;
+		private Resources resources;
 		private string hoverBiomeName;
 
 		private const int WIDTH = 200;
@@ -42,12 +43,25 @@ namespace Oceania_MG.Source
 			IsMouseVisible = true;
 		}
 		
+        protected override void LoadContent()
+        {
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+			font = Content.Load<SpriteFont>("Font/CodersCrux");
+
+			pixel = new Texture2D(GraphicsDevice, 1, 1);
+			pixel.SetData(new Color[] { Color.White });
+
+			resources = new Resources();
+			resources.LoadAll();
+		}
+
 		private void Generate()
 		{
 			colors = new Color[WIDTH][];
 
 			int seed = random.Next();
-			world = new World("BiomeTest", seed);
+			world = new World("BiomeTest", seed, resources);
 
 			for (int x = 0; x < WIDTH; x++)
 			{
@@ -67,7 +81,7 @@ namespace Oceania_MG.Source
 					{
 						foreach (string oreName in biome.ores)
 						{
-							Ore ore = world.GetOre(oreName);
+							Ore ore = resources.GetOre(oreName);
 							if (world.generate.Ore(x, y, oreName, ore.scale) > ore.cutoff)
 							{
 								color = new Color((uint)oreName.GetHashCode());
@@ -78,16 +92,6 @@ namespace Oceania_MG.Source
 					colors[x][y - START_Y] = color;
 				}
 			}
-		}
-
-        protected override void LoadContent()
-        {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-			font = Content.Load<SpriteFont>("Font/CodersCrux");
-
-			pixel = new Texture2D(GraphicsDevice, 1, 1);
-			pixel.SetData(new Color[] { Color.White });
 		}
 
 		protected override void UnloadContent()

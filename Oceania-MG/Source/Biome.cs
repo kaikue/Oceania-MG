@@ -12,6 +12,9 @@ namespace Oceania_MG.Source
 {
 	class Biome
 	{
+		public const int DEPTH_SCALE = 50; //divides depth by this when doing biome calculation, to make it balance out with temp/life
+		public const float BLEND_DISTANCE = 0.1f; //how far apart to start blending biomes together
+
 		public string name;
 		public float temperature;
 		public float liveliness;

@@ -19,9 +19,6 @@ namespace Oceania_MG.Source
 	{
 		private const int CHUNK_LOAD_DISTANCE = 1; //(2 * this + 1) square of chunks is loaded surrounding player's chunk
 
-		private const int BIOME_DEPTH_SCALE = 50; //divides depth by this when doing biome calculation, to make it balance out with temp/life
-		private const float BIOME_BLEND_DISTANCE = 0.1f; //how far apart to start blending biomes together
-
 		public const int SEA_LEVEL = 0;
 
 		private static readonly Color AIR_TINT = Color.White;
@@ -38,75 +35,19 @@ namespace Oceania_MG.Source
 		[DataMember]
 		private Player player;
 
+		public Resources resources;
+
 		public Generate generate;
-
-		private Biome[] biomes;
-		private Dictionary<string, Ore> ores;
-		private Dictionary<string, Structure> structures;
-		private List<string> structureNames;
-
-		private Dictionary<int, Block> blocks;
-
-		[DataMember]
-		private Dictionary<string, int> blockIDs;
 
 		private HashSet<Chunk> loadedChunks;
 
-		public World(string name, int seed)
+		public World(string name, int seed, Resources resources)
 		{
 			this.name = name;
 			this.seed = seed;
+			this.resources = resources;
 			generate = new Generate(seed);
 			loadedChunks = new HashSet<Chunk>();
-
-			string oresJSON = File.ReadAllText("Content/Config/ores.json");
-			Ore[] oreList = JsonConvert.DeserializeObject<Ores>(oresJSON).ores;
-			ores = new Dictionary<string, Ore>();
-			foreach (Ore ore in oreList)
-			{
-				ores[ore.name] = ore;
-			}
-
-			structures = new Dictionary<string, Structure>();
-			string[] structureFiles = Directory.GetFiles("Content/Config/Structures", "*.json");
-			foreach (string structureFile in structureFiles)
-			{
-				string structureJSON = File.ReadAllText(structureFile);
-				Structure structure = JsonConvert.DeserializeObject<Structure>(structureJSON);
-				string structureName = Path.GetFileNameWithoutExtension(structureFile);
-				structure.name = structureName;
-				structure.Process();
-				structures[structureName] = structure;
-			}
-
-			//sort structures by size (width + height) so that larger structures take priority in generation
-			structureNames = structures.OrderByDescending(structureInfo => {
-				return structureInfo.Value.GetWidth() + structureInfo.Value.GetHeight();
-			}).Select(structureInfo => structureInfo.Key).ToList();
-
-			string biomesJSON = File.ReadAllText("Content/Config/biomes.json");
-			biomes = JsonConvert.DeserializeObject<Biomes>(biomesJSON).biomes;
-
-			foreach (Biome biome in biomes)
-			{
-				biome.LoadBackgrounds();
-			}
-
-			blocks = new Dictionary<int, Block>();
-			blockIDs = new Dictionary<string, int>();
-			string blocksJSON = File.ReadAllText("Content/Config/blocks.json");
-			Block[] blocksList = JsonConvert.DeserializeObject<Blocks>(blocksJSON).blocks;
-			int bid = 0;
-			foreach (Block block in blocksList)
-			{
-				block.id = bid;
-				bid++;
-
-				blocks[block.id] = block;
-				blockIDs[block.name] = block.id;
-
-				block.LoadImage();
-			}
 
 			GenerateNew(new Player.PlayerOptions());
 		}
@@ -190,52 +131,14 @@ namespace Oceania_MG.Source
 			Vector2 subPos = chunkInfo.Item2;
 			Chunk chunk = GetChunk(chunkX, chunkY);
 
-			if (chunk == null) return GetBlock("unknown");
+			if (chunk == null) return resources.GetBlock("unknown");
 			return chunk.GetBlockAt((int)subPos.X, (int)subPos.Y, background);
 		}
 
 		public Biome GetBiomeAt(int x, int y)
 		{
 			Tuple<float, float> properties = generate.Biome(x, y);
-			return GetBiome(properties.Item1, properties.Item2, y);
-		}
-
-		public Biome GetBiome(float temperature, float liveliness, float depth)
-		{
-			float minDistance = float.MaxValue;
-			float nextMinDistance = float.MaxValue;
-			Biome bestBiome = null;
-			Biome nextBestBiome = null;
-			foreach (Biome biome in biomes)
-			{
-				Vector3 biomePos = new Vector3(biome.temperature, biome.liveliness, biome.depth / BIOME_DEPTH_SCALE);
-				Vector3 currentPos = new Vector3(temperature, liveliness, depth / BIOME_DEPTH_SCALE);
-				float distance = Vector3.Distance(biomePos, currentPos);
-				if (distance < minDistance)
-				{
-					nextMinDistance = minDistance;
-					nextBestBiome = bestBiome;
-
-					minDistance = distance;
-					bestBiome = biome;
-				}
-				else if (distance < nextMinDistance)
-				{
-					nextMinDistance = distance;
-					nextBestBiome = biome;
-				}
-			}
-
-			if (nextBestBiome != null && Math.Abs(minDistance - nextMinDistance) < BIOME_BLEND_DISTANCE)
-			{
-				//lerp between biomes if just about halfway between them (so that heights smoothly transition)
-				//if minDistance == nextMinDistance: t = 0.5
-				//if Math.Abs(minDistance - nextMinDistance) == 0.1f: t = 0
-				float t = MathUtils.Lerp(0.5f, 0, Math.Abs(minDistance - nextMinDistance) / BIOME_BLEND_DISTANCE);
-				Biome blendedBiome = Biome.Lerp(bestBiome, nextBestBiome, t);
-				return blendedBiome;
-			}
-			return bestBiome;
+			return resources.GetBiome(properties.Item1, properties.Item2, y);
 		}
 
 		public Tuple<Block, Block> GetTerrainAt(int x, int y)
@@ -243,32 +146,7 @@ namespace Oceania_MG.Source
 			Biome biome = GetBiomeAt(x, y);
 			string blockBG = Chunk.GetTerrainAt(this, x, y, true, biome);
 			string blockFG = Chunk.GetTerrainAt(this, x, y, false, biome);
-			return new Tuple<Block, Block>(GetBlock(blockBG), GetBlock(blockFG));
-		}
-
-		public Block GetBlock(string blockName)
-		{
-			return GetBlock(blockIDs[blockName]);
-		}
-
-		public Block GetBlock(int blockID)
-		{
-			return blocks[blockID];
-		}
-
-		public Ore GetOre(string oreName)
-		{
-			return ores[oreName];
-		}
-
-		public List<string> GetStructures()
-		{
-			return structureNames;
-		}
-
-		public Structure GetStructure(string structureName)
-		{
-			return structures[structureName];
+			return new Tuple<Block, Block>(resources.GetBlock(blockBG), resources.GetBlock(blockFG));
 		}
 
 		public Color GetLight(int x, int y)
@@ -339,9 +217,8 @@ namespace Oceania_MG.Source
 
 			graphicsDevice.Clear(biome.backgroundColor);
 
-			return; //TODO take this out and make background look nicer
-
-			int numLayers = biome.backgroundImages.Length;
+			//TODO make background look nicer
+			/*int numLayers = biome.backgroundImages.Length;
 			for (int layer = numLayers - 1; layer >= 0; layer--)
 			{
 				Texture2D backgroundImage = biome.backgroundImages[layer];
@@ -359,7 +236,7 @@ namespace Oceania_MG.Source
 					Vector2 offset = new Vector2((i - 1) * scaledWidth, 0);
 					spriteBatch.Draw(backgroundImage, position + offset, null, Color.White, 0, Vector2.Zero, GameplayState.SCALE, SpriteEffects.None, 0);
 				}
-			}
+			}*/
 		}
 	}
 }

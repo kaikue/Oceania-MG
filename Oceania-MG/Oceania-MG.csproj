@@ -42,6 +42,13 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Source\GUI\GUIContainer.cs" />
+    <Compile Include="Source\GUI\Panel.cs" />
+    <Compile Include="Source\GUI\Button.cs" />
+    <Compile Include="Source\GUI\GUIElement.cs" />
+    <Compile Include="Source\Resources.cs" />
+    <Compile Include="Source\StructureEditor.cs" />
+    <Compile Include="Source\Entities\EntityBlockOverlay.cs" />
     <Compile Include="Source\Structure.cs" />
     <Compile Include="Source\Biome.cs" />
     <Compile Include="Source\Block.cs" />

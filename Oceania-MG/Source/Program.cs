@@ -17,7 +17,8 @@ namespace Oceania_MG.Source
 			//Game(): runs the game normally
 			//GenerateTest(): runs a debug window showing terrain generation
 			//BiomeTest(): runs a debug window showing biome arrangement chart
-			using (var game = new GenerateTest())
+			//StructureEditor(): runs the editor for creating premade structures
+			using (var game = new StructureEditor())
 			{
 				game.Run();
 			}
