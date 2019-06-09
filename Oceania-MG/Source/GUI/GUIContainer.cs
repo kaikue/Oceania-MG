@@ -12,13 +12,15 @@ namespace Oceania_MG.Source.GUI
 	{
 		private HashSet<GUIElement> elements;
 
+		private Rectangle bounds;
 		//TODO: maybe some stuff for text fields
 
-		public GUIContainer()
+		public GUIContainer(Rectangle bounds)
 		{
+			this.bounds = bounds;
 			elements = new HashSet<GUIElement>();
 		}
-
+		
 		public void Update(Input input)
 		{
 			HashSet<GUIElement> cachedElements = new HashSet<GUIElement>(elements); //Prevent concurrent modification exceptions
@@ -47,6 +49,7 @@ namespace Oceania_MG.Source.GUI
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
+			//TODO: crop to bounds
 			foreach (GUIElement element in elements)
 			{
 				element.Draw(spriteBatch);
@@ -61,6 +64,11 @@ namespace Oceania_MG.Source.GUI
 		public void Remove(GUIElement element)
 		{
 			elements.Remove(element);
+		}
+
+		public IEnumerable<GUIElement> GetElements()
+		{
+			return elements;
 		}
 	}
 }

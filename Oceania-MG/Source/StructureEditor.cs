@@ -26,10 +26,14 @@ namespace Oceania_MG.Source
 		private const int FILE_BUTTON_WIDTH = 75;
 		private const int EDIT_BAR_HEIGHT = 150;
 
+		private const int PALETTE_SPACING = 10;
+
 		private Input input;
 		private GUIContainer gui;
 		private StructureEditPanel structureEditPanel;
 		private bool unsavedChanges;
+
+		private SelectableImage selectedBlock;
 
 		internal Resources resources;
 
@@ -69,7 +73,7 @@ namespace Oceania_MG.Source
 			input = new Input();
 
 			//initialize GUI
-			gui = new GUIContainer();
+			gui = new GUIContainer(new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 
 			//structure editor
 			structureEditPanel = new StructureEditPanel(new Rectangle(0, FILE_BAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - FILE_BAR_HEIGHT - EDIT_BAR_HEIGHT), this);
@@ -89,12 +93,50 @@ namespace Oceania_MG.Source
 			gui.Add(saveButton);
 
 			//bottom bar (block palette, anchors, properties)
-			Panel editBar = new Panel(new Rectangle(0, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, SCREEN_WIDTH, EDIT_BAR_HEIGHT), "Edit");
-			gui.Add(editBar);
+			ScrollPanel palette = new ScrollPanel(new Rectangle(0, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, SCREEN_WIDTH / 2, EDIT_BAR_HEIGHT), "Blocks");
+			gui.Add(palette);
+			AddBlocks(palette);
+			//TODO: add stuff to palette
+
+			ScrollPanel anchors = new ScrollPanel(new Rectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, SCREEN_WIDTH / 4, EDIT_BAR_HEIGHT), "Anchors");
+			gui.Add(anchors);
+			//TODO: add stuff to anchors
+
+			ContainerPanel properties = new ContainerPanel(new Rectangle(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, SCREEN_WIDTH / 4, EDIT_BAR_HEIGHT), "Properties");
+			gui.Add(properties);
+			//TODO: add stuff to properties
 
 			//TODO: draw current layer button (foreground/background)
 		}
-		
+
+		private void AddBlocks(ScrollPanel palette)
+		{
+			int x = PALETTE_SPACING;
+			int y = PALETTE_SPACING; //TODO label offset?
+			int blockSize = GameplayState.BLOCK_SIZE * GUIElement.scale;
+			foreach (Block block in resources.GetBlocks())
+			{
+				Action selectAction = () =>
+				{
+					if (selectedBlock != null) selectedBlock.Deselect();
+				};
+				SelectableImage blockSelect = new SelectableImage(new Rectangle(x, y, blockSize, blockSize), block.GetTexture(), selectAction);
+				selectAction += () =>
+				{
+					selectedBlock = blockSelect;
+				};
+
+				palette.Add(blockSelect);
+
+				x += blockSize + PALETTE_SPACING;
+				if (x > palette.GetBounds().Width)
+				{
+					x = PALETTE_SPACING;
+					y += blockSize + PALETTE_SPACING;
+				}
+			}
+		}
+
 		protected override void UnloadContent()
 		{
 			base.UnloadContent();

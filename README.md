@@ -8,12 +8,16 @@ Created by Kai Kuehner, 2013-2019.
 TODO
 --
 - Structure editor
+	- Block palette
+		- Properly deselect previous selected block
+		- Keep scroll buttons fixed
+		- Crop default block texture
+		- Crop GUIContainer to bounds
+		- String to remember selected block name
 	- GUI stuff
-		- Scroll panels
 		- Text fields
 		- Anchor scrollable block selection popup
 	- PlaceableObject? class for cursor contents: Block(string), Anchor, InPopup
-	- Block palette
 	- Anchors palette
 	- Properties text fields
 	- Keep a flag for unsaved changes

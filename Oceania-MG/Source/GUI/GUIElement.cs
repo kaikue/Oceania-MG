@@ -76,5 +76,13 @@ namespace Oceania_MG.Source.GUI
 		{
 
 		}
+
+		/// <summary>
+		/// Returns the bounds of this GUIElement. Note that it may be a sub-element of another.
+		/// </summary>
+		public Rectangle GetBounds()
+		{
+			return bounds;
+		}
 	}
 }

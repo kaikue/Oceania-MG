@@ -113,6 +113,11 @@ namespace Oceania_MG.Source
 			return blocks[blockID];
 		}
 
+		public IEnumerable<Block> GetBlocks()
+		{
+			return blocks.Values;
+		}
+
 		public Ore GetOre(string oreName)
 		{
 			return ores[oreName];
@@ -179,6 +184,5 @@ namespace Oceania_MG.Source
 			}
 			return instance.Content.Load<Texture2D>(imageURL);
 		}
-
 	}
 }
