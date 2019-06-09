@@ -11,6 +11,7 @@ namespace Oceania_MG.Source.GUI
 	class SelectableBlock : GUIElement
 	{
 		private Color outlineColor = Color.Black;
+		private Color backgroundColor = Color.White;
 		
 		private Action selectAction;
 
@@ -41,6 +42,7 @@ namespace Oceania_MG.Source.GUI
 			if (selected)
 			{
 				spriteBatch.Draw(pixel, outlineRect, outlineColor);
+				spriteBatch.Draw(pixel, bounds, backgroundColor);
 			}
 
 			block.DrawSimple(spriteBatch, ConvertUtils.PointToVector2(bounds.Location), scale);

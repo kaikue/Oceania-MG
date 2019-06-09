@@ -70,5 +70,10 @@ namespace Oceania_MG.Source.GUI
 		{
 			return elements;
 		}
+
+		public Rectangle GetBounds()
+		{
+			return bounds;
+		}
 	}
 }

@@ -96,7 +96,6 @@ namespace Oceania_MG.Source
 			ScrollPanel palette = new ScrollPanel(new Rectangle(0, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, SCREEN_WIDTH / 2, EDIT_BAR_HEIGHT), "Blocks");
 			gui.Add(palette);
 			AddBlocks(palette);
-			//TODO: add stuff to palette
 
 			ScrollPanel anchors = new ScrollPanel(new Rectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, SCREEN_WIDTH / 4, EDIT_BAR_HEIGHT), "Anchors");
 			gui.Add(anchors);
@@ -107,6 +106,8 @@ namespace Oceania_MG.Source
 			//TODO: add stuff to properties
 
 			//TODO: draw current layer button (foreground/background)
+
+			//TODO: draw tooltip of hovered palette block?
 		}
 
 		private void AddBlocks(ScrollPanel palette)
@@ -120,15 +121,16 @@ namespace Oceania_MG.Source
 				SelectableBlock blockSelect = new SelectableBlock(new Rectangle(x, y, blockSize, blockSize), block);
 				Action selectAction = () =>
 				{
+					if (selectedBlock == blockSelect) return; //already selected
 					if (selectedBlock != null) selectedBlock.Deselect();
 					selectedBlock = blockSelect;
 				};
 				blockSelect.SetSelectAction(selectAction);
 
-				palette.Add(blockSelect);
+				palette.AddScrollable(blockSelect);
 
 				x += blockSize + PALETTE_SPACING;
-				if (x + blockSize > palette.GetBounds().Width)
+				if (x + blockSize > palette.GetInnerBounds().Width)
 				{
 					x = PALETTE_SPACING;
 					y += blockSize + PALETTE_SPACING;

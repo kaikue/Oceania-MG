@@ -11,9 +11,12 @@ TODO
 	- Block palette
 		- White background behind selected block
 		- Keep scroll buttons fixed
-		- Crop GUIContainer to bounds
 		- Add label height to containerpanel offset, if label is not null
+		- Crop GUIContainer to bounds
+		- Don't scroll past first/last item
 		- Show name of hovered SelectableBlock somewhere (tooltip?)
+		- Water, Empty rendering
+	- Place/delete/pick block in structure
 	- GUI stuff
 		- Text fields
 		- Checkbox

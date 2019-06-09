@@ -13,9 +13,11 @@ namespace Oceania_MG.Source.GUI
 		private const int SCROLLBAR_WIDTH = 25;
 		private const int SCROLL_BUTTON_HEIGHT = 25;
 
-		private const int SCROLL_SPEED = 10;
+		private const int SCROLL_SPEED = 15;
 
 		private int scrollOffset = 0;
+
+		private GUIContainer scrollContainer;
 
 		public ScrollPanel(Rectangle bounds, string label = null) : base(bounds, label)
 		{
@@ -24,6 +26,8 @@ namespace Oceania_MG.Source.GUI
 
 			Button scrollDownButton = new Button(new Rectangle(bounds.Width - SCROLLBAR_WIDTH, bounds.Height - SCROLL_BUTTON_HEIGHT, SCROLLBAR_WIDTH, SCROLL_BUTTON_HEIGHT), "v", ScrollUp);
 			Add(scrollDownButton);
+
+			scrollContainer = new GUIContainer(bounds); //TODO: crop it some
 		}
 
 		protected override void RefreshBounds()
@@ -34,13 +38,27 @@ namespace Oceania_MG.Source.GUI
 			int deltaY = offset.Y - oldOffsetY;
 			Point deltaOffset = new Point(0, deltaY);
 
-			if (contents != null) //it will be null when first constructing
+			if (scrollContainer != null) //it will be null when first constructing
 			{
-				foreach (GUIElement element in contents.GetElements())
+				foreach (GUIElement element in scrollContainer.GetElements())
 				{
 					element.ApplyOffset(deltaOffset);
 				}
 			}
+		}
+
+		public override void Update(Input input)
+		{
+			base.Update(input);
+
+			scrollContainer.Update(input);
+		}
+
+		public override void Draw(SpriteBatch spriteBatch)
+		{
+			base.Draw(spriteBatch);
+
+			scrollContainer.Draw(spriteBatch);
 		}
 
 		public override void ControlPressed(Input.Controls control)
@@ -68,6 +86,17 @@ namespace Oceania_MG.Source.GUI
 		{
 			scrollOffset -= SCROLL_SPEED;
 			RefreshBounds();
+		}
+
+		public void AddScrollable(GUIElement element)
+		{
+			element.ApplyOffset(offset);
+			scrollContainer.Add(element);
+		}
+
+		public Rectangle GetInnerBounds()
+		{
+			return scrollContainer.GetBounds();
 		}
 	}
 }
