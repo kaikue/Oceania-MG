@@ -60,6 +60,8 @@ namespace Oceania_MG.Source.GUI
 			else if (state == ButtonState.DraggedAway) col = draggedColor;
 
 			spriteBatch.Draw(pixel, bodyRect, col);
+			//TODO: crop to effective area
+			//spriteBatch.Draw(pixel, bodyRect.Location, sourceRectangle, col);
 			
 			spriteBatch.DrawString(font, label, labelPos, labelColor, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
 		}

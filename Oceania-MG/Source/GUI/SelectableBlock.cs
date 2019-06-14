@@ -47,6 +47,11 @@ namespace Oceania_MG.Source.GUI
 
 			block.DrawSimple(spriteBatch, ConvertUtils.PointToVector2(bounds.Location), scale);
 			//spriteBatch.Draw(texture, ConvertUtils.PointToVector2(bounds.Location), null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+
+			if (hovered)
+			{
+				Tooltip.DrawTooltip(spriteBatch, block.displayName, bounds.Location); //TODO draw at mouse pos?
+			}
 		}
 
 		public override void ControlPressed(Input.Controls control)

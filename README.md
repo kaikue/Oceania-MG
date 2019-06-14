@@ -9,14 +9,14 @@ TODO
 --
 - Structure editor
 	- Block palette
-		- White background behind selected block
-		- Keep scroll buttons fixed
-		- Add label height to containerpanel offset, if label is not null
 		- Crop GUIContainer to bounds
+		- Don't accept click (in SelectableBlock or everywhere?) if not in parent container's bounds
 		- Don't scroll past first/last item
-		- Show name of hovered SelectableBlock somewhere (tooltip?)
+		- Draw tooltip of hovered block over top of everything
 		- Water, Empty rendering
 	- Place/delete/pick block in structure
+		- If to top/left of existing blocks: shift everything over, insert at beginning
+		- If deleting last thing on a side: crop to minimal dimensions
 	- GUI stuff
 		- Text fields
 		- Checkbox
@@ -61,6 +61,7 @@ TODO
 	- Player
 		- Fixed, square bounding box centered on image
 		- Make hair (+ body/tail?) white and use Monogame color multiplication to allow any color
+		- Boost control to dash in direction
 	- Menus
 		- Options- gameplay, block scale
 	- Entities

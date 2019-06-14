@@ -156,6 +156,7 @@ namespace Oceania_MG.Source
 			Break,
 			Place,
 			Background,
+			Boost,
 			HotbarPrev,
 			HotbarNext,
 			Inventory,

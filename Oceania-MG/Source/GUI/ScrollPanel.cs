@@ -16,6 +16,7 @@ namespace Oceania_MG.Source.GUI
 		private const int SCROLL_SPEED = 15;
 
 		private int scrollOffset = 0;
+		private Point innerOffset;
 
 		private GUIContainer scrollContainer;
 
@@ -27,7 +28,9 @@ namespace Oceania_MG.Source.GUI
 			Button scrollDownButton = new Button(new Rectangle(bounds.Width - SCROLLBAR_WIDTH, bounds.Height - SCROLL_BUTTON_HEIGHT, SCROLLBAR_WIDTH, SCROLL_BUTTON_HEIGHT), "v", ScrollUp);
 			Add(scrollDownButton);
 
-			scrollContainer = new GUIContainer(bounds); //TODO: crop it some
+			int labelHeight = (int)(font.MeasureString(label).Y * scale);
+			innerOffset = new Point(0, labelHeight);
+			scrollContainer = new GUIContainer(new Rectangle(bounds.X, bounds.Y + labelHeight, bounds.Width - SCROLLBAR_WIDTH, bounds.Height - labelHeight));
 		}
 
 		protected override void RefreshBounds()
@@ -37,6 +40,8 @@ namespace Oceania_MG.Source.GUI
 			offset.Y += scrollOffset;
 			int deltaY = offset.Y - oldOffsetY;
 			Point deltaOffset = new Point(0, deltaY);
+
+			//TODO: update scrollContainer bounds?
 
 			if (scrollContainer != null) //it will be null when first constructing
 			{
@@ -90,7 +95,7 @@ namespace Oceania_MG.Source.GUI
 
 		public void AddScrollable(GUIElement element)
 		{
-			element.ApplyOffset(offset);
+			element.ApplyOffset(offset + innerOffset);
 			scrollContainer.Add(element);
 		}
 
