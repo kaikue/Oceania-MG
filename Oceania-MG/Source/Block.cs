@@ -270,7 +270,6 @@ namespace Oceania_MG.Source
 				int cropX = (int)(crop.Value.X / zoom);
 				int cropY = (int)(crop.Value.Y / zoom);
 				Rectangle scaledCrop = new Rectangle(cropX, cropY, GameplayState.BLOCK_SIZE - cropX, GameplayState.BLOCK_SIZE - cropY);
-				Console.WriteLine(crop + " " + scaledCrop);
 				pos += ConvertUtils.PointToVector2(crop.Value.Location);
 				sourceRect = Rectangle.Intersect(sourceRect, scaledCrop);
 			}

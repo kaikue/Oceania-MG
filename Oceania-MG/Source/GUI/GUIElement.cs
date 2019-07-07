@@ -96,5 +96,13 @@ namespace Oceania_MG.Source.GUI
 		{
 			return bounds;
 		}
+
+		/// <summary>
+		/// Changes the parent of this GUIElement (i.e. for when the actual parent is initially inaccessible).
+		/// </summary>
+		public void SetParent(GUIElement newParent)
+		{
+			parent = newParent;
+		}
 	}
 }

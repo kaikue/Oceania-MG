@@ -31,6 +31,7 @@ namespace Oceania_MG.Source.GUI
 			int labelHeight = (int)(font.MeasureString(label).Y * scale);
 			innerOffset = new Point(0, labelHeight);
 			scrollContainer = new GUIContainer(new Rectangle(bounds.X, bounds.Y + labelHeight, bounds.Width - SCROLLBAR_WIDTH, bounds.Height - labelHeight));
+			Console.WriteLine(label + " " + labelHeight + " " + bounds + scrollContainer.GetEffectiveBounds());
 		}
 
 		protected override void RefreshBounds()
@@ -84,19 +85,31 @@ namespace Oceania_MG.Source.GUI
 		private void ScrollUp()
 		{
 			scrollOffset += SCROLL_SPEED;
+			scrollOffset = Math.Min(scrollOffset, 0);
 			RefreshBounds();
 		}
 
 		private void ScrollDown()
 		{
-			scrollOffset -= SCROLL_SPEED;
-			RefreshBounds();
+			int maxY = scrollContainer.GetElements().Max(ge => ge.GetIdealBounds().Bottom) - scrollContainer.GetIdealBounds().Y;
+			int minOffset = -maxY + scrollContainer.GetIdealBounds().Height;
+			if (minOffset < 0)
+			{
+				scrollOffset -= SCROLL_SPEED;
+				RefreshBounds();
+			}
 		}
 
 		public void AddScrollable(GUIElement element)
 		{
 			element.ApplyOffset(offset + innerOffset);
 			scrollContainer.Add(element);
+			element.SetParent(scrollContainer);
+		}
+
+		public Rectangle GetInnerBounds()
+		{
+			return scrollContainer.GetIdealBounds();
 		}
 	}
 }

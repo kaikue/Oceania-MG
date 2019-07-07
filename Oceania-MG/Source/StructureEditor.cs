@@ -25,6 +25,9 @@ namespace Oceania_MG.Source
 		private const int FILE_BAR_HEIGHT = 25;
 		private const int FILE_BUTTON_WIDTH = 75;
 		private const int EDIT_BAR_HEIGHT = 150;
+		private const int PALETTE_WIDTH = 410;
+		private const int ANCHOR_WIDTH = 195;
+		private const int PROPERTIES_WIDTH = 195;
 
 		private const int PALETTE_SPACING = 10;
 
@@ -101,21 +104,19 @@ namespace Oceania_MG.Source
 			gui.Add(saveButton);
 
 			//bottom bar (block palette, anchors, properties)
-			ScrollPanel palette = new ScrollPanel(new Rectangle(0, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, SCREEN_WIDTH / 2, EDIT_BAR_HEIGHT), "Blocks");
+			ScrollPanel palette = new ScrollPanel(new Rectangle(0, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, PALETTE_WIDTH, EDIT_BAR_HEIGHT), "Blocks");
 			gui.Add(palette);
 			AddBlocks(palette);
 
-			ScrollPanel anchors = new ScrollPanel(new Rectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, SCREEN_WIDTH / 4, EDIT_BAR_HEIGHT), "Anchors");
+			ScrollPanel anchors = new ScrollPanel(new Rectangle(PALETTE_WIDTH, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, ANCHOR_WIDTH, EDIT_BAR_HEIGHT), "Anchors");
 			gui.Add(anchors);
 			//TODO: add stuff to anchors
 
-			ContainerPanel properties = new ContainerPanel(new Rectangle(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, SCREEN_WIDTH / 4, EDIT_BAR_HEIGHT), "Properties");
+			ContainerPanel properties = new ContainerPanel(new Rectangle(PALETTE_WIDTH + ANCHOR_WIDTH, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, PROPERTIES_WIDTH, EDIT_BAR_HEIGHT), "Properties");
 			gui.Add(properties);
 			//TODO: add stuff to properties
 
 			//TODO: draw current layer button (foreground/background)
-
-			//TODO: draw tooltip of hovered palette block?
 		}
 
 		private void AddBlocks(ScrollPanel palette)
@@ -137,7 +138,7 @@ namespace Oceania_MG.Source
 				palette.AddScrollable(blockSelect);
 
 				x += blockSize + PALETTE_SPACING;
-				if (x + blockSize > palette.GetIdealBounds().Width)
+				if (x + blockSize > palette.GetInnerBounds().Width)
 				{
 					x = PALETTE_SPACING;
 					y += blockSize + PALETTE_SPACING;

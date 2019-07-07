@@ -9,9 +9,9 @@ TODO
 --
 - Structure editor
 	- Block palette
-		- Don't scroll past first/last item
-		- Make palette container smaller (don't overlap label)
+		- Make sure scroll limiting works
 		- Water, Empty rendering
+		- Make scroll amount matter in scrolling? (requires input changes)
 	- Place/delete/pick block in structure
 		- If to top/left of existing blocks: shift everything over, insert at beginning
 		- If deleting last thing on a side: crop to minimal dimensions
