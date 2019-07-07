@@ -41,6 +41,8 @@ namespace Oceania_MG.Source.GUI
 		{
 			Rectangle effectiveBounds = GetEffectiveBounds();
 
+			if (effectiveBounds.IsEmpty) return;
+
 			if (selected)
 			{
 				Rectangle effectiveOutline = Rectangle.Intersect(outlineRect, parent.GetEffectiveBounds());
@@ -50,7 +52,6 @@ namespace Oceania_MG.Source.GUI
 
 			Rectangle effectiveBlock = new Rectangle(effectiveBounds.Location - bounds.Location, effectiveBounds.Size);
 			block.DrawSimple(spriteBatch, ConvertUtils.PointToVector2(bounds.Location), scale, effectiveBlock);
-			//spriteBatch.Draw(texture, ConvertUtils.PointToVector2(bounds.Location), null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
 
 
 			if (hovered)

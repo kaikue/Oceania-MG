@@ -9,7 +9,6 @@ TODO
 --
 - Structure editor
 	- Block palette
-		- Fix cropped block rendering sometimes being off
 		- Don't scroll past first/last item
 		- Make palette container smaller (don't overlap label)
 		- Water, Empty rendering

@@ -267,11 +267,12 @@ namespace Oceania_MG.Source
 			Rectangle sourceRect = new Rectangle(0, 0, GameplayState.BLOCK_SIZE, GameplayState.BLOCK_SIZE);
 			if (crop.HasValue)
 			{
-				//TODO fix this
-				Rectangle scaledCrop = new Rectangle((int)(crop.Value.X / zoom), (int)(crop.Value.Y / zoom), (int)(crop.Value.Width / zoom), (int)(crop.Value.Height / zoom));
+				int cropX = (int)(crop.Value.X / zoom);
+				int cropY = (int)(crop.Value.Y / zoom);
+				Rectangle scaledCrop = new Rectangle(cropX, cropY, GameplayState.BLOCK_SIZE - cropX, GameplayState.BLOCK_SIZE - cropY);
+				Console.WriteLine(crop + " " + scaledCrop);
 				pos += ConvertUtils.PointToVector2(crop.Value.Location);
 				sourceRect = Rectangle.Intersect(sourceRect, scaledCrop);
-				Console.WriteLine(sourceRect + " " + scaledCrop);
 			}
 			int textureOffset = HasConnectedTexture() ? 2 * GameplayState.BLOCK_SIZE : 0; //If connected texture, use the texture portion at the top-right
 			sourceRect.X += textureOffset;
