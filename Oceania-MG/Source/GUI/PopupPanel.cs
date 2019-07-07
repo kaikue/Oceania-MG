@@ -10,11 +10,11 @@ namespace Oceania_MG.Source.GUI
 {
 	class PopupPanel : ContainerPanel
 	{
-		private GUIContainer parent;
+		private GUIContainer parentContainer;
 
-		public PopupPanel(Rectangle bounds, GUIContainer parent, string label = null) : base(bounds, label)
+		public PopupPanel(Rectangle bounds, GUIContainer parentContainer, string label = null) : base(bounds, label)
 		{
-			this.parent = parent;
+			this.parentContainer = parentContainer;
 		}
 
 		public override void ControlPressed(Input.Controls control)
@@ -27,7 +27,7 @@ namespace Oceania_MG.Source.GUI
 
 		public void Close()
 		{
-			parent.Remove(this);
+			parentContainer.Remove(this);
 		}
 	}
 }

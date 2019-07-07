@@ -33,7 +33,7 @@ namespace Oceania_MG.Source.GUI
 
 		private ButtonState state = ButtonState.None;
 
-		public Button(Rectangle bounds, string label, Action clickAction) : base(bounds)
+		public Button(Rectangle bounds, string label, Action clickAction, GUIElement parent) : base(bounds, parent)
 		{
 			this.label = label;
 			this.clickAction = clickAction;

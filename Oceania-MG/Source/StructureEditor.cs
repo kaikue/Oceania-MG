@@ -28,6 +28,8 @@ namespace Oceania_MG.Source
 
 		private const int PALETTE_SPACING = 10;
 
+		private static readonly Point TOOLTIP_OFFSET = new Point(12, 0);
+
 		private Input input;
 		private GUIContainer gui;
 		private StructureEditPanel structureEditPanel;
@@ -35,10 +37,16 @@ namespace Oceania_MG.Source
 
 		private SelectableBlock selectedBlock;
 
+		private string tooltip;
+
 		internal Resources resources;
+
+		private static StructureEditor instance;
 
 		public StructureEditor()
         {
+			instance = this;
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
@@ -83,13 +91,13 @@ namespace Oceania_MG.Source
 			Panel fileBar = new Panel(new Rectangle(0, 0, SCREEN_WIDTH, FILE_BAR_HEIGHT));
 			gui.Add(fileBar);
 
-			Button newButton = new Button(new Rectangle(0, 0, FILE_BUTTON_WIDTH, FILE_BAR_HEIGHT), "New", New);
+			Button newButton = new Button(new Rectangle(0, 0, FILE_BUTTON_WIDTH, FILE_BAR_HEIGHT), "New", New, fileBar);
 			gui.Add(newButton);
 
-			Button openButton = new Button(new Rectangle(FILE_BUTTON_WIDTH, 0, FILE_BUTTON_WIDTH, FILE_BAR_HEIGHT), "Open", Open);
+			Button openButton = new Button(new Rectangle(FILE_BUTTON_WIDTH, 0, FILE_BUTTON_WIDTH, FILE_BAR_HEIGHT), "Open", Open, fileBar);
 			gui.Add(openButton);
 
-			Button saveButton = new Button(new Rectangle(2 * FILE_BUTTON_WIDTH, 0, FILE_BUTTON_WIDTH, FILE_BAR_HEIGHT), "Save", Save);
+			Button saveButton = new Button(new Rectangle(2 * FILE_BUTTON_WIDTH, 0, FILE_BUTTON_WIDTH, FILE_BAR_HEIGHT), "Save", Save, fileBar);
 			gui.Add(saveButton);
 
 			//bottom bar (block palette, anchors, properties)
@@ -117,8 +125,7 @@ namespace Oceania_MG.Source
 			int blockSize = GameplayState.BLOCK_SIZE * GUIElement.scale;
 			foreach (Block block in resources.GetBlocks())
 			{
-				
-				SelectableBlock blockSelect = new SelectableBlock(new Rectangle(x, y, blockSize, blockSize), block);
+				SelectableBlock blockSelect = new SelectableBlock(new Rectangle(x, y, blockSize, blockSize), block, palette);
 				Action selectAction = () =>
 				{
 					if (selectedBlock == blockSelect) return; //already selected
@@ -130,7 +137,7 @@ namespace Oceania_MG.Source
 				palette.AddScrollable(blockSelect);
 
 				x += blockSize + PALETTE_SPACING;
-				if (x + blockSize > palette.GetInnerBounds().Width)
+				if (x + blockSize > palette.GetIdealBounds().Width)
 				{
 					x = PALETTE_SPACING;
 					y += blockSize + PALETTE_SPACING;
@@ -159,6 +166,7 @@ namespace Oceania_MG.Source
 					Exit();
 				}
 			}*/
+			tooltip = null;
 
 			input.Update();
 
@@ -205,6 +213,11 @@ namespace Oceania_MG.Source
 			*/
 
 			gui.Draw(spriteBatch);
+
+			if (!string.IsNullOrEmpty(tooltip))
+			{
+				Tooltip.DrawTooltip(spriteBatch, tooltip, input.GetMousePosition() + TOOLTIP_OFFSET);
+			}
 
 			spriteBatch.End();
 
@@ -259,6 +272,11 @@ namespace Oceania_MG.Source
 			Console.WriteLine("Save pressed");
 			//TODO: serialize and write to file
 			unsavedChanges = false;
+		}
+
+		public static void SetTooltip(string text)
+		{
+			instance.tooltip = text;
 		}
     }
 

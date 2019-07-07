@@ -17,17 +17,17 @@ namespace Oceania_MG.Source.GUI
 		public const int TOTAL_WIDTH = 4 * BUTTON_SPACING + 3 * BUTTON_WIDTH;
 		public const int TOTAL_HEIGHT = BUTTON_VERTICAL_OFFSET + BUTTON_HEIGHT + BUTTON_SPACING;
 
-		public ConfirmationPopup(Rectangle bounds, GUIContainer parent, string label, Action yesAction, Action noAction) : base(bounds, parent, label)
+		public ConfirmationPopup(Rectangle bounds, GUIContainer parentContainer, string label, Action yesAction, Action noAction) : base(bounds, parentContainer, label)
 		{
-			Button yesButton = new Button(new Rectangle(BUTTON_SPACING, BUTTON_VERTICAL_OFFSET, BUTTON_WIDTH, BUTTON_HEIGHT), "Yes", () => { yesAction(); Close(); });
+			Button yesButton = new Button(new Rectangle(BUTTON_SPACING, BUTTON_VERTICAL_OFFSET, BUTTON_WIDTH, BUTTON_HEIGHT), "Yes", () => { yesAction(); Close(); }, parentContainer);
 			Add(yesButton);
 
-			Button noButton = new Button(new Rectangle(2 * BUTTON_SPACING + BUTTON_WIDTH, BUTTON_VERTICAL_OFFSET, BUTTON_WIDTH, BUTTON_HEIGHT), "No", () => { noAction(); Close(); });
+			Button noButton = new Button(new Rectangle(2 * BUTTON_SPACING + BUTTON_WIDTH, BUTTON_VERTICAL_OFFSET, BUTTON_WIDTH, BUTTON_HEIGHT), "No", () => { noAction(); Close(); }, parentContainer);
 			Add(noButton);
 
 			//if (cancelAction != null)
 			//{
-			Button cancelButton = new Button(new Rectangle(3 * BUTTON_SPACING + 2 * BUTTON_WIDTH, BUTTON_VERTICAL_OFFSET, BUTTON_WIDTH, BUTTON_HEIGHT), "Cancel", Close); //cancelAction);
+			Button cancelButton = new Button(new Rectangle(3 * BUTTON_SPACING + 2 * BUTTON_WIDTH, BUTTON_VERTICAL_OFFSET, BUTTON_WIDTH, BUTTON_HEIGHT), "Cancel", Close, parentContainer); //cancelAction);
 			Add(cancelButton);
 			//}
 		}

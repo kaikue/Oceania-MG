@@ -262,10 +262,19 @@ namespace Oceania_MG.Source
 			return renderType == RenderType.ConnectedSameType || renderType == RenderType.ConnectedSolid;
 		}
 
-		public void DrawSimple(SpriteBatch spriteBatch, Vector2 pos, float zoom)
+		public void DrawSimple(SpriteBatch spriteBatch, Vector2 pos, float zoom, Rectangle? crop = null)
 		{
+			Rectangle sourceRect = new Rectangle(0, 0, GameplayState.BLOCK_SIZE, GameplayState.BLOCK_SIZE);
+			if (crop.HasValue)
+			{
+				//TODO fix this
+				Rectangle scaledCrop = new Rectangle((int)(crop.Value.X / zoom), (int)(crop.Value.Y / zoom), (int)(crop.Value.Width / zoom), (int)(crop.Value.Height / zoom));
+				pos += ConvertUtils.PointToVector2(crop.Value.Location);
+				sourceRect = Rectangle.Intersect(sourceRect, scaledCrop);
+				Console.WriteLine(sourceRect + " " + scaledCrop);
+			}
 			int textureOffset = HasConnectedTexture() ? 2 * GameplayState.BLOCK_SIZE : 0; //If connected texture, use the texture portion at the top-right
-			Rectangle sourceRect = new Rectangle(textureOffset, 0, GameplayState.BLOCK_SIZE, GameplayState.BLOCK_SIZE);
+			sourceRect.X += textureOffset;
 			spriteBatch.Draw(texture, pos, sourceRect, Color.White, 0, Vector2.Zero, zoom, SpriteEffects.None, 0);
 		}
 	}

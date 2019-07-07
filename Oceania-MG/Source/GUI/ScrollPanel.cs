@@ -22,10 +22,10 @@ namespace Oceania_MG.Source.GUI
 
 		public ScrollPanel(Rectangle bounds, string label = null) : base(bounds, label)
 		{
-			Button scrollUpButton = new Button(new Rectangle(bounds.Width - SCROLLBAR_WIDTH, 0, SCROLLBAR_WIDTH, SCROLL_BUTTON_HEIGHT), "^", ScrollDown);
+			Button scrollUpButton = new Button(new Rectangle(bounds.Width - SCROLLBAR_WIDTH, 0, SCROLLBAR_WIDTH, SCROLL_BUTTON_HEIGHT), "^", ScrollDown, this);
 			Add(scrollUpButton);
 
-			Button scrollDownButton = new Button(new Rectangle(bounds.Width - SCROLLBAR_WIDTH, bounds.Height - SCROLL_BUTTON_HEIGHT, SCROLLBAR_WIDTH, SCROLL_BUTTON_HEIGHT), "v", ScrollUp);
+			Button scrollDownButton = new Button(new Rectangle(bounds.Width - SCROLLBAR_WIDTH, bounds.Height - SCROLL_BUTTON_HEIGHT, SCROLLBAR_WIDTH, SCROLL_BUTTON_HEIGHT), "v", ScrollUp, this);
 			Add(scrollDownButton);
 
 			int labelHeight = (int)(font.MeasureString(label).Y * scale);
@@ -97,11 +97,6 @@ namespace Oceania_MG.Source.GUI
 		{
 			element.ApplyOffset(offset + innerOffset);
 			scrollContainer.Add(element);
-		}
-
-		public Rectangle GetInnerBounds()
-		{
-			return scrollContainer.GetBounds();
 		}
 	}
 }

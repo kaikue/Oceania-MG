@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace Oceania_MG.Source.GUI
 {
-	class GUIContainer
+	class GUIContainer : GUIElement
 	{
 		private HashSet<GUIElement> elements;
 
-		private Rectangle bounds;
 		//TODO: maybe some stuff for text fields
 
-		public GUIContainer(Rectangle bounds)
+		public GUIContainer(Rectangle bounds, GUIElement parent = null) : base(bounds, parent)
 		{
-			this.bounds = bounds;
 			elements = new HashSet<GUIElement>();
 		}
 		
-		public void Update(Input input)
+		public override void Update(Input input)
 		{
+			base.Update(input);
+
 			HashSet<GUIElement> cachedElements = new HashSet<GUIElement>(elements); //Prevent concurrent modification exceptions
 
 			foreach (GUIElement element in cachedElements)
@@ -47,9 +47,8 @@ namespace Oceania_MG.Source.GUI
 			}
 		}
 
-		public void Draw(SpriteBatch spriteBatch)
+		public override void Draw(SpriteBatch spriteBatch)
 		{
-			//TODO: crop to bounds
 			foreach (GUIElement element in elements)
 			{
 				element.Draw(spriteBatch);
@@ -69,11 +68,6 @@ namespace Oceania_MG.Source.GUI
 		public IEnumerable<GUIElement> GetElements()
 		{
 			return elements;
-		}
-
-		public Rectangle GetBounds()
-		{
-			return bounds;
 		}
 	}
 }

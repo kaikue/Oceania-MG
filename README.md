@@ -9,10 +9,9 @@ TODO
 --
 - Structure editor
 	- Block palette
-		- Crop GUIContainer to bounds
-		- Don't accept click (in SelectableBlock or everywhere?) if not in parent container's bounds
+		- Fix cropped block rendering sometimes being off
 		- Don't scroll past first/last item
-		- Draw tooltip of hovered block over top of everything
+		- Make palette container smaller (don't overlap label)
 		- Water, Empty rendering
 	- Place/delete/pick block in structure
 		- If to top/left of existing blocks: shift everything over, insert at beginning

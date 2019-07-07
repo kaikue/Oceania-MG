@@ -18,7 +18,7 @@ namespace Oceania_MG.Source.GUI
 
 		private Rectangle bodyRect;
 
-		public Panel(Rectangle bounds, string label = null) : base(bounds)
+		public Panel(Rectangle bounds, string label = null, GUIElement parent = null) : base(bounds, parent)
 		{
 			this.label = label;
 

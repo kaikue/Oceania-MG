@@ -10,6 +10,8 @@ namespace Oceania_MG.Source.GUI
 {
 	abstract class GUIElement
 	{
+		protected GUIElement parent;
+
 		protected Rectangle bounds;
 
 		public static SpriteFont font;
@@ -18,9 +20,10 @@ namespace Oceania_MG.Source.GUI
 
 		protected bool hovered; //Set by the base Update() to be true iff the mouse is over top of this GUIElement.
 
-		protected GUIElement(Rectangle bounds)
+		protected GUIElement(Rectangle bounds, GUIElement parent = null)
 		{
 			this.bounds = bounds;
+			this.parent = parent;
 		}
 
 		/// <summary>
@@ -54,7 +57,7 @@ namespace Oceania_MG.Source.GUI
 		/// <param name="mousePos">The position of the mouse in screen coordinates.</param>
 		public virtual void Update(Input input)
 		{
-			hovered = bounds.Contains(input.GetMousePosition());
+			hovered = GetEffectiveBounds().Contains(input.GetMousePosition());
 		}
 
 		/// <summary>
@@ -78,9 +81,18 @@ namespace Oceania_MG.Source.GUI
 		}
 
 		/// <summary>
-		/// Returns the bounds of this GUIElement. Note that it may be a sub-element of another.
+		/// Returns the effective bounds of this GUIElement (the overlap between this element's bounds and all of its parents' bounds).
 		/// </summary>
-		public Rectangle GetBounds()
+		public Rectangle GetEffectiveBounds()
+		{
+			if (parent == null) return bounds;
+			return Rectangle.Intersect(bounds, parent.GetEffectiveBounds());
+		}
+
+		/// <summary>
+		/// Returns the ideal bounds of this GUIElement (uncropped by parent bounds).
+		/// </summary>
+		public Rectangle GetIdealBounds()
 		{
 			return bounds;
 		}
