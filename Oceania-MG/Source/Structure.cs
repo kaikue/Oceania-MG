@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-#pragma warning disable 0649
-//Fields are assigned by JSON conversion, so we don't worry about "field is never assigned" warnings.
 namespace Oceania_MG.Source
 {
+	[DataContract]
 	class Structure
 	{
 		private struct Anchor
@@ -54,18 +54,29 @@ namespace Oceania_MG.Source
 			}
 		}
 
+		[DataMember]
 		public float frequency; //What % of valid chunks to spawn in- between 0 (never) and 1 (always)
+		[DataMember]
 		public int minPerChunk = 1; //Inclusive
+		[DataMember]
 		public int maxPerChunk = 1; //Inclusive
+		[DataMember]
 		public int attempts = 4 * Chunk.HEIGHT; //How many tries to fit this structure in a chunk
+		[Obsolete("Remove this once structure editor is done")]
 		public string[] layout;
+		[Obsolete("Remove this once structure editor is done")]
 		public Dictionary<string, string[]> blocks;
+		[Obsolete("Remove this once structure editor is done")]
 		public Dictionary<string, string[]> anchors;
+		[DataMember]
 		public string name;
-
+		[DataMember]
 		private string[][] blocksForeground;
+		[DataMember]
 		private string[][] blocksBackground;
+		[DataMember]
 		private HashSet<Anchor> strictAnchorsSet;
+		[DataMember]
 		private HashSet<Anchor> lenientAnchorsSet;
 
 		public Structure()
@@ -210,4 +221,3 @@ namespace Oceania_MG.Source
 		}
 	}
 }
-#pragma warning restore 0649

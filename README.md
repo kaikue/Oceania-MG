@@ -13,8 +13,10 @@ TODO
 		- Water, Empty rendering
 		- Make scroll amount matter in scrolling? (requires input changes)
 	- Place/delete/pick block in structure
+	- Export to structure when saving
 		- If to top/left of existing blocks: shift everything over, insert at beginning
 		- If deleting last thing on a side: crop to minimal dimensions
+	- Make sure loading works
 	- GUI stuff
 		- Text fields
 		- Checkbox
@@ -75,6 +77,7 @@ TODO
 	- image reloading (combine with SetWorld)
 	- Consistent block IDs in Resources
 		- Serialize and load blockIDs in World?- only add new mapping if not already present (keeps IDs consistent with adding/removing blocks)
+		- Save & serialize set of block ID mappings and compare it each time game is loaded?- for changed IDs, replace or remove (set to water/air)
 - Set loaded chunk radius x&y based on screen size and scale
 - Performance
 	- Load chunks in background thread (await result, add to loaded chunks or generate when loading finishes)

@@ -65,7 +65,7 @@ namespace Oceania_MG.Source
 
 			if (data == null)
 			{
-				return default(T);
+				return default;
 			}
 			return Deserialize<T>(data);
 		}

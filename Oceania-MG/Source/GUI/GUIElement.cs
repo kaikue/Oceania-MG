@@ -71,6 +71,16 @@ namespace Oceania_MG.Source.GUI
 		}
 
 		/// <summary>
+		/// Called when the control is held down (anywhere on the screen).
+		/// In many cases, should be ignored if !this.hovered.
+		/// </summary>
+		/// <param name="control">The control that was held.</param>
+		public virtual void ControlHeld(Input.Controls control)
+		{
+
+		}
+
+		/// <summary>
 		/// Called when the control is released (anywhere on the screen).
 		/// In many cases, should be ignored if !this.hovered.
 		/// </summary>

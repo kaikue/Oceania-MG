@@ -91,6 +91,8 @@ namespace Oceania_MG.Source.GUI
 
 		private void ScrollDown()
 		{
+			if (scrollContainer.GetElements().Count() == 0) return;
+
 			int maxY = scrollContainer.GetElements().Max(ge => ge.GetIdealBounds().Bottom) - scrollContainer.GetIdealBounds().Y;
 			int minOffset = -maxY + scrollContainer.GetIdealBounds().Height;
 			if (minOffset < 0)

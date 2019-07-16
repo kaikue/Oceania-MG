@@ -38,6 +38,14 @@ namespace Oceania_MG.Source.GUI
 				}
 			}
 
+			foreach (Input.Controls pressedControl in input.HeldControls())
+			{
+				foreach (GUIElement element in cachedElements)
+				{
+					element.ControlHeld(pressedControl);
+				}
+			}
+
 			foreach (Input.Controls releasedControl in input.ReleasedControls())
 			{
 				foreach (GUIElement element in cachedElements)

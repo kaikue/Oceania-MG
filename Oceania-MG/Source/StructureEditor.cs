@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using Oceania_MG.Source.GUI;
 using Oceania_MG.Source.States;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Oceania_MG.Source
 {
@@ -12,6 +14,8 @@ namespace Oceania_MG.Source
     /// </summary>
     public class StructureEditor : Microsoft.Xna.Framework.Game
     {
+		private const string STRUCTURE_FILE_EXTENSION = ".struct";
+
         private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
 
@@ -28,6 +32,7 @@ namespace Oceania_MG.Source
 		private const int PALETTE_WIDTH = 410;
 		private const int ANCHOR_WIDTH = 195;
 		private const int PROPERTIES_WIDTH = 195;
+		private const int TEXT_BOX_HEIGHT = 25;
 
 		private const int PALETTE_SPACING = 10;
 
@@ -36,13 +41,18 @@ namespace Oceania_MG.Source
 		private Input input;
 		private GUIContainer gui;
 		private StructureEditPanel structureEditPanel;
+		private TextBox nameTextBox;
+		private TextBox freqTextBox;
+		private TextBox minPerChunkTextBox;
+		private TextBox maxPerChunkTextBox;
 		private bool unsavedChanges;
 
 		private SelectableBlock selectedBlock;
+		private bool backgroundActive;
 
 		private string tooltip;
 
-		internal Resources resources;
+		private Resources resources;
 
 		private static StructureEditor instance;
 
@@ -112,12 +122,16 @@ namespace Oceania_MG.Source
 			gui.Add(anchors);
 			//TODO: add stuff to anchors
 
-			ContainerPanel properties = new ContainerPanel(new Rectangle(PALETTE_WIDTH + ANCHOR_WIDTH, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, PROPERTIES_WIDTH, EDIT_BAR_HEIGHT), "Properties");
-			gui.Add(properties);
+			ContainerPanel propertiesPanel = new ContainerPanel(new Rectangle(PALETTE_WIDTH + ANCHOR_WIDTH, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, PROPERTIES_WIDTH, EDIT_BAR_HEIGHT), "Properties");
+			gui.Add(propertiesPanel);
 			//TODO: add stuff to properties
+			nameTextBox = new TextBox(new Rectangle(PALETTE_WIDTH + ANCHOR_WIDTH, SCREEN_HEIGHT - EDIT_BAR_HEIGHT, PROPERTIES_WIDTH, TEXT_BOX_HEIGHT), propertiesPanel);
+			//freqTextBox
+			//minPerChunkTextBox
+			//maxPerChunkTextBox
 
-			//TODO: draw current layer button (foreground/background)
-		}
+		//TODO: draw current layer button (foreground/background)
+	}
 
 		private void AddBlocks(ScrollPanel palette)
 		{
@@ -253,26 +267,72 @@ namespace Oceania_MG.Source
 
 		private void New()
 		{
-			Console.WriteLine("New pressed");
 			ConfirmUnsavedChanges(() =>
 			{
-				structureEditPanel.Reset();
-				//TODO: reset everything in menus
+				Reset();
 			});
-
 		}
 
 		private void Open()
 		{
-			Console.WriteLine("Open pressed");
-			//TODO: open file picker dialogue and deserialize
+			ConfirmUnsavedChanges(() =>
+			{
+				string filename = OpenFile();
+				if (!string.IsNullOrEmpty(filename)) {
+					Reset();
+					//TODO: open file picker dialogue and deserialize
+					Structure structure = SaveLoad.Load<Structure>(filename);
+					structureEditPanel.Load(structure);
+				}
+			});
+		}
+
+		private string OpenFile()
+		{
+			using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog())
+			{
+				openFileDialog.InitialDirectory = System.Windows.Forms.Application.StartupPath + @"\Content\Config\Structures";
+				openFileDialog.Filter = "Structure files (*.struct)|*.struct|All files (*.*)|*.*";
+				//openFileDialog.RestoreDirectory = true;
+
+				if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				{
+					return openFileDialog.FileName;
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}
+
+		private void Reset()
+		{
+			structureEditPanel.Reset();
+			//TODO: reset everything in menus
 		}
 
 		private void Save()
 		{
-			Console.WriteLine("Save pressed");
-			//TODO: serialize and write to file
-			unsavedChanges = false;
+			//save in thread so UI doesn't freeze
+			Task.Run(() =>
+			{
+				//TODO: serialize and write to file
+				Structure structure = structureEditPanel.Save();
+				string filename = nameTextBox.text + STRUCTURE_FILE_EXTENSION;
+				SaveLoad.Save(structure, filename);
+				unsavedChanges = false;
+			});
+		}
+
+		internal SelectableBlock GetSelectedBlock()
+		{
+			return selectedBlock;
+		}
+
+		public bool IsBackground()
+		{
+			return backgroundActive;
 		}
 
 		public static void SetTooltip(string text)
@@ -283,9 +343,26 @@ namespace Oceania_MG.Source
 
 	class StructureEditPanel : GUIElement
 	{
+		private struct StructureBlockInfo
+		{
+			public Block block;
+			public bool background;
+			public int x;
+			public int y;
+
+			public StructureBlockInfo(Block block, int x, int y, bool background)
+			{
+				this.block = block;
+				this.x = x;
+				this.y = y;
+				this.background = background;
+			}
+		}
+
 		private Color hoverTint = new Color(1.0f, 1.0f, 1.0f, 0.25f);
 
-		private Structure structure;
+		//private Structure structure;
+		private HashSet<StructureBlockInfo> blocks;
 
 		private StructureEditor editor;
 
@@ -298,6 +375,7 @@ namespace Oceania_MG.Source
 
 		public StructureEditPanel(Rectangle bounds, StructureEditor editor) : base(bounds)
 		{
+			blocks = new HashSet<StructureBlockInfo>();
 			this.editor = editor;
 			Reset();
 		}
@@ -318,23 +396,14 @@ namespace Oceania_MG.Source
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			bool[] layers = { true, false };
-			foreach (bool background in layers)
+			foreach(StructureBlockInfo blockInfo in blocks)
 			{
-				for (int structureX = 0; structureX < structure.GetWidth(); structureX++)
-				{
-					for (int structureY = 0; structureY < structure.GetWidth(); structureY++)
-					{
-						Vector2 pos = ConvertUtils.PointToVector2(GetBlockRenderPosition(new Point(structureX, structureY)));
+				Vector2 pos = ConvertUtils.PointToVector2(GetBlockRenderPosition(new Point(blockInfo.x, blockInfo.y)));
 
-						string blockName = structure.GetBlockAt(structureX, structureY, background);
-						Block block = editor.resources.GetBlock(blockName);
-						block.DrawSimple(spriteBatch, pos, zoom);
+				blockInfo.block.DrawSimple(spriteBatch, pos, zoom);
 
-						//TODO: CTM rendering and background-layer tinting- use empty World()?
-						//block.Draw(viewportPos, graphicsDevice, spriteBatch, new GameTime(), background, worldX, worldY, world);
-					}
-				}
+				//TODO: CTM rendering and background-layer tinting- use empty World()?
+				//block.Draw(viewportPos, graphicsDevice, spriteBatch, new GameTime(), background, worldX, worldY, world);
 			}
 
 			if (hovered)
@@ -364,21 +433,28 @@ namespace Oceania_MG.Source
 		public override void ControlPressed(Input.Controls control)
 		{
 			if (hovered) {
-				if (control == Input.Controls.LeftClick)
-				{
-					//TODO: place according to the cursor state
-					if (true)
-					{
-
-					}
-				}
-				else if (control == Input.Controls.RightClick)
+				if (control == Input.Controls.RightClick)
 				{
 					panning = true;
 				}
 				else if (control == Input.Controls.MiddleClick)
 				{
 					//TODO pick block
+				}
+			}
+		}
+
+		public override void ControlHeld(Input.Controls control)
+		{
+			if (hovered)
+			{
+				if (control == Input.Controls.LeftClick)
+				{
+					SelectableBlock selectedBlock = editor.GetSelectedBlock();
+					if (selectedBlock != null)
+					{
+						SetBlock(GetHoveredBlock(), selectedBlock.GetBlock(), editor.IsBackground());
+					}
 				}
 			}
 		}
@@ -393,8 +469,28 @@ namespace Oceania_MG.Source
 
 		public void Reset()
 		{
-			structure = new Structure();
+			blocks.Clear();
 			offset = new Point(bounds.Width / 2, bounds.Height / 2); //start so that block position (0, 0) is in the center
+		}
+
+		private void SetBlock(Point point, Block block, bool background)
+		{
+			blocks.Add(new StructureBlockInfo(block, point.X, point.Y, background));
+		}
+
+		public Structure Save()
+		{
+			Structure structure = new Structure();
+			//TODO put in all the data
+			return structure;
+		}
+
+		public void Load(Structure structure)
+		{
+			Reset();
+			
+			//TODO: load all structure.blocks into blocks
+			//TODO: load properties and anchors
 		}
 	}
 }
