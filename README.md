@@ -16,7 +16,7 @@ TODO
 	- Export to structure when saving
 		- If to top/left of existing blocks: shift everything over, insert at beginning
 		- If deleting last thing on a side: crop to minimal dimensions
-	- Make sure loading works
+	- Load from structure
 	- GUI stuff
 		- Text fields
 		- Checkbox
@@ -24,8 +24,8 @@ TODO
 	- Anchors palette
 		- Scrollable block selection popup
 	- Properties text fields
-	- Keep a flag for unsaved changes
-	- Confirm unsaved changes on close event https://stackoverflow.com/questions/23717111/xna-c-sharp-trap-and-cancel-the-close-window-x-button-and-ctrl-f4
+		- Number text box
+		- mark unsaved change when edited
 - World generation
 	- Island/surface biomes
 		- Balance depth so that only island/surface is at y=0

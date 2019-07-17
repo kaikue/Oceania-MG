@@ -72,7 +72,7 @@ namespace Oceania_MG.Source
 		
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			font = Content.Load<SpriteFont>("Font/CodersCrux");
 			
@@ -90,7 +90,13 @@ namespace Oceania_MG.Source
         protected override void Initialize()
         {
 			base.Initialize();
+
 			IsMouseVisible = true;
+			
+			/*System.Windows.Forms.Form gameForm = (System.Windows.Forms.Form)System.Windows.Forms.Form.FromHandle(Window.Handle);
+			Console.WriteLine("handle is " + Window.Handle);
+			gameForm.Closing += ConfirmClose;*/
+            
 			input = new Input();
 
 			//initialize GUI
@@ -188,7 +194,6 @@ namespace Oceania_MG.Source
 			gui.Update(input);
 
 			//TODO: don't activate these when editing text field
-			//OR... make the control CTRL+whatever (needs input system change)
 			if (input.ControlPressed(Input.Controls.EditorNew))
 			{
 				New();
@@ -241,8 +246,6 @@ namespace Oceania_MG.Source
 
 		private void ConfirmUnsavedChanges(Action action)
 		{
-			unsavedChanges = true; //TODO: keep a flag for this
-
 			if (unsavedChanges)
 			{
 				Action yes = () =>
@@ -280,7 +283,6 @@ namespace Oceania_MG.Source
 				string filename = OpenFile();
 				if (!string.IsNullOrEmpty(filename)) {
 					Reset();
-					//TODO: open file picker dialogue and deserialize
 					Structure structure = SaveLoad.Load<Structure>(filename);
 					structureEditPanel.Load(structure);
 				}
@@ -293,7 +295,6 @@ namespace Oceania_MG.Source
 			{
 				openFileDialog.InitialDirectory = System.Windows.Forms.Application.StartupPath + @"\Content\Config\Structures";
 				openFileDialog.Filter = "Structure files (*.struct)|*.struct|All files (*.*)|*.*";
-				//openFileDialog.RestoreDirectory = true;
 
 				if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 				{
@@ -325,6 +326,20 @@ namespace Oceania_MG.Source
 			});
 		}
 
+		protected override void OnExiting(object sender, EventArgs args)
+		{
+			base.OnExiting(sender, args);
+
+			if (unsavedChanges)
+			{
+				System.Windows.Forms.DialogResult dialogResult = System.Windows.Forms.MessageBox.Show("Save changes before exiting?", "Unsaved Changes", System.Windows.Forms.MessageBoxButtons.YesNo);
+				if (dialogResult == System.Windows.Forms.DialogResult.Yes)
+				{
+					Save();
+				}
+			}
+		}
+
 		internal SelectableBlock GetSelectedBlock()
 		{
 			return selectedBlock;
@@ -333,6 +348,11 @@ namespace Oceania_MG.Source
 		public bool IsBackground()
 		{
 			return backgroundActive;
+		}
+
+		public void MarkChanged()
+		{
+			unsavedChanges = true;
 		}
 
 		public static void SetTooltip(string text)
@@ -454,6 +474,7 @@ namespace Oceania_MG.Source
 					if (selectedBlock != null)
 					{
 						SetBlock(GetHoveredBlock(), selectedBlock.GetBlock(), editor.IsBackground());
+						editor.MarkChanged();
 					}
 				}
 			}
