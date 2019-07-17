@@ -176,13 +176,14 @@ namespace Oceania_MG.Source
 			Hotbar0,
 			LeftClick,
 			RightClick,
-			MiddleClick,
 			ScrollUp,
 			ScrollDown,
 			EditorNew,
 			EditorOpen,
 			EditorSave,
 			EditorSwitchLayer,
+			EditorPickBlock,
+			EditorErase,
 		}
 
 		private Dictionary<Controls, HashSet<ControlType>> controlMappings;

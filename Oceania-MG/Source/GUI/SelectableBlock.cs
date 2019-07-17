@@ -64,9 +64,14 @@ namespace Oceania_MG.Source.GUI
 		{
 			if (hovered && control == Input.Controls.LeftClick)
 			{
-				selected = true;
-				selectAction();
+				Select();
 			}
+		}
+
+		public void Select()
+		{
+			selected = true;
+			selectAction();
 		}
 
 		public void Deselect()

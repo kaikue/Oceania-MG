@@ -5,6 +5,7 @@ using Oceania_MG.Source.GUI;
 using Oceania_MG.Source.States;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Oceania_MG.Source
@@ -48,6 +49,7 @@ namespace Oceania_MG.Source
 		private bool unsavedChanges;
 
 		private SelectableBlock selectedBlock;
+		private Dictionary<string, SelectableBlock> selectableBlocks;
 		private bool backgroundActive;
 
 		private string tooltip;
@@ -141,8 +143,9 @@ namespace Oceania_MG.Source
 
 		private void AddBlocks(ScrollPanel palette)
 		{
+			selectableBlocks = new Dictionary<string, SelectableBlock>();
 			int x = PALETTE_SPACING;
-			int y = PALETTE_SPACING; //TODO label offset?
+			int y = PALETTE_SPACING;
 			int blockSize = GameplayState.BLOCK_SIZE * GUIElement.scale;
 			foreach (Block block in resources.GetBlocks())
 			{
@@ -155,6 +158,7 @@ namespace Oceania_MG.Source
 				};
 				blockSelect.SetSelectAction(selectAction);
 
+				selectableBlocks[block.name] = blockSelect;
 				palette.AddScrollable(blockSelect);
 
 				x += blockSize + PALETTE_SPACING;
@@ -345,6 +349,11 @@ namespace Oceania_MG.Source
 			return selectedBlock;
 		}
 
+		public void SetSelectedBlock(string blockName)
+		{
+			selectableBlocks[blockName].Select();
+		}
+
 		public bool IsBackground()
 		{
 			return backgroundActive;
@@ -379,7 +388,8 @@ namespace Oceania_MG.Source
 			}
 		}
 
-		private Color hoverTint = new Color(1.0f, 1.0f, 1.0f, 0.25f);
+		private Color hoverTintNormal = new Color(1.0f, 1.0f, 1.0f, 0.25f);
+		private Color hoverTintErase = new Color(1.0f, 0.2f, 0.2f, 0.25f);
 
 		//private Structure structure;
 		private HashSet<StructureBlockInfo> blocks;
@@ -390,6 +400,7 @@ namespace Oceania_MG.Source
 
 		private Point mousePos;
 		private bool panning = false;
+		private bool eraseMode = false;
 		private float zoom = scale;
 		private int zoomedBlockSize { get { return (int)(zoom * GameplayState.BLOCK_SIZE); } }
 
@@ -429,12 +440,13 @@ namespace Oceania_MG.Source
 			if (hovered)
 			{
 				//draw highlight on hovered block space
-				Rectangle hoverRect = new Rectangle(GetBlockRenderPosition(GetHoveredBlock()), new Point(zoomedBlockSize, zoomedBlockSize));
+				Rectangle hoverRect = new Rectangle(GetBlockRenderPosition(GetHoveredBlockPos()), new Point(zoomedBlockSize, zoomedBlockSize));
+				Color hoverTint = eraseMode ? hoverTintErase : hoverTintNormal;
 				spriteBatch.Draw(pixel, hoverRect, hoverTint);
 			}
 		}
 
-		private Point GetHoveredBlock()
+		private Point GetHoveredBlockPos()
 		{
 			float fx = (float)(mousePos.X - offset.X) / zoomedBlockSize;
 			int x = (int)Math.Floor(fx);
@@ -443,6 +455,12 @@ namespace Oceania_MG.Source
 			int y = (int)Math.Floor(fy);
 
 			return new Point(x, y);
+		}
+
+		private StructureBlockInfo GetHoveredBlockInfo()
+		{
+			Point pos = GetHoveredBlockPos();
+			return blocks.FirstOrDefault(block => block.x == pos.X && block.y == pos.Y && block.background == editor.IsBackground());
 		}
 
 		private Point GetBlockRenderPosition(Point blockPos)
@@ -457,10 +475,18 @@ namespace Oceania_MG.Source
 				{
 					panning = true;
 				}
-				else if (control == Input.Controls.MiddleClick)
+				else if (control == Input.Controls.EditorPickBlock)
 				{
-					//TODO pick block
+					StructureBlockInfo blockInfo = GetHoveredBlockInfo();
+					if (blockInfo.block != null)
+					{
+						editor.SetSelectedBlock(blockInfo.block.name);
+					}
 				}
+			}
+			if (control == Input.Controls.EditorErase)
+			{
+				eraseMode = true;
 			}
 		}
 
@@ -470,11 +496,18 @@ namespace Oceania_MG.Source
 			{
 				if (control == Input.Controls.LeftClick)
 				{
-					SelectableBlock selectedBlock = editor.GetSelectedBlock();
-					if (selectedBlock != null)
+					if (eraseMode)
 					{
-						SetBlock(GetHoveredBlock(), selectedBlock.GetBlock(), editor.IsBackground());
-						editor.MarkChanged();
+						EraseBlock(GetHoveredBlockPos(), editor.IsBackground());
+					}
+					else
+					{
+						SelectableBlock selectedBlock = editor.GetSelectedBlock();
+						if (selectedBlock != null)
+						{
+							SetBlock(GetHoveredBlockPos(), selectedBlock.GetBlock(), editor.IsBackground());
+							editor.MarkChanged();
+						}
 					}
 				}
 			}
@@ -486,6 +519,10 @@ namespace Oceania_MG.Source
 			{
 				panning = false;
 			}
+			if (control == Input.Controls.EditorErase)
+			{
+				eraseMode = false;
+			}
 		}
 
 		public void Reset()
@@ -496,7 +533,15 @@ namespace Oceania_MG.Source
 
 		private void SetBlock(Point point, Block block, bool background)
 		{
+			//clear all old blocks at position
+			EraseBlock(point, background);
+
 			blocks.Add(new StructureBlockInfo(block, point.X, point.Y, background));
+		}
+
+		private void EraseBlock(Point point, bool background)
+		{
+			blocks.RemoveWhere(block => block.x == point.X && block.y == point.Y && block.background == background);
 		}
 
 		public Structure Save()
