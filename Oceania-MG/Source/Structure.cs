@@ -11,7 +11,7 @@ namespace Oceania_MG.Source
 	[DataContract]
 	class Structure
 	{
-		private struct Anchor
+		public struct Anchor
 		{
 			private const string ANY = "_any";
 			private const string ANYSOLID = "_solid";
@@ -71,13 +71,13 @@ namespace Oceania_MG.Source
 		[DataMember]
 		public string name;
 		[DataMember]
-		private string[][] blocksForeground;
+		public string[][] blocksForeground;
 		[DataMember]
-		private string[][] blocksBackground;
+		public string[][] blocksBackground;
 		[DataMember]
-		private HashSet<Anchor> strictAnchorsSet;
+		public HashSet<Anchor> strictAnchorsSet;
 		[DataMember]
-		private HashSet<Anchor> lenientAnchorsSet;
+		public HashSet<Anchor> lenientAnchorsSet;
 
 		public Structure()
 		{

@@ -95,10 +95,6 @@ namespace Oceania_MG.Source
 
 			IsMouseVisible = true;
 			
-			/*System.Windows.Forms.Form gameForm = (System.Windows.Forms.Form)System.Windows.Forms.Form.FromHandle(Window.Handle);
-			Console.WriteLine("handle is " + Window.Handle);
-			gameForm.Closing += ConfirmClose;*/
-            
 			input = new Input();
 
 			//initialize GUI
@@ -138,8 +134,8 @@ namespace Oceania_MG.Source
 			//minPerChunkTextBox
 			//maxPerChunkTextBox
 
-		//TODO: draw current layer button (foreground/background)
-	}
+			//TODO: draw current layer button (foreground/background)
+		}
 
 		private void AddBlocks(ScrollPanel palette)
 		{
@@ -197,7 +193,6 @@ namespace Oceania_MG.Source
 
 			gui.Update(input);
 
-			//TODO: don't activate these when editing text field
 			if (input.ControlPressed(Input.Controls.EditorNew))
 			{
 				New();

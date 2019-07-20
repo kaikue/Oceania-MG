@@ -8,14 +8,12 @@ Created by Kai Kuehner, 2013-2019.
 TODO
 --
 - Structure editor
-	- Block palette
-		- Make sure scroll limiting works
-		- Water, Empty rendering
-		- Make scroll amount matter in scrolling? (requires input changes)
 	- Export to structure when saving
-		- If to top/left of existing blocks: shift everything over, insert at beginning
-		- If deleting last thing on a side: crop to minimal dimensions
+		- Calculate offset (leftmost and topmost) and bounds (rightmost and bottommost)
 	- Load from structure
+	- Background editing
+		- scroll? or spacebar? to switch layer
+		- in background layer only render background, in foreground render background darkened behind
 	- GUI stuff
 		- Text fields
 		- Checkbox
@@ -25,6 +23,8 @@ TODO
 	- Properties text fields
 		- Number text box
 		- mark unsaved change when edited
+	- Water, Empty rendering
+	- Make scroll amount matter in scrolling? (requires input changes)
 - World generation
 	- Island/surface biomes
 		- Balance depth so that only island/surface is at y=0

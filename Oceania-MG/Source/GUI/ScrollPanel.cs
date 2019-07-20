@@ -31,7 +31,6 @@ namespace Oceania_MG.Source.GUI
 			int labelHeight = (int)(font.MeasureString(label).Y * scale);
 			innerOffset = new Point(0, labelHeight);
 			scrollContainer = new GUIContainer(new Rectangle(bounds.X, bounds.Y + labelHeight, bounds.Width - SCROLLBAR_WIDTH, bounds.Height - labelHeight));
-			Console.WriteLine(label + " " + labelHeight + " " + bounds + scrollContainer.GetEffectiveBounds());
 		}
 
 		protected override void RefreshBounds()
