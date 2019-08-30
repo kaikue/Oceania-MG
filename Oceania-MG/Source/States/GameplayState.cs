@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Oceania_MG.Source.Entities;
 
 namespace Oceania_MG.Source.States
 {
@@ -20,7 +21,12 @@ namespace Oceania_MG.Source.States
 
 		public GameplayState(Resources resources)
 		{
+			Player.PlayerOptions playerOptions = new Player.PlayerOptions();
+			Player player = new Player(null, new Vector2(0, 80), playerOptions);
 			world = new World("defaultworld", 100, resources); //TODO
+			player.SetWorld(world);
+			world.SetPlayer(player);
+
 			viewport = new Vector2();
 			UpdateViewport();
 		}

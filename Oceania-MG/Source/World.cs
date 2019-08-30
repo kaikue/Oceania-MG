@@ -48,15 +48,17 @@ namespace Oceania_MG.Source
 			this.resources = resources;
 			generate = new Generate(seed);
 			loadedChunks = new HashSet<Chunk>();
+		}
 
-			GenerateNew(new Player.PlayerOptions());
+		public void SetPlayer(Player player)
+		{
+			this.player = player;
+			GenerateNew(player.GetChunk());
 		}
 		
-		public void GenerateNew(Player.PlayerOptions playerOptions)
+		public void GenerateNew(Point origin)
 		{
-			player = new Player(this, new Vector2(0, 80), playerOptions);
-			Point playerChunk = player.GetChunk();
-			LoadChunks(playerChunk.X, playerChunk.Y);
+			LoadChunks(origin.X, origin.Y);
 		}
 
 		private void LoadChunks(int centerChunkX, int centerChunkY)

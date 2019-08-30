@@ -60,7 +60,7 @@ namespace Oceania_MG.Source
 				Structure structure = JsonConvert.DeserializeObject<Structure>(structureJSON);
 				string structureName = Path.GetFileNameWithoutExtension(structureFile);
 				structure.name = structureName;
-				structure.Process();
+				//structure.Process();
 				structures[structureName] = structure;
 			}
 

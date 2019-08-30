@@ -62,10 +62,10 @@ namespace Oceania_MG.Source
 		public int maxPerChunk = 1; //Inclusive
 		[DataMember]
 		public int attempts = 4 * Chunk.HEIGHT; //How many tries to fit this structure in a chunk
-		[Obsolete("Remove this once structure editor is done")]
+		/*[Obsolete("Remove this once structure editor is done")]
 		public string[] layout;
 		[Obsolete("Remove this once structure editor is done")]
-		public Dictionary<string, string[]> blocks;
+		public Dictionary<string, string[]> blocks;*/
 		[Obsolete("Remove this once structure editor is done")]
 		public Dictionary<string, string[]> anchors;
 		[DataMember]
@@ -93,7 +93,7 @@ namespace Oceania_MG.Source
 			lenientAnchorsSet = new HashSet<Anchor>();
 		}
 
-		[Obsolete("Remove this once structure editor is done")]
+		/*[Obsolete("Remove this once structure editor is done")]
 		public void Process()
 		{
 			blocksForeground = new string[layout.Length][];
@@ -132,7 +132,7 @@ namespace Oceania_MG.Source
 					}
 				}
 			}
-		}
+		}*/
 
 		public bool ContainsPosition(int x, int y)
 		{

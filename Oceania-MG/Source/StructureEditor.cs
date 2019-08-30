@@ -283,7 +283,7 @@ namespace Oceania_MG.Source
 				if (!string.IsNullOrEmpty(filename)) {
 					Reset();
 					Structure structure = SaveLoad.Load<Structure>(filename);
-					structureEditPanel.Load(structure);
+					structureEditPanel.Load(structure, resources);
 				}
 			});
 		}
@@ -317,7 +317,6 @@ namespace Oceania_MG.Source
 			//save in thread so UI doesn't freeze
 			Task.Run(() =>
 			{
-				//TODO: serialize and write to file
 				Structure structure = structureEditPanel.Save();
 				string filename = nameTextBox.text + STRUCTURE_FILE_EXTENSION;
 				SaveLoad.Save(structure, filename);
@@ -542,15 +541,62 @@ namespace Oceania_MG.Source
 		public Structure Save()
 		{
 			Structure structure = new Structure();
-			//TODO put in all the data
+
+			int minX = blocks.Min(block => block.x);
+			int maxX = blocks.Max(block => block.x);
+			int minY = blocks.Min(block => block.y);
+			int maxY = blocks.Max(block => block.y);
+			int width = maxX - minX + 1;
+			int height = maxY - minY + 1;
+
+			structure.blocksForeground = new string[height][];
+			structure.blocksBackground = new string[height][];
+			for (int i = 0; i < height; i++)
+			{
+				structure.blocksForeground[i] = new string[width];
+				structure.blocksBackground[i] = new string[width];
+			}
+
+			foreach (StructureBlockInfo block in blocks)
+			{
+				int x = block.x - minX;
+				int y = block.y - minY;
+				string[][] blockArr = block.background ? structure.blocksBackground : structure.blocksForeground;
+				blockArr[y][x] = block.block.name;
+			}
+
+			//TODO: anchors
+
 			return structure;
 		}
 
-		public void Load(Structure structure)
+		public void Load(Structure structure, Resources resources)
 		{
 			Reset();
-			
-			//TODO: load all structure.blocks into blocks
+
+			//load all structure.blocks into blocks
+			int height = structure.blocksForeground.Length;
+			int width = structure.blocksForeground[0].Length;
+			for (int y = 0; y < height; y++)
+			{
+				for (int x = 0; x < width; x++)
+				{
+					string blockFG = structure.blocksForeground[y][x];
+					if (!string.IsNullOrEmpty(blockFG))
+					{
+						Block block = resources.GetBlock(blockFG);
+						blocks.Add(new StructureBlockInfo(block, x, y, false));
+					}
+
+					string blockBG = structure.blocksBackground[y][x];
+					if (!string.IsNullOrEmpty(blockBG))
+					{
+						Block block = resources.GetBlock(blockBG);
+						blocks.Add(new StructureBlockInfo(block, x, y, true));
+					}
+				}
+			}
+
 			//TODO: load properties and anchors
 		}
 	}

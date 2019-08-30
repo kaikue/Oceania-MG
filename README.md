@@ -8,12 +8,11 @@ Created by Kai Kuehner, 2013-2019.
 TODO
 --
 - Structure editor
-	- Export to structure when saving
-		- Calculate offset (leftmost and topmost) and bounds (rightmost and bottommost)
-	- Load from structure
+	- Make saving/loading actually work, and test worldgen functionality
 	- Background editing
 		- scroll? or spacebar? to switch layer
 		- in background layer only render background, in foreground render background darkened behind
+		- auto-place background when editing foreground? toggle for this?
 	- GUI stuff
 		- Text fields
 		- Checkbox
@@ -31,7 +30,7 @@ TODO
 	- Lerp biomes
 	- Add another noise function worth of caves?
 	- Ore- variable # of noise functions per ore type (cluster frequency)
-	- Sky biome with clouds
+	- Sky biome with clouds and floating islands
 	- Structures
 		- Puzzle, coral
 		- Loot tables (once inventories & chests are done)
@@ -115,6 +114,8 @@ TODO
 - Phosphorus for heat generation?
 - Mod support
 	- Load blocks, biomes, entities, etc. from Mods folder
+	- Vanilla overrides (priority? before/after dependencies? load order?)
+	- content pipeline?
 - Enemies
 	- Surface
 		- Birds (from Animals RPG Sprites)
