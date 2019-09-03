@@ -66,7 +66,6 @@ namespace Oceania_MG.Source
 		public string[] layout;
 		[Obsolete("Remove this once structure editor is done")]
 		public Dictionary<string, string[]> blocks;*/
-		[Obsolete("Remove this once structure editor is done")]
 		public Dictionary<string, string[]> anchors;
 		[DataMember]
 		public string name;
