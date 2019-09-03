@@ -21,7 +21,7 @@ namespace Oceania_MG.Source
 		private string hoverBiomeName;
 
 		private const int WIDTH = 200;
-		private const int START_Y = -100;
+		private const int START_Y = -200;
 		private const int END_Y = 500;
 		private const int HEIGHT = END_Y - START_Y;
 		private const int SCALE = 1;

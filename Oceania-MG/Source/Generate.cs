@@ -12,7 +12,8 @@ namespace Oceania_MG.Source
 		private const float TERRAIN_SCALE = 30; //controls overall scale of terrain features
 		private const float CAVE_SCALE = 40; //controls overall scale & thickness of caves
 		private const float CAVE_CUTOFF = 0.05f; //controls thickness of caves
-		private const float SKY_ISLAND_EXPANSION = 2.0f; //controls how much quickly islands taper off at the bottom (exponential)
+		private const float SKY_ISLAND_EXPANSION = 2.0f; //controls how much quickly sky island layer tapers off at the bottom (exponential)
+		private const float SKY_ISLAND_SIZE = 0.25f; //how full of islands the sky layer is
 		private const float ISLAND_SCALE = 60; //controls width of islands
 		private const float CAVE_EXPANSION = 3.0f; //controls how much thicker caves are at the bottom of the cave layer (exponential)
 		private const float CORE_CAVE_EXPANSION = 3.0f; //controls how much thicker caves are at the top of the core layer (exponential)
@@ -66,11 +67,9 @@ namespace Oceania_MG.Source
 			if (y < SKY_ISLAND_BOTTOM)
 			{
 				//TODO better floating islands
-				float islandG = MathUtils.Gradient(y, SKY_ISLAND_FULL, SKY_ISLAND_BOTTOM);
-				float islandAdjust = 1 - (float)Math.Pow(islandG, SKY_ISLAND_EXPANSION);
-				//if (y < World.SEA_LEVEL) cave = -1;
-				//islandAdjust /= 1.5f;
-				if (Math.Abs(cave * islandAdjust * 0.25f) < CAVE_CUTOFF)
+				float skyIslandG = MathUtils.Gradient(y, SKY_ISLAND_FULL, SKY_ISLAND_BOTTOM);
+				float skyIslandAdjust = 1 - (float)Math.Pow(skyIslandG, SKY_ISLAND_EXPANSION);
+				if (Math.Abs(cave * skyIslandAdjust * SKY_ISLAND_SIZE) < CAVE_CUTOFF)
 				{
 					noiseFG = -1;
 					noiseBG = -1;
