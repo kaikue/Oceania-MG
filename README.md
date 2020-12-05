@@ -2,7 +2,7 @@ Oceania
 ==
 A procedurally generated 2D underwater sandbox game.
 Written in Monogame. [Previously written in Pygame.](https://github.com/kaikue/Oceania)
-Created by Kai Kuehner, 2013-2019.
+Created by Kai Kuehner, 2013-2020.
 ![Screenshot](https://i.imgur.com/i0RLh7r.png)
 
 TODO
@@ -161,14 +161,21 @@ Progression:
     - Mangalloy
     - Alchemy?
 - T4: Final Age
-    - Collect cobalt, chromium
+    - Collect cobalt, chromium from roof of abyss
     - Make vitallum
     - Make Reverse Atmospheric Diving Suit, climb ashore
-### 2. Land
+### 2. Land/Abyss
+- Walk on land- slow & clunky at first, short jumps
 - Explore islands
-- Trade with natives
-- Land temples?
-### 3. Sky
+- Trade with kobold lizard natives
+- Explore sun temples
+- Upgrade suit- faster, jump higher
+- Fight sun cult to get light source
+- Go down to abyss now that you can see there
+- Get resources for flight from eldritch abyssal beasts
+### 3. Sky/Core
 - Flight (clunky jetpack at first, then better wings)
 - Explore floating sky temples
+- Get heat resistant jelly to explore core
+- Core temples and ores
 - Cosmic space stuff
